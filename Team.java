@@ -7,16 +7,18 @@ abstract class Team {
     private ArrayList<Player> playerList;
     private ArrayList<Player> substitutes;
     private String tactics;
+    private Sport sport;
 
 
 
-    public Team(String teamName, String coachName) {
+    public Team(Sport sport,String teamName, String coachName) {
         this.teamName=teamName;
         this.coachName=coachName;
         this.points=0;
         this.playerList=new ArrayList<>();
         this.substitutes=new ArrayList<>();
         tactics="default";
+        this.sport=sport;
     }
 
     public String getTeamName() {
@@ -52,15 +54,16 @@ abstract class Team {
     }
 
     public void addPlayer(Player player){
-        this.playerList.add(player);
+        if(sport.getPlayersPerTeam()>playerList.size()){
+            playerList.add(player);
+        }
     }
 
     public void removePlayer(Player player){
         this.playerList.remove(player);
     }
 
-
-    public abstract int getPlayersOnField();
+    
 
     public ArrayList<Player> getSubstitutes() {
         return substitutes;
@@ -86,15 +89,16 @@ abstract class Team {
         }
         return total;
     }
-    
+
     public void setTactics(String tactic){
         this.tactics=tactic;
     }
-    
+
     public String getTactics(){
         return this.tactics;
     }
 
 
-}
 
+
+}
