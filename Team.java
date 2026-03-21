@@ -3,15 +3,20 @@ import java.util.ArrayList;
 abstract class Team {
     private String teamName;
     private String coachName;
-    private int point;
+    private int points;
     private ArrayList<Player> playerList;
+    private ArrayList<Player> substitutes;
+    private String tactics;
+
 
 
     public Team(String teamName, String coachName) {
-        this.teamName = teamName;
-        this.coachName = coachName;
-        this.point=0;
+        this.teamName=teamName;
+        this.coachName=coachName;
+        this.points=0;
         this.playerList=new ArrayList<>();
+        this.substitutes=new ArrayList<>();
+        tactics="default";
     }
 
     public String getTeamName() {
@@ -19,7 +24,7 @@ abstract class Team {
     }
 
     public void setTeamName(String teamName) {
-        this.teamName = teamName;
+        this.teamName=teamName;
     }
 
     public String getCoachName() {
@@ -27,22 +32,69 @@ abstract class Team {
     }
 
     public void setCoachName(String coachName) {
-        this.coachName = coachName;
+        this.coachName=coachName;
     }
 
     public int getPoint() {
-        return point;
+        return points;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void addPoint(int point) {
+        this.points+=point;
     }
 
     public ArrayList<Player> getPlayerList() {
         return playerList;
     }
 
-    public void setPlayerList(ArrayList<Player> playerList) {
-        this.playerList = playerList;
+    public int getTeamPlayerCount(){
+        return this.playerList.size();
     }
+
+    public void addPlayer(Player player){
+        this.playerList.add(player);
+    }
+
+    public void removePlayer(Player player){
+        this.playerList.remove(player);
+    }
+
+
+    public abstract int getPlayersOnField();
+
+    public ArrayList<Player> getSubstitutes() {
+        return substitutes;
+    }
+
+    public void addSubstitute(Player player){
+        this.substitutes.add(player);
+    }
+
+    public int getTeamSubstituteCount(){
+        return this.substitutes.size();
+    }
+
+
+    public double getOverallPlayerRating() {
+        return totalPlayerRating()/(double)playerList.size();
+    }
+
+    private int totalPlayerRating(){
+        int total=0;
+        for(Player p:playerList){
+            total+=p.getStrength();
+        }
+        return total;
+    }
+    
+    public void setTactics(String tactic){
+        this.tactics=tactic;
+    }
+    
+    public String getTactics(){
+        return this.tactics;
+    }
+
+
 }
+
