@@ -18,18 +18,31 @@ public class MatchEngine {
     }
 
 
-
     public void playMatch(){
         Team home=match.getHome();
         Team away=match.getAway();
 
-        int homeScore=generateScore(home,away,true);
-        int awayScore=generateScore(away,home,false);
+        int homeFirst=generateScore(home,away,true);
+        int awayFirst=generateScore(away,home,false);
 
-        match.setScore(homeScore,awayScore);
+        match.setScore(homeFirst,awayFirst);
+
+        System.out.println("1st Half: " +
+                home.getTeamName() + " " + match.getHomeScore() + " - " +
+                match.getAwayScore() + " " + away.getTeamName());
+
+        int homeSecond=generateScore(home,away,true);
+        int awaySecond=generateScore(away,home,false);
+
+        match.addScore(homeSecond,awaySecond);
         match.setPlayed(true);
-        Sport sport = home.getSport();
-        sport.updatePoints(home,away,homeScore,awayScore);
+
+        Sport sport=home.getSport();
+        sport.updatePoints(home,away,match.getHomeScore(),match.getAwayScore());
+
+        System.out.println("Full Time: " +
+                home.getTeamName() + " " + match.getHomeScore() + " - " +
+                match.getAwayScore() + " " + away.getTeamName());
     }
 
 
