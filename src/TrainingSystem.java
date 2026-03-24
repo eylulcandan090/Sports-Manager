@@ -17,9 +17,10 @@ public abstract class TrainingSystem {
             return;
         }
         List<String> attributes=getTrainableAttributes();
-        if(attributes != null && attributes.size()>0) {
-            focusAttribute=attributes.get(rand.nextInt(attributes.size()));
+        if(attributes == null || attributes.size()==0) {
+            return;
         }
+        focusAttribute=attributes.get(rand.nextInt(attributes.size()));
         for (Player p:team.getPlayerList()){
             applyTrainingEffect(p,focusAttribute);
         }
@@ -28,7 +29,7 @@ public abstract class TrainingSystem {
         if (focusAttribute == null) {
             return "Training session";
         }
-        return "Focus on: " + focusAttribute;
+        return "Focus: " + focusAttribute;
     }
     public void setFocus(String focusAttribute) {
         this.focusAttribute = focusAttribute;
