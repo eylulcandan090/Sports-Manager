@@ -13,6 +13,13 @@ public class Match{
     }
 
 
+     public void addScore(int home,int away){
+       this.homeScore+=home;
+       this.awayScore+=away;
+    }
+    
+
+
     public void startMatch(){
 
     }
