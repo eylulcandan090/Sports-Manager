@@ -1,6 +1,6 @@
 abstract class Player {
     private String name;
-    private int strength;
+    private String strength;
     private int age;
     private String Nation;
 
@@ -13,11 +13,11 @@ abstract class Player {
         this.name = name;
     }
 
-    public int getStrength() {
+    public String getStrength() {
         return strength;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(String strength) {
         this.strength = strength;
     }
 
