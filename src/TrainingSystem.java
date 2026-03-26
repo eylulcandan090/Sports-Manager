@@ -7,24 +7,28 @@ public abstract class TrainingSystem {
     protected String focusAttribute;
 
     public TrainingSystem(Sport sport) {
-        this.sport=sport;
-        this.rand=new Random();
+        this.sport = sport;
+        this.rand = new Random();
     }
-    public abstract void applyTrainingEffect(Player player,String attribute);
+
+    public abstract void applyTrainingEffect(Player player, String attribute);
+
     public abstract List<String> getTrainableAttributes();
+
     public void conductTraining(Team team) {
-        if(team==null){
+        if (team == null || team.getPlayerList()==null||team.getPlayerList().isEmpty()) {
             return;
         }
-        List<String> attributes=getTrainableAttributes();
-        if(attributes == null || attributes.size()==0) {
+        List<String> attributes = getTrainableAttributes();
+        if (attributes == null || attributes.isEmpty()) {
             return;
         }
-        focusAttribute=attributes.get(rand.nextInt(attributes.size()));
-        for (Player p:team.getPlayerList()){
-            applyTrainingEffect(p,focusAttribute);
+        focusAttribute = attributes.get(rand.nextInt(attributes.size()));
+        for (Player p : team.getPlayerList()) {
+            applyTrainingEffect(p, focusAttribute);
         }
     }
+
     public String getSessionSummary() {
         if (focusAttribute == null) {
             return "Training session";
@@ -34,5 +38,5 @@ public abstract class TrainingSystem {
     public void setFocus(String focusAttribute) {
         this.focusAttribute = focusAttribute;
     }
-    }
+}
 
