@@ -1,8 +1,11 @@
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Player {
     private String name;
-    private String strength;
     private int age;
     private String Nation;
+    private Map<String, Integer> attributes = new HashMap<>();
 
 
     public String getName() {
@@ -11,14 +14,6 @@ abstract class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getStrength() {
-        return strength;
-    }
-
-    public void setStrength(String strength) {
-        this.strength = strength;
     }
 
     public int getAge() {
@@ -37,11 +32,21 @@ abstract class Player {
         Nation = nation;
     }
 
+    public int getAttribute(String key) {
+        return attributes.getOrDefault(key, 0);
+    }
 
-
-
-
-
-
-
+    public void setAttribute(String key, int value) {
+        attributes.put(key, value);
+    }
 }
+
+
+
+
+
+
+
+
+
+

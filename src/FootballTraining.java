@@ -7,16 +7,16 @@ public class FootballTraining extends TrainingSystem{
 
     @Override
     public void applyTrainingEffect(Player player, String attribute) {
-        if(player==null){
+        if(player==null||attribute==null){
             return;
     }
-        if(attribute!=null&&attribute.equals("strength")){
-            player.setStrength(player.getStrength()+1);
-        }
+       int current=player.getAttribute(attribute);
+        player.setAttribute(attribute,current +1);
+
     }
 
     @Override
     public List<String> getTrainableAttributes() {
-        return List.of("strength");
+        return List.of("shooting","passing","defense","fitness","attack");
     }
 }
