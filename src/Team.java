@@ -99,6 +99,7 @@ abstract class Team {
     }
 
 
-
-
+    public Sport getSport() {
+        return getSport();
+    }
 }

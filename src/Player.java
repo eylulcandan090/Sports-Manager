@@ -39,6 +39,16 @@ abstract class Player {
     public void setAttribute(String key, int value) {
         attributes.put(key, value);
     }
+
+    public int getStrength() {
+        if (attributes.isEmpty()) return 0;
+        int total = 0;
+        for (int value : attributes.values()) {
+            total += value;
+        }
+        return total / attributes.size();
+    }
+
 }
 
 
