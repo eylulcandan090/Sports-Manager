@@ -1,15 +1,21 @@
+import java.util.regex.MatchResult;
+
 public class Match{
-    Team home;
-    Team away;
+    final Team home;
+    final Team away;
     private int homeScore;
     private int awayScore;
     private boolean isPlayed;
+    final LineUp[] lineup;
+    MatchResult result;
 
 
 
-    public Match(Team home,Team away){
+    public Match(Team home, Team away, LineUp[] lineup){ //constructor
         this.home=home;
         this.away=away;
+        this.lineup = lineup;
+        this.result = null;
     }
 
 
@@ -20,24 +26,32 @@ public class Match{
     
 
 
-    public void startMatch(){
-
+    public boolean isPlayedd() {
+        return result != null;
     }
 
     public Team getHome() {
         return home;
     }
 
-    public void setHome(Team home) {
-        this.home = home;
-    }
-
     public Team getAway() {
         return away;
     }
 
-    public void setAway(Team away) {
-        this.away = away;
+    public LineUp getLineup(int index) {
+        return lineup[index];
+    }
+
+    public LineUp[] getLineup(){
+        return lineup;
+    }
+
+    public MatchResult getResult(){
+        return result;
+    }
+
+    public void setResult(MatchResult result){
+        this.result = result;
     }
 
     public int getHomeScore() {
