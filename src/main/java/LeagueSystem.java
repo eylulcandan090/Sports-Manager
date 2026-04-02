@@ -3,12 +3,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeagueSystem {
+    private String leagueName;
     private final List<Team> teams;
     private final Fixture fixture;
     private final List<Standing> standings;
     private int currentWeek;
 
-    public LeagueSystem(List<Team> teams) {
+    public LeagueSystem(String leagueName,List<Team> teams) {
+        this.leagueName=leagueName;
         this.teams = new ArrayList<>(teams);
         this.standings = new ArrayList<>();
         this.currentWeek = 1;
