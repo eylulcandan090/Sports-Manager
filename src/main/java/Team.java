@@ -3,6 +3,7 @@ import java.util.ArrayList;
 abstract class Team {
     private String teamName;
     private String coachName;
+    private String stadium;
     private int points;
     private ArrayList<Player> playerList;
     private ArrayList<Player> substitutes;
@@ -11,7 +12,7 @@ abstract class Team {
 
 
 
-    public Team(Sport sport,String teamName, String coachName) {
+    public Team(Sport sport,String teamName, String coachName,String stadium) {
         this.teamName=teamName;
         this.coachName=coachName;
         this.points=0;
@@ -19,7 +20,14 @@ abstract class Team {
         this.substitutes=new ArrayList<>();
         tactics="default";
         this.sport=sport;
+        this.stadium=stadium;
     }
+
+
+    public String getStadiumName(){
+        return this.stadium;
+    }
+    
 
     public String getTeamName() {
         return teamName;
