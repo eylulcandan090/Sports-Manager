@@ -11,10 +11,10 @@ public class Match{
 
 
 
-    public Match(Team home, Team away, LineUp[] lineup){ //constructor
+    public Match(Team home, Team away){ //constructor
         this.home=home;
         this.away=away;
-        this.lineup = lineup;
+        this.lineup = new LineUp[2];
         this.result = null;
     }
 
