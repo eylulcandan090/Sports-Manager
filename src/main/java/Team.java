@@ -86,9 +86,14 @@ abstract class Team {
     }
 
 
-    public double getOverallPlayerRating() {
+    /*public double getOverallPlayerRating() {
         return totalPlayerRating()/(double)playerList.size();
-    }
+    }*/
+
+    public double getOverallPlayerRating() {
+    if (playerList.size() == 0) return 50; 
+    return totalPlayerRating()/(double) playerList.size();
+}
 
     private int totalPlayerRating(){
         int total=0;
