@@ -7,8 +7,8 @@ import java.util.Random;
 
 
 
-public class MatchEngine {
-   private Match match;
+public abstract class MatchEngine {
+   protected Match match;
    private Random random;
 
 
@@ -35,7 +35,7 @@ public class MatchEngine {
         int awaySecond=generateScore(away,home,false);
 
         match.addScore(homeSecond,awaySecond);
-        match.setPlayed(true);
+        //match.setPlayed(true);
 
         Sport sport=home.getSport();
         sport.updatePoints(home,away,match.getHomeScore(),match.getAwayScore());
