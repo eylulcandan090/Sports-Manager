@@ -1,11 +1,8 @@
-import java.util.regex.MatchResult;
-
 public class Match{
     final Team home;
     final Team away;
     private int homeScore;
     private int awayScore;
-    private boolean isPlayed;
     final LineUp[] lineup;
     MatchResult result;
 
@@ -26,7 +23,7 @@ public class Match{
     
 
 
-    public boolean isPlayedd() {
+    public boolean isPlayed() {
         return result != null;
     }
 
@@ -70,13 +67,6 @@ public class Match{
         this.awayScore = awayScore;
     }
 
-    public boolean isPlayed() {
-        return isPlayed;
-    }
-
-    public void setPlayed(boolean played) {
-        isPlayed = played;
-    }
     public void setScore(int homeScore,int awayScore){
         this.homeScore=homeScore;
         this.awayScore=awayScore;
