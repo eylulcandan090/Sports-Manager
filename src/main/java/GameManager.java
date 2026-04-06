@@ -11,11 +11,11 @@ public class GameManager {
         this.season = 0;
         this.leagueSystem = null;
     }
-    public void startNewGame(Sport sport,List<Team> teams) {
+    public void startNewGame(Sport sport,List<Team> teams,String leagueName) {
         this.sport = sport;
         this.currentWeek = 1;
         this.season = 1;
-        this.leagueSystem = new LeagueSystem(teams);
+        this.leagueSystem = new LeagueSystem(leagueName,teams);
         this.leagueSystem.generateFixture();
     }
     public int getCurrentWeek() {
@@ -36,7 +36,7 @@ public class GameManager {
         //play all matches scheduled for this week
         List<Match> weekMatches=leagueSystem.getFixture().getWeek(currentWeek);
         for (Match match : weekMatches) {
-            MatchEngine engine = new MatchEngine(match);
+            MatchEngine engine = new FootballMatchEngine(match);
             engine.playMatch();
             sport.updatePoints(
             match.getHome(),match.getAway(), match.getHomeScore(),match.getAwayScore());

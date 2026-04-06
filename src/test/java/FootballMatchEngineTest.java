@@ -12,20 +12,30 @@ public class FootballMatchEngineTest {
         Team team2 = new FootballTeam(football, "Team B", "Coach B", "Stadium B");
 
         // Oyuncular ekle (dummy)
-        team1.addPlayer(new FootballPlayer(80));
-        team1.addPlayer(new FootballPlayer(85));
+        Player p1=new Player() {};
+        p1.setAttribute("rating",80);
+        team1.addPlayer(p1);
 
-        team2.addPlayer(new FootballPlayer(78));
-        team2.addPlayer(new FootballPlayer(82));
+        Player p2=new Player() {};
+        p2.setAttribute("rating",85);
+        team1.addPlayer(p2);
 
-        // Match ve engine
+        Player p3=new Player() {};
+        p3.setAttribute("rating",78);
+        team2.addPlayer(p3);
+
+        Player p4=new Player() {};
+        p4.setAttribute("rating",82);
+        team2.addPlayer(p4);
+
+        // Match an engine
         Match match = new Match(team1, team2);
         MatchEngine engine = new FootballMatchEngine(match);
 
         // Maçı oynat
         engine.playMatch();
 
-        // Testler
+
         assertTrue(match.isPlayed(), "Match should be marked as played");
         assertTrue(match.getHomeScore() >= 0, "Home score cannot be negative");
         assertTrue(match.getAwayScore() >= 0, "Away score cannot be negative");
@@ -39,12 +49,17 @@ public class FootballMatchEngineTest {
     void testPointsLogicForWinDrawLose() {
         Sport football = new Football();
 
-        Team strongTeam = new FootballTeam("football", "Strong", "Coach S", "Stadium S");
+        Team strongTeam = new FootballTeam(football, "Strong", "Coach S", "Stadium S");
         Team weakTeam = new FootballTeam(football, "Weak", "Coach W", "Stadium W");
 
         // Strength farkı
-        strongTeam.addPlayer(new FootballPlayer(90));
-        weakTeam.addPlayer(new FootballPlayer(60));
+        Player p1=new Player() {};
+        p1.setAttribute("rating",90);
+        strongTeam.addPlayer(p1);
+
+        Player p2=new Player() {};
+        p2.setAttribute("rating",60);
+        weakTeam.addPlayer(p2);
 
         Match match = new Match(strongTeam, weakTeam);
         MatchEngine engine = new FootballMatchEngine(match);
@@ -71,8 +86,13 @@ public class FootballMatchEngineTest {
         Team team1 = new FootballTeam(football, "Team1", "Coach1", "Stadium1");
         Team team2 = new FootballTeam(football, "Team2", "Coach2", "Stadium2");
 
-        team1.addPlayer(new FootballPlayer(80));
-        team2.addPlayer(new FootballPlayer(80));
+        Player p1=new Player() {};
+        p1.setAttribute("rating",80);
+        team1.addPlayer(p1);
+
+        Player p2=new Player() {};
+        p2.setAttribute("rating",80);
+        team2.addPlayer(p2);
 
         Match match1 = new Match(team1, team2);
         Match match2 = new Match(team1, team2);

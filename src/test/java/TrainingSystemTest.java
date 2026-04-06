@@ -27,7 +27,7 @@ public class TrainingSystemTest {
 
     static class TeamImpl extends Team {
         public TeamImpl() {
-            super(null, "Test Team", "Test Coach");
+            super(null, "Test Team", "Test Coach","Test Stadium");
         }
     }
 

@@ -4,8 +4,8 @@ public class FootballTeam extends Team {
     private static final int MAX_SUBSTITUTIONS = 5;
     private static final int MAX_TEAM_PLAYERS = 23;
 
-    public FootballTeam(String teamName, String coachName) {
-        super(new Football(), teamName, coachName);
+    public FootballTeam(Sport sport ,String teamName, String coachName,String stadiumName) {
+        super(new Football(), teamName, coachName,stadiumName);
     }
 
     public void addPlayerToTeam(Player player) {

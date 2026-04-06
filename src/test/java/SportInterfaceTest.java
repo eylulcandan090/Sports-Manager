@@ -11,19 +11,33 @@ public class SportInterfaceTest {
     @BeforeEach
     public void setup() {
         football = new Football();
-        teamA = new FootballTeam("Team A", "Coach A");
-        teamB = new FootballTeam("Team B", "Coach B");
+        teamA = new FootballTeam(football, "Team A","Coach A","Stadium A");
+        teamB = new FootballTeam(football,"Team B" , "Coach B","Stadium B");
 
-        // Her takıma 11 ana oyuncu ekleyelim
+        // Add 11 starting players to each team
         for (int i = 1; i <= teamA.getPlayersOnField(); i++) {
-            teamA.addPlayerToTeam(new FootballPlayer("A" + i, 70 + i)); // rating 71-81
-            teamB.addPlayerToTeam(new FootballPlayer("B" + i, 60 + i)); // rating 61-71
+            Player playerA=new Player() {};
+            playerA.setName("A"+i);
+            playerA.setAttribute("rating",70 + i); // rating 71-81
+            teamA.addPlayerToTeam(playerA);
+
+            Player playerB=new Player() {};
+            playerB.setName("B"+i);
+            playerB.setAttribute("rating",60 + i); // rating 61-71
+            teamB.addPlayerToTeam(playerB);
         }
 
-        // Yedek oyuncular
+        // Substitute players
         for (int i = 1; i <= football.maxSubstitute(); i++) {
-            teamA.addPlayerToSubstitute(new FootballPlayer("A_sub" + i, 65));
-            teamB.addPlayerToSubstitute(new FootballPlayer("B_sub" + i, 65));
+            Player subA=new Player() {};
+            subA.setName("A_sub"+i);
+            subA.setAttribute("rating",65);
+            teamA.addPlayerToSubstitute(subA);
+
+            Player subB=new Player() {};
+            subB.setName("B_sub"+i);
+            subB.setAttribute("rating",65);
+            teamB.addPlayerToSubstitute(subB);
         }
     }
 
