@@ -135,5 +135,6 @@ public class LeagueSystemTest {
 
         assertTrue(league.isSeasonComplete());
         assertSame(teamB, league.getChampion());
+
     }
 }
