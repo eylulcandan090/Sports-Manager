@@ -1,6 +1,8 @@
+package Model;
+
 import java.util.ArrayList;
 
-abstract class Team {
+public abstract class Team {
     private String teamName;
     private String coachName;
     private String stadium;
@@ -12,7 +14,7 @@ abstract class Team {
 
 
 
-    public Team(Sport sport,String teamName, String coachName,String stadium) {
+    public Team(Sport sport, String teamName, String coachName, String stadium) {
         this.teamName=teamName;
         this.coachName=coachName;
         this.points=0;

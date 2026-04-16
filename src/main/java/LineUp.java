@@ -1,3 +1,6 @@
+import Model.Player;
+import Model.Substitution;
+
 import java.util.ArrayList;
 import java.util.List;
 

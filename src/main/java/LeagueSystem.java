@@ -1,3 +1,7 @@
+import Model.Fixture;
+import Model.Match;
+import Model.Team;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

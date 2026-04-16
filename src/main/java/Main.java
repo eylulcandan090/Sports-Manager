@@ -1,3 +1,8 @@
+import Model.FootballTeam;
+import Model.Player;
+import Model.Sport;
+import Model.Team;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -50,7 +55,7 @@ public class Main {
 
         for (int i = 1; i <= 11; i++) {
             final int playerIndex = i;
-            final String name = teamName + " Player " + playerIndex;
+            final String name = teamName + " Model.Player " + playerIndex;
             Player player = new Player() {};
             player.setName(name);
             player.setAge(18 + rng.nextInt(17));
@@ -63,7 +68,7 @@ public class Main {
 
     private static void printStandings(List<Standing> standings) {
         System.out.printf("%-30s %3s %3s %3s %3s %3s %3s %4s %3s%n",
-                "Team", "P", "W", "D", "L", "GF", "GA", "GD", "Pts");
+                "Model.Team", "P", "W", "D", "L", "GF", "GA", "GD", "Pts");
         System.out.println("-".repeat(65));
         for (Standing s : standings) {
             System.out.printf("%-30s %3d %3d %3d %3d %3d %3d %+4d %3d%n",

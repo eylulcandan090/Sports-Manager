@@ -19,7 +19,7 @@ public class StartScreenUi {
         VBox layoutLabel=new VBox();
         VBox vbox=new VBox();
 
-        Label label=new Label("Sport Manager");
+        Label label=new Label("Model.Sport Manager");
         label.setFont(Font.font(30));
 
         layoutLabel.getChildren().add(label);
@@ -28,7 +28,7 @@ public class StartScreenUi {
         Button newGame=new Button("New Game");
         Button continueGame=new Button("Continue");
 
-        newGame.setBackground(Background.fill(Paint.valueOf("Green")));
+        //newGame.setBackground(Background.fill(Paint.valueOf("Green")));
 
         newGame.setMaxHeight(30);
         newGame.setMaxWidth(90);
@@ -44,7 +44,7 @@ public class StartScreenUi {
         VBox.setMargin(vbox, new Insets(20, 0, 0, 0));
 
         Scene scene=new Scene(root,500,300);
-        stage.setTitle("Sport Manager");
+        stage.setTitle("Model.Sport Manager");
 
         return scene;
     }
@@ -58,4 +58,9 @@ public class StartScreenUi {
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void main(String[] args) {
+
+    }
+
 }

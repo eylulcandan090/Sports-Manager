@@ -1,3 +1,6 @@
+import Model.Sport;
+import Model.Team;
+
 public class Football implements Sport {
 
     private static final int PLAYERS_PER_TEAM = 11;

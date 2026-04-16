@@ -1,7 +1,9 @@
+import Model.Fixture;
+import Model.Match;
+import Model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +12,7 @@ public class LeagueSystemTest {
 
     static class TeamImpl extends Team {
         public TeamImpl(String name) {
-            super(null, name, "Coach", "Stadium");
+            super(null, name, "Model.Coach", "Stadium");
         }
     }
 
@@ -20,10 +22,10 @@ public class LeagueSystemTest {
 
     @BeforeEach
     void setUp() {
-        teamA = new TeamImpl("Team A");
-        teamB = new TeamImpl("Team B");
-        teamC = new TeamImpl("Team C");
-        teamD = new TeamImpl("Team D");
+        teamA = new TeamImpl("Model.Team A");
+        teamB = new TeamImpl("Model.Team B");
+        teamC = new TeamImpl("Model.Team C");
+        teamD = new TeamImpl("Model.Team D");
 
         fourTeams = List.of(teamA, teamB, teamC, teamD);
         league = new LeagueSystem("Test League", fourTeams);

@@ -1,3 +1,4 @@
+import Model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -6,7 +7,7 @@ public class StandingTest {
 
     static class TeamImpl extends Team {
         public TeamImpl(String name) {
-            super(null, name, "Coach" , "Chobani");
+            super(null, name, "Model.Coach" , "Chobani");
         }
     }
 
@@ -14,7 +15,7 @@ public class StandingTest {
 
     @BeforeEach
     void setUp() {
-        standing = new Standing(new TeamImpl("Team A"));
+        standing = new Standing(new TeamImpl("Model.Team A"));
     }
 
     @Test

@@ -1,3 +1,5 @@
+import Model.Player;
+import Model.Team;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
@@ -27,7 +29,7 @@ public class TrainingSystemTest {
 
     static class TeamImpl extends Team {
         public TeamImpl() {
-            super(null, "Test Team", "Test Coach","Test Stadium");
+            super(null, "Test Model.Team", "Test Model.Coach","Test Stadium");
         }
     }
 

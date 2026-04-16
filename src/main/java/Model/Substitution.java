@@ -1,3 +1,5 @@
+package Model;
+
 public class Substitution {
     private Player playerOut;
     private Player playerIn;

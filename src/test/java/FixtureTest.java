@@ -1,3 +1,5 @@
+import Model.Fixture;
+import Model.Match;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

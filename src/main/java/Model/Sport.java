@@ -1,3 +1,5 @@
+package Model;
+
 public interface Sport {
 
     int getPlayersPerTeam(); //starting team

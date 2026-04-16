@@ -17,7 +17,7 @@ public class SportSelectionUi {
         VBox root = new VBox();
         VBox labelLayout=new VBox();
 
-        Label sportSelect=new Label("Select Sport");
+        Label sportSelect=new Label("Select Model.Sport");
         labelLayout.getChildren().add(sportSelect);
 
         labelLayout.setAlignment(Pos.TOP_CENTER);

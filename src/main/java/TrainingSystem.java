@@ -1,3 +1,7 @@
+import Model.Player;
+import Model.Sport;
+import Model.Team;
+
 import java.util.List;
 import java.util.Random;
 

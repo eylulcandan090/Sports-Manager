@@ -1,3 +1,5 @@
+import Model.FootballTeam;
+import Model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,8 +13,8 @@ public class SportInterfaceTest {
     @BeforeEach
     public void setup() {
         football = new Football();
-        teamA = new FootballTeam(football, "Team A","Coach A","Stadium A");
-        teamB = new FootballTeam(football,"Team B" , "Coach B","Stadium B");
+        teamA = new FootballTeam(football, "Model.Team A","Model.Coach A","Stadium A");
+        teamB = new FootballTeam(football,"Model.Team B" , "Model.Coach B","Stadium B");
 
         // Add 11 starting players to each team
         for (int i = 1; i <= teamA.getPlayersOnField(); i++) {
@@ -74,7 +76,7 @@ public class SportInterfaceTest {
     public void testTeamOverallRating() {
         double ratingA = teamA.getOverallPlayerRating();
         double ratingB = teamB.getOverallPlayerRating();
-        assertTrue(ratingA > ratingB, "Team A overall rating should be higher than Team B");
+        assertTrue(ratingA > ratingB, "Model.Team A overall rating should be higher than Model.Team B");
     }
 
     @Test

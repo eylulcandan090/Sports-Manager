@@ -1,7 +1,9 @@
+package Model;
+
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class Player {
+public abstract class Player {
     private String name;
     private int age;
     private String Nation;

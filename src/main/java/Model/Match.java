@@ -1,3 +1,5 @@
+package Model;
+
 public class Match{
     final Team home;
     final Team away;

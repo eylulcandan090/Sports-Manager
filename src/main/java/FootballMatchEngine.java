@@ -1,3 +1,7 @@
+import Model.Match;
+import Model.Sport;
+import Model.Team;
+
 import java.util.Random;
 
 public class FootballMatchEngine extends MatchEngine {

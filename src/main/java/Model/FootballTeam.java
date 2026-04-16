@@ -1,10 +1,14 @@
+package Model;
+
+
+
 public class FootballTeam extends Team {
     private static final int MAX_PLAYERS = 11;
     private static final int MAX_SUBSTITUTES = 12;
     private static final int MAX_SUBSTITUTIONS = 5;
     private static final int MAX_TEAM_PLAYERS = 23;
 
-    public FootballTeam(Sport sport ,String teamName, String coachName,String stadiumName) {
+    public FootballTeam(Sport sport , String teamName, String coachName, String stadiumName) {
         super(new Football(), teamName, coachName,stadiumName);
     }
 

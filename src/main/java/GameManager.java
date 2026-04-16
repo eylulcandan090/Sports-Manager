@@ -1,3 +1,7 @@
+import Model.Match;
+import Model.Sport;
+import Model.Team;
+
 import java.util.List;
 public class GameManager {
     private Sport sport;
@@ -11,7 +15,7 @@ public class GameManager {
         this.season = 0;
         this.leagueSystem = null;
     }
-    public void startNewGame(Sport sport,List<Team> teams,String leagueName) {
+    public void startNewGame(Sport sport, List<Team> teams, String leagueName) {
         this.sport = sport;
         this.currentWeek = 1;
         this.season = 1;

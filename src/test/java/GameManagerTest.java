@@ -1,4 +1,7 @@
 
+import Model.FootballTeam;
+import Model.Sport;
+import Model.Team;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;

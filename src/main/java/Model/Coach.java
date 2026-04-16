@@ -1,3 +1,5 @@
+package Model;
+
 public class Coach {
     private String name;
     private String specialization;

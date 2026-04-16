@@ -1,3 +1,4 @@
+import Model.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,8 +9,8 @@ public class FootballMatchEngineTest {
         // Setup
         Sport football = new Football();
 
-        Team team1 = new FootballTeam(football, "Team A", "Coach A", "Stadium A");
-        Team team2 = new FootballTeam(football, "Team B", "Coach B", "Stadium B");
+        Team team1 = new FootballTeam(football, "Model.Team A", "Model.Coach A", "Stadium A");
+        Team team2 = new FootballTeam(football, "Model.Team B", "Model.Coach B", "Stadium B");
 
         // Oyuncular ekle (dummy)
         Player p1=new Player() {};
@@ -28,7 +29,7 @@ public class FootballMatchEngineTest {
         p4.setAttribute("rating",82);
         team2.addPlayer(p4);
 
-        // Match an engine
+        // Model.Match an engine
         Match match = new Match(team1, team2);
         MatchEngine engine = new FootballMatchEngine(match);
 
@@ -36,7 +37,7 @@ public class FootballMatchEngineTest {
         engine.playMatch();
 
 
-        assertTrue(match.isPlayed(), "Match should be marked as played");
+        assertTrue(match.isPlayed(), "Model.Match should be marked as played");
         assertTrue(match.getHomeScore() >= 0, "Home score cannot be negative");
         assertTrue(match.getAwayScore() >= 0, "Away score cannot be negative");
 
@@ -49,8 +50,8 @@ public class FootballMatchEngineTest {
     void testPointsLogicForWinDrawLose() {
         Sport football = new Football();
 
-        Team strongTeam = new FootballTeam(football, "Strong", "Coach S", "Stadium S");
-        Team weakTeam = new FootballTeam(football, "Weak", "Coach W", "Stadium W");
+        Team strongTeam = new FootballTeam(football, "Strong", "Model.Coach S", "Stadium S");
+        Team weakTeam = new FootballTeam(football, "Weak", "Model.Coach W", "Stadium W");
 
         // Strength farkı
         Player p1=new Player() {};
@@ -66,7 +67,7 @@ public class FootballMatchEngineTest {
 
         engine.playMatch();
 
-        // Match sonucu ne olursa olsun puanlar doğru olmalı
+        // Model.Match sonucu ne olursa olsun puanlar doğru olmalı
         if (match.getHomeScore() > match.getAwayScore()) {
             assertEquals(3, strongTeam.getPoint(), "Winner should get 3 points");
             assertEquals(0, weakTeam.getPoint(), "Loser should get 0 points");

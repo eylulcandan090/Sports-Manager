@@ -1,3 +1,6 @@
+import Model.Player;
+import Model.Sport;
+
 import java.util.List;
 
 public class FootballTraining extends TrainingSystem{

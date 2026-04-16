@@ -1,3 +1,5 @@
+import Model.Team;
+
 public class Standing implements Comparable<Standing> {
     private final Team team;
     private int points;

@@ -1,3 +1,5 @@
+import Model.Sport;
+
 public class SportFactory {
     public static Sport createSport(String sportType){
         if(sportType.equalsIgnoreCase("football")){

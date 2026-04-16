@@ -1,3 +1,5 @@
+import Model.Match;
+import Model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -6,7 +8,7 @@ public class MatchTest {
 
     static class TeamImpl extends Team {
         public TeamImpl(String name) {
-            super(null, name, "Coach", "Stadium");
+            super(null, name, "Model.Coach", "Stadium");
         }
     }
 

@@ -1,4 +1,4 @@
-package org.example.mygui2.ui;
+package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
