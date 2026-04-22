@@ -1,14 +1,25 @@
 package Model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public abstract class Player {
+    private int id;
     private String name;
     private int age;
-    private String Nation;
-    private Map<String, Integer> attributes = new HashMap<>();
+    private int injuryStatus;
+    private int team_id;
+    private String position;
 
+    public Player(String name, int age, int injuryStatus, int team_id,String position) {
+        this.name = name;
+        this.age = age;
+        this.injuryStatus = injuryStatus;
+        this.team_id = team_id;
+        this.position=position;
+    }
+
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -26,33 +37,30 @@ public abstract class Player {
         this.age = age;
     }
 
-    public String getNation() {
-        return Nation;
+    public int getInjuryStatus() {
+        return injuryStatus;
     }
 
-    public void setNation(String nation) {
-        Nation = nation;
+    public void setInjuryStatus(int injuryStatus) {
+        this.injuryStatus = injuryStatus;
     }
 
-    public int getAttribute(String key) {
-        return attributes.getOrDefault(key, 0);
+    public int getTeam_id() {
+        return team_id;
     }
 
-    public void setAttribute(String key, int value) {
-        attributes.put(key, value);
+    public void setTeam_id(int team_id) {
+        this.team_id = team_id;
     }
 
-    public int getStrength() {
-        if (attributes.isEmpty()) return 0;
-        int total = 0;
-        for (int value : attributes.values()) {
-            total += value;
-        }
-        return total / attributes.size();
+    public String getPosition() {
+        return position;
     }
 
+    public void setPosition(String position) {
+        this.position = position;
+    }
 }
-
 
 
 
