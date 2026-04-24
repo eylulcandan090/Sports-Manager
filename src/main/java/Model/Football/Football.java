@@ -1,3 +1,5 @@
+package Model.Football;
+
 import Model.Sport;
 import Model.Team;
 

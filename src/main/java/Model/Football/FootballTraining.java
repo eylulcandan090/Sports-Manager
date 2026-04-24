@@ -1,9 +1,11 @@
+package Model.Football;
+
 import Model.Player;
 import Model.Sport;
 
 import java.util.List;
 
-public class FootballTraining extends TrainingSystem{
+public class FootballTraining extends TrainingSystem {
     public FootballTraining(Sport sport) {
         super(sport);
     }

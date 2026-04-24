@@ -48,7 +48,7 @@ public class LeagueRepo {
                     String sportName=set.getString("sport_name");
 
                     switch (sportName){
-                        case "Football":
+                        case "Model.Football.Football":
                             leagues.add(new League(name,new Football()));
                             break;
                         case "Basketball":
