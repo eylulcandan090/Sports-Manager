@@ -1,15 +1,9 @@
 package DataFeed;
 
 import Database.Database;
-import Repository.CoachRepo;
+import Repository.*;
 import Repository.Football.FootballPlayerRepo;
-import Repository.LeagueRepo;
-import Repository.SportRepo;
-import Repository.TeamRepo;
-import Service.FootballPlayerService;
-import Service.LeagueService;
-import Service.SportService;
-import Service.TeamService;
+import Service.*;
 
 import java.sql.Connection;
 
@@ -34,7 +28,7 @@ public class DataFeed {
         LeagueService leagueService=new LeagueService(leagueRepo);
 
 
-        int footballId=sportService.getOrSave("Football");
+        int footballId=sportService.getOrSave("Model.Football.Football");
         int basketballId=sportService.getOrSave("Basketball");
 
         int premierLeague=leagueService.getOrSave("Premier League",footballId);
@@ -540,6 +534,156 @@ public class DataFeed {
             footballPlayerService.save("Paul Onuachu", 30, 0, southamptonId, 82, 60, 10, "ST"); // Southampton
             footballPlayerService.save("Alex McCarthy", 34, 0, southamptonId, 10, 60, 77, "GK"); // Southampton
         }
+
+        //for basketball----------------------------------------------
+
+        BasketballPlayerRepo basketballPlayerRepo=new BasketballPlayerRepo(connection);
+
+        BasketballPlayerService basketballPlayerService=new BasketballPlayerService(basketballPlayerRepo);
+
+        int houstonId = teamService.getOrSave("Houston Rockets", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(houstonId)){
+
+            basketballPlayerService.addBasketPlayer("Alperen Şengün", 21, 0, houstonId, "C", 78, 84, 88, 85, 75, 65, 70);
+            basketballPlayerService.addBasketPlayer("Jalen Green", 22, 0, houstonId, "SG", 82, 86, 75, 88, 70, 60, 55);
+            basketballPlayerService.addBasketPlayer("Fred VanVleet", 30, 0, houstonId, "PG", 85, 82, 88, 78, 82, 85, 45);
+            basketballPlayerService.addBasketPlayer("Jabari Smith Jr.", 20, 0, houstonId, "PF", 80, 72, 70, 78, 82, 65, 75);
+            basketballPlayerService.addBasketPlayer("Dillon Brooks", 28, 0, houstonId, "SF", 76, 75, 74, 76, 88, 78, 50);
+            // Bench (Yedekler)
+            basketballPlayerService.addBasketPlayer("Amen Thompson", 21, 0, houstonId, "SG", 65, 85, 80, 85, 85, 82, 65);
+            basketballPlayerService.addBasketPlayer("Cam Whitmore", 19, 0, houstonId, "SF", 82, 78, 65, 88, 72, 68, 55);
+            basketballPlayerService.addBasketPlayer("Tari Eason", 22, 0, houstonId, "PF", 75, 74, 70, 80, 88, 88, 72);
+            basketballPlayerService.addBasketPlayer("Reed Sheppard", 20, 0, houstonId, "PG", 88, 80, 82, 74, 75, 80, 45);
+            basketballPlayerService.addBasketPlayer("Steven Adams", 30, 0, houstonId, "C", 40, 60, 78, 82, 84, 60, 70);
+            basketballPlayerService.addBasketPlayer("Aaron Holiday", 27, 0, houstonId, "PG", 82, 78, 76, 72, 78, 72, 35);
+            basketballPlayerService.addBasketPlayer("Jeff Green", 37, 0, houstonId, "PF", 78, 72, 74, 80, 74, 65, 60);
+        }
+
+        int gswId = teamService.getOrSave("Golden State Warriors", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(gswId)){
+            // İlk 5
+            basketballPlayerService.addBasketPlayer("Stephen Curry", 36, 0, gswId, "PG", 98, 94, 92, 88, 72, 75, 40);
+            basketballPlayerService.addBasketPlayer("Draymond Green", 34, 0, gswId, "PF", 72, 78, 88, 74, 94, 82, 85);
+            basketballPlayerService.addBasketPlayer("Andrew Wiggins", 29, 0, gswId, "SF", 78, 79, 72, 82, 85, 74, 70);
+            basketballPlayerService.addBasketPlayer("Brandin Podziemski", 21, 0, gswId, "SG", 80, 78, 82, 76, 75, 68, 45);
+            basketballPlayerService.addBasketPlayer("Trayce Jackson-Davis", 24, 0, gswId, "C", 50, 65, 72, 85, 82, 65, 88);
+            // Bench (Yedekler)
+            basketballPlayerService.addBasketPlayer("Jonathan Kuminga", 21, 0, gswId, "PF", 75, 80, 72, 88, 80, 70, 72);
+            basketballPlayerService.addBasketPlayer("Buddy Hield", 31, 0, gswId, "SG", 90, 76, 72, 74, 70, 68, 40);
+            basketballPlayerService.addBasketPlayer("Kyle Anderson", 30, 0, gswId, "PF", 74, 82, 86, 76, 85, 80, 75);
+            basketballPlayerService.addBasketPlayer("De'Anthony Melton", 26, 0, gswId, "PG", 82, 78, 78, 74, 88, 86, 60);
+            basketballPlayerService.addBasketPlayer("Gary Payton II", 31, 0, gswId, "SG", 70, 74, 72, 84, 92, 90, 65);
+            basketballPlayerService.addBasketPlayer("Kevon Looney", 28, 0, gswId, "C", 45, 62, 75, 78, 84, 62, 74);
+            basketballPlayerService.addBasketPlayer("Moses Moody", 22, 0, gswId, "SF", 82, 74, 70, 76, 78, 70, 55);
+        }
+
+
+        int lakersId = teamService.getOrSave("Los Angeles Lakers", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(lakersId)){
+            // İlk 5
+            basketballPlayerService.addBasketPlayer("LeBron James", 39, 0, lakersId, "SF", 84, 88, 94, 92, 78, 75, 70);
+            basketballPlayerService.addBasketPlayer("Anthony Davis", 31, 0, lakersId, "C", 78, 76, 74, 88, 96, 78, 94);
+            basketballPlayerService.addBasketPlayer("Austin Reaves", 25, 0, lakersId, "SG", 82, 82, 84, 80, 74, 68, 45);
+            basketballPlayerService.addBasketPlayer("D'Angelo Russell", 28, 0, lakersId, "PG", 86, 84, 85, 76, 70, 72, 40);
+            basketballPlayerService.addBasketPlayer("Rui Hachimura", 26, 0, lakersId, "PF", 80, 74, 72, 82, 76, 62, 65);
+            // Bench (Yedekler)
+            basketballPlayerService.addBasketPlayer("Dalton Knecht", 23, 0, lakersId, "SG", 85, 76, 72, 78, 72, 65, 45);
+            basketballPlayerService.addBasketPlayer("Gabe Vincent", 27, 0, lakersId, "PG", 80, 78, 76, 74, 84, 78, 35);
+            basketballPlayerService.addBasketPlayer("Jarred Vanderbilt", 25, 0, lakersId, "PF", 60, 70, 72, 78, 92, 85, 70);
+            basketballPlayerService.addBasketPlayer("Max Christie", 21, 0, lakersId, "SG", 78, 75, 72, 74, 80, 70, 55);
+            basketballPlayerService.addBasketPlayer("Christian Wood", 28, 0, lakersId, "C", 82, 74, 68, 80, 70, 60, 75);
+            basketballPlayerService.addBasketPlayer("Jaxson Hayes", 24, 0, lakersId, "C", 45, 65, 60, 88, 78, 62, 82);
+            basketballPlayerService.addBasketPlayer("Cam Reddish", 24, 0, lakersId, "SF", 76, 78, 72, 78, 82, 76, 50);
+        }
+
+
+        int bucksId = teamService.getOrSave("Milwaukee Bucks", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(bucksId)){
+            // İlk 5
+            basketballPlayerService.addBasketPlayer("Giannis Antetokounmpo", 29, 0, bucksId, "PF", 72, 86, 84, 96, 92, 78, 88);
+            basketballPlayerService.addBasketPlayer("Damian Lillard", 33, 0, bucksId, "PG", 90, 92, 88, 85, 70, 72, 35);
+            basketballPlayerService.addBasketPlayer("Brook Lopez", 36, 0, bucksId, "C", 82, 60, 65, 78, 88, 55, 94);
+            basketballPlayerService.addBasketPlayer("Khris Middleton", 32, 0, bucksId, "SF", 85, 80, 82, 80, 78, 70, 50);
+            basketballPlayerService.addBasketPlayer("Gary Trent Jr.", 25, 0, bucksId, "SG", 86, 78, 72, 76, 82, 84, 35);
+            // Bench (Yedekler)
+            basketballPlayerService.addBasketPlayer("Bobby Portis", 29, 0, bucksId, "PF", 82, 74, 70, 84, 76, 68, 65);
+            basketballPlayerService.addBasketPlayer("Delon Wright", 32, 0, bucksId, "PG", 78, 80, 82, 74, 88, 88, 45);
+            basketballPlayerService.addBasketPlayer("Taurean Prince", 30, 0, bucksId, "SF", 82, 75, 72, 76, 80, 72, 55);
+            basketballPlayerService.addBasketPlayer("Pat Connaughton", 31, 0, bucksId, "SG", 80, 74, 75, 78, 76, 68, 50);
+            basketballPlayerService.addBasketPlayer("Andre Jackson Jr.", 22, 0, bucksId, "SG", 68, 78, 76, 82, 85, 80, 60);
+            basketballPlayerService.addBasketPlayer("A.J. Green", 24, 0, bucksId, "SG", 88, 72, 70, 68, 74, 62, 35);
+            basketballPlayerService.addBasketPlayer("MarJon Beauchamp", 23, 0, bucksId, "SF", 76, 76, 72, 80, 78, 72, 55);
+        }
+
+
+        int dallasId = teamService.getOrSave("Dallas Mavericks", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(dallasId)){
+            // İlk 5
+            basketballPlayerService.addBasketPlayer("Luka Doncic", 25, 0, dallasId, "PG", 92, 96, 98, 90, 78, 82, 50);
+            basketballPlayerService.addBasketPlayer("Kyrie Irving", 32, 0, dallasId, "SG", 94, 98, 88, 92, 75, 74, 40);
+            basketballPlayerService.addBasketPlayer("Dereck Lively II", 20, 0, dallasId, "C", 50, 68, 72, 88, 86, 65, 90);
+            basketballPlayerService.addBasketPlayer("P.J. Washington", 25, 0, dallasId, "PF", 82, 75, 74, 82, 85, 78, 78);
+            basketballPlayerService.addBasketPlayer("Klay Thompson", 34, 0, dallasId, "SF", 88, 72, 74, 75, 78, 70, 50);
+            // Bench
+            basketballPlayerService.addBasketPlayer("Daniel Gafford", 25, 0, dallasId, "C", 40, 60, 62, 90, 84, 60, 88);
+            basketballPlayerService.addBasketPlayer("Naji Marshall", 26, 0, dallasId, "SF", 78, 77, 76, 80, 86, 80, 55);
+            basketballPlayerService.addBasketPlayer("Quentin Grimes", 24, 0, dallasId, "SG", 84, 76, 74, 78, 84, 78, 45);
+            basketballPlayerService.addBasketPlayer("Jaden Hardy", 21, 0, dallasId, "SG", 84, 85, 76, 80, 72, 65, 35);
+            basketballPlayerService.addBasketPlayer("Maxi Kleber", 32, 0, dallasId, "PF", 80, 70, 72, 74, 82, 68, 78);
+            basketballPlayerService.addBasketPlayer("Dante Exum", 28, 0, dallasId, "PG", 82, 84, 85, 80, 84, 76, 45);
+            basketballPlayerService.addBasketPlayer("Dwight Powell", 32, 0, dallasId, "C", 50, 62, 70, 82, 76, 64, 70);
+        }
+
+
+        int denverId = teamService.getOrSave("Denver Nuggets", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(denverId)){
+            // İlk 5
+            basketballPlayerService.addBasketPlayer("Nikola Jokic", 29, 0, denverId, "C", 90, 88, 99, 94, 82, 84, 72);
+            basketballPlayerService.addBasketPlayer("Jamal Murray", 27, 0, denverId, "PG", 88, 90, 86, 85, 76, 72, 45);
+            basketballPlayerService.addBasketPlayer("Aaron Gordon", 28, 0, denverId, "PF", 74, 78, 80, 92, 90, 76, 80);
+            basketballPlayerService.addBasketPlayer("Michael Porter Jr.", 25, 0, denverId, "SF", 90, 74, 70, 82, 75, 68, 72);
+            basketballPlayerService.addBasketPlayer("Christian Braun", 23, 0, denverId, "SG", 78, 78, 75, 84, 86, 80, 62);
+            // Bench
+            basketballPlayerService.addBasketPlayer("Russell Westbrook", 35, 0, denverId, "PG", 74, 88, 84, 86, 80, 82, 50);
+            basketballPlayerService.addBasketPlayer("Peyton Watson", 21, 0, denverId, "SF", 72, 76, 72, 82, 90, 78, 88);
+            basketballPlayerService.addBasketPlayer("Dario Saric", 30, 0, denverId, "PF", 82, 76, 82, 78, 74, 65, 60);
+            basketballPlayerService.addBasketPlayer("Julian Strawther", 22, 0, denverId, "SG", 84, 75, 72, 76, 72, 68, 40);
+            basketballPlayerService.addBasketPlayer("Zeke Nnaji", 23, 0, denverId, "C", 76, 68, 65, 80, 78, 60, 75);
+            basketballPlayerService.addBasketPlayer("DeAndre Jordan", 35, 0, denverId, "C", 30, 55, 60, 85, 75, 50, 80);
+            basketballPlayerService.addBasketPlayer("Vlatko Cancar", 27, 0, denverId, "PF", 78, 72, 75, 76, 74, 62, 55);
+        }
+
+
+        int okcId = teamService.getOrSave("OKC Thunder", nbaLeague, basketballId);
+
+        if(!basketballPlayerRepo.hasPlayers(okcId)){
+            // İlk 5
+            basketballPlayerService.addBasketPlayer("Shai Gilgeous-Alexander", 25, 0, okcId, "PG", 92, 96, 88, 94, 90, 92, 65);
+            basketballPlayerService.addBasketPlayer("Chet Holmgren", 22, 0, okcId, "C", 84, 78, 80, 85, 92, 70, 96);
+            basketballPlayerService.addBasketPlayer("Jalen Williams", 23, 0, okcId, "SF", 86, 85, 84, 88, 88, 82, 65);
+            basketballPlayerService.addBasketPlayer("Alex Caruso", 30, 0, okcId, "SG", 82, 78, 80, 75, 96, 94, 70);
+            basketballPlayerService.addBasketPlayer("Isaiah Hartenstein", 25, 0, okcId, "C", 55, 72, 82, 84, 88, 75, 82);
+            // Bench
+            basketballPlayerService.addBasketPlayer("Luguentz Dort", 25, 0, okcId, "SF", 82, 75, 72, 78, 95, 85, 55);
+            basketballPlayerService.addBasketPlayer("Isaiah Joe", 24, 0, okcId, "SG", 92, 74, 72, 70, 76, 72, 35);
+            basketballPlayerService.addBasketPlayer("Cason Wallace", 20, 0, okcId, "PG", 80, 80, 78, 76, 90, 84, 55);
+            basketballPlayerService.addBasketPlayer("Aaron Wiggins", 25, 0, okcId, "SG", 84, 78, 75, 82, 82, 78, 50);
+            basketballPlayerService.addBasketPlayer("Jaylin Williams", 21, 0, okcId, "C", 78, 72, 84, 75, 78, 68, 65);
+            basketballPlayerService.addBasketPlayer("Kenrich Williams", 29, 0, okcId, "PF", 78, 74, 76, 76, 84, 76, 55);
+            basketballPlayerService.addBasketPlayer("Ousmane Dieng", 21, 0, okcId, "PF", 75, 78, 76, 78, 78, 70, 68);
+        }
+
+
+
+
+
+
     }
 
     public static void main(String[] args) {

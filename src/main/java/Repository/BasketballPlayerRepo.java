@@ -68,6 +68,21 @@ public class BasketballPlayerRepo {
         return new ArrayList<>();
     }
 
+        public boolean hasPlayers(int teamId){
+            String query="SELECT 1 FROM football_players WHERE team_id=? LIMIT 1";
+
+            try(PreparedStatement ps=connection.prepareStatement(query)){
+                ps.setInt(1,teamId);
+
+                ResultSet rs=ps.executeQuery();
+
+                return rs.next();
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
+            }
+            return false;
+    }
+
 
 
 
