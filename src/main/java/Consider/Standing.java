@@ -1,3 +1,5 @@
+package Consider;
+
 import Model.Team;
 
 public class Standing implements Comparable<Standing> {

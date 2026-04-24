@@ -1,3 +1,6 @@
+package Consider;
+
+import Model.Football.FootballTraining;
 import Model.Match;
 import Model.Sport;
 import Model.Team;
