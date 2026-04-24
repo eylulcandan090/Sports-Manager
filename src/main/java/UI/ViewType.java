@@ -1,3 +1,4 @@
+package UI;
 
 public enum ViewType {
     START,SPORTSELECTION,TEAMSELECTION,MENU,MATCHSCREEN
