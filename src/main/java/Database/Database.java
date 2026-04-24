@@ -11,6 +11,7 @@ public class Database {
         enableForeignKeys();
         createLeague();
         createFootballPlayerTable();
+        createBasketballPlayerTable();
         createTeamsTable();
         createMatchTable();
         createCoachTables();
@@ -94,6 +95,29 @@ public class Database {
             System.out.println(s.getMessage());
         }
     }
+
+    //  int  int steal, int block
+
+
+    private void createBasketballPlayerTable(){
+        String query="CREATE TABLE IF NOT EXISTS basketball_players("+
+                "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "name TEXT NOT NULL,"+
+                "age INTEGER,"+
+                "position TEXT,"+
+                "injuryStatus INTEGER,"+
+                "shooting INTEGER,"+
+                "passing INTEGER,"+
+                "dribbling INTEGER,"+
+                "defense INTEGER,"+
+                "steal INTEGER,"+
+                "block INTEGER,"+
+                "finishing INTEGER,"+
+                "team_id INTEGER,"+
+                "FOREIGN KEY(team_id) REFERENCES teams(id) )";
+    }
+
+
 
     private void enableForeignKeys() {
         try(Statement stmt=connection.createStatement()){
