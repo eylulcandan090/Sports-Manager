@@ -1,6 +1,5 @@
 package Service;
 
-import Model.SportEntity;
 import Repository.SportRepo;
 
 import java.util.ArrayList;
