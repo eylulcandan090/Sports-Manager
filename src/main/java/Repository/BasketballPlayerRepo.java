@@ -13,7 +13,7 @@ public class BasketballPlayerRepo {
     }
 
     public void addBasketPlayer(String name, int age, int injuryStatus, int team_id, String position, int shooting, int dribbling, int passing, int finishing, int defense, int steal, int block){
-        String query="INSERT INTO basketball_players(name,age,injuryStatus,team_id,position,shooting,dribbling, int passing, int finishing, int defense, int steal, int block) "+
+        String query="INSERT INTO basketball_players(name,age,injuryStatus,team_id,position,shooting,dribbling,passing,finishing,defense,steal,block) "+
                 "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
