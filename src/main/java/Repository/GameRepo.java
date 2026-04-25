@@ -5,6 +5,7 @@ import Model.Game;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class GameRepo {
     private Connection connection;
@@ -40,5 +41,32 @@ public class GameRepo {
         }
     }
 
+    public void createNewGame(int team_id){
+        String query="UPDATE game_status SET team_id=? WHERE id=1";
+
+        try(PreparedStatement ps=connection.prepareStatement(query)){
+            ps.setInt(1,team_id);
+            ps.executeUpdate();
+        }catch (SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+    }
+
+    public int getGameTeamId(){
+        String query="SELECT team_id FROM game_status WHERE id=1";
+
+        try(PreparedStatement ps=connection.prepareStatement(query)){
+            ResultSet rs=ps.executeQuery();
+
+            if(rs.next()){
+                return rs.getInt("team_id");
+            }
+
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+        return -1;
+    }
 
 }
+
