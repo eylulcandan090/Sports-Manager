@@ -115,8 +115,15 @@ public class Database {
                 "finishing INTEGER,"+
                 "team_id INTEGER,"+
                 "FOREIGN KEY(team_id) REFERENCES teams(id) )";
-    }
 
+        try(Statement statement=connection.createStatement()){
+            statement.executeUpdate(query);
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+
+
+    }
 
 
     private void enableForeignKeys() {
