@@ -24,7 +24,7 @@ public class GameService {
 
 
     public int getGameTeamId(){
-        return repo.getGameByTeamId();
+        return repo.getGameTeamId();
     }
 
 }
