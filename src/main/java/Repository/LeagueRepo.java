@@ -86,6 +86,23 @@ public class LeagueRepo {
     }
 
 
+    public int getLeagueIdByTeamId(int id){
+        String query="SELECT league_id FROM teams WHERE id=?";
+
+        try(PreparedStatement ps=connection.prepareStatement(query)){
+            ps.setInt(1,id);
+            ResultSet resultSet=ps.executeQuery();
+
+            if(resultSet.next()){
+                return resultSet.getInt("league_id");
+            }
+
+        }catch (SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+        return -1;
+    }
+
 
 
 

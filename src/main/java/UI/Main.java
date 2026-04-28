@@ -28,7 +28,7 @@ public class Main extends Application {
         System.out.println("---------------------");
         System.out.println("---------------------");
 
-        for(Team s:repo1.getAllTeamsBySport("Football")){
+        for(Team s:repo1.getAllTeamsBySport("Model.Football.Football")){
             System.out.println(s);
         }
 

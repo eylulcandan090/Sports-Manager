@@ -19,6 +19,9 @@ public class LeagueService {
         return id;
     }
 
+    public int getLeagueIdByTeamName(int id){
+        return repo.getLeagueIdByTeamId(id);
+    }
 
 
 }

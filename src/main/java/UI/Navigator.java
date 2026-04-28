@@ -35,6 +35,9 @@ public class Navigator {
             case MATCHSCREEN:
                 //
                 break;
+            case LEAGUETABLE:
+                view=new LeagueTableUi().getView();
+                break;
         }
 
         if(view!=null){

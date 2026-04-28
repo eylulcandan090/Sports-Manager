@@ -1,120 +1,57 @@
 package Model;
 
-import java.util.ArrayList;
+public class Team {
+    private int id;
+    private String name;
+    private int point;
 
-public abstract class Team {
-    private String teamName;
-    private String coachName;
-    private String stadium;
-    private int points;
-    private ArrayList<Player> playerList;
-    private ArrayList<Player> substitutes;
-    private String tactics;
-    private Sport sport;
-
-
-
-    public Team(Sport sport, String teamName, String coachName, String stadium) {
-        this.teamName=teamName;
-        this.coachName=coachName;
-        this.points=0;
-        this.playerList=new ArrayList<>();
-        this.substitutes=new ArrayList<>();
-        tactics="default";
-        this.sport=sport;
-        this.stadium=stadium;
+    public Team(String name) {
+        this.name = name;
+        this.point=0;
     }
 
-
-    public String getStadiumName(){
-        return this.stadium;
-    }
-    
-
-    public String getTeamName() {
-        return teamName;
+    public Team(String name,int point){
+        this.name=name;
+        this.point=point;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName=teamName;
+    public Team(int id, String name, int point) {
+        this.id = id;
+        this.name = name;
+        this.point = point;
     }
 
-    public String getCoachName() {
-        return coachName;
+    public int getId() {
+        return id;
     }
 
-    public void setCoachName(String coachName) {
-        this.coachName=coachName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPoint() {
-        return points;
+        return point;
     }
 
-    public void addPoint(int point) {
-        this.points+=point;
+    public void setPoint(int point) {
+        this.point = point;
     }
 
-    public ArrayList<Player> getPlayerList() {
-        return playerList;
+    public void addPoint(int point){
+        this.point+=point;
     }
 
-    public int getTeamPlayerCount(){
-        return this.playerList.size();
+    @Override
+    public String toString(){
+        return this.id+")"+" "+this.name+" "+this.point;
     }
 
-    public void addPlayer(Player player){
-        if(sport.getPlayersPerTeam()>playerList.size()){
-            playerList.add(player);
-        }
-    }
-
-    public void removePlayer(Player player){
-        this.playerList.remove(player);
-    }
-
-    
-
-    public ArrayList<Player> getSubstitutes() {
-        return substitutes;
-    }
-
-    public void addSubstitute(Player player){
-        this.substitutes.add(player);
-    }
-
-    public int getTeamSubstituteCount(){
-        return this.substitutes.size();
-    }
-
-
-    /*public double getOverallPlayerRating() {
-        return totalPlayerRating()/(double)playerList.size();
-    }*/
-
-    public double getOverallPlayerRating() {
-    if (playerList.size() == 0) return 50; 
-    return totalPlayerRating()/(double) playerList.size();
-}
-
-    private int totalPlayerRating(){
-        int total=0;
-        for(Player p:playerList){
-            total+=p.getStrength();
-        }
-        return total;
-    }
-
-    public void setTactics(String tactic){
-        this.tactics=tactic;
-    }
-
-    public String getTactics(){
-        return this.tactics;
-    }
-
-
-    public Sport getSport() {
-        return this.sport;
-    }
 }

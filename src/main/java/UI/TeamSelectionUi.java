@@ -20,9 +20,9 @@ public class TeamSelectionUi {
         TeamRepo repo=new TeamRepo(database.getConnection());
 
         switch (sport.getSport()){
-            case "Football":
+            case "Model.Football.Football":
                 System.out.println("You are here");
-                teamListView.getItems().addAll(repo.getAllTeamsBySport("Football"));
+                teamListView.getItems().addAll(repo.getAllTeamsBySport("Model.Football.Football"));
                 break;
             case "Basketball":
                 teamListView.getItems().addAll(repo.getAllTeamsBySport("Basketball"));

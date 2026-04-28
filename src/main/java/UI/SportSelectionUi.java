@@ -19,12 +19,12 @@ public class SportSelectionUi {
         //ileride sporlar database den çekilip otomatik buton yaratabiliriz
 
 
-        Button football=new Button("  Football  ");
+        Button football=new Button("  Model.Football.Football  ");
         Button basketball=new Button("Basketball");
 
 
         football.setOnAction(e->{
-            SportEntity sport=new SportEntity("Football");
+            SportEntity sport=new SportEntity("Model.Football.Football");
             Navigator.navigate(ViewType.TEAMSELECTION,sport);
         });
 
