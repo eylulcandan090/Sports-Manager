@@ -3,7 +3,7 @@ package Service;
 import Model.Coach;
 import Model.Football.FootballPlayer;
 import Repository.CoachRepo;
-import Repository.Football.FootballPlayerRepo;
+import Repository.FootballPlayerRepo;
 
 public class FootballPlayerService {
     private FootballPlayerRepo playerRepo;

@@ -1,6 +1,10 @@
 package UI;
 
+import Database.Database;
 import Model.Team;
+import Repository.GameRepo;
+import Repository.TeamRepo;
+import Service.TeamService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -17,15 +21,15 @@ public class MainMenuUi {
 
         root = new BorderPane();
 
-
+        // TOP BAR
         HBox topBar = createTopBar();
         root.setTop(topBar);
 
-
+        // LEFT MENU
         VBox menu = createMenu();
         root.setLeft(menu);
 
-
+        // CENTER PANEL
         centerPane = new StackPane();
         centerPane.getChildren().add(new Label("Welcome! Select an option from the left."));
         root.setCenter(centerPane);
@@ -40,7 +44,15 @@ public class MainMenuUi {
         topBar.setSpacing(20);
         topBar.setStyle("-fx-background-color: #2c3e50;");
 
-        Label teamLabel = new Label("Team: My Team");
+        Database database=Database.getInstance();
+        GameRepo repo=new GameRepo(database.getConnection());
+
+        String x=repo.getGameTeamById(repo.getGameTeamId());
+
+        Label teamLabel = new Label("Team:"+x);
+
+
+
         teamLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
 
         Label weekLabel = new Label("Week: 1");
@@ -56,7 +68,7 @@ public class MainMenuUi {
 
 
     private VBox createMenu() {
-        VBox menu = new VBox();
+        VBox menu=new VBox();
         menu.setPadding(new Insets(15));
         menu.setSpacing(10);
         menu.setPrefWidth(150);
@@ -71,8 +83,14 @@ public class MainMenuUi {
         // 🎯 BUTTON ACTIONS
         teamBtn.setOnAction(e -> showContent(new Label("Team Screen")));
         trainingBtn.setOnAction(e -> showContent(new Label("Training Screen")));
-        fixturesBtn.setOnAction(e -> showContent(new Label("Fixtures Screen")));
-        tableBtn.setOnAction(e -> showContent(new Label("League Table")));
+        fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
+
+        tableBtn.setOnAction(e->{
+            System.out.println("buse");
+            Navigator.navigate(ViewType.LEAGUETABLE);
+        });
+
+        //tableBtn.setOnAction(e -> showContent(new Label("League Table")));
         matchBtn.setOnAction(e -> showContent(new Label("Match Screen")));
 
         menu.getChildren().addAll(
@@ -88,7 +106,7 @@ public class MainMenuUi {
 
     // 🔷 BUTTON STYLE
     private Button createMenuButton(String text) {
-        Button btn = new Button(text);
+        Button btn=new Button(text);
         btn.setPrefWidth(130);
         btn.setStyle(
                 "-fx-background-color: white;" +

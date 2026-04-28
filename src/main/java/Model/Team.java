@@ -1,6 +1,6 @@
 package Model;
 
-public class Team {
+public class Team implements Comparable<Team>{
     private int id;
     private String name;
     private int point;
@@ -51,7 +51,13 @@ public class Team {
 
     @Override
     public String toString(){
-        return this.id+")"+" "+this.name+" "+this.point;
+        return this.name;
+    }
+
+
+    @Override
+    public int compareTo(Team o) {
+        return Integer.compare(o.getPoint(),this.getPoint());
     }
 
 }

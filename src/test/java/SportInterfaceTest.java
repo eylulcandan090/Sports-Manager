@@ -1,4 +1,4 @@
-import Model.FootballTeam;
+import Model.Football.Football;
 import Model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

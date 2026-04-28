@@ -2,7 +2,7 @@ package DataFeed;
 
 import Database.Database;
 import Repository.*;
-import Repository.Football.FootballPlayerRepo;
+import Repository.FootballPlayerRepo;
 import Service.*;
 
 import java.sql.Connection;

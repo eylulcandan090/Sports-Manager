@@ -1,4 +1,4 @@
-package Repository.Football;
+package Repository;
 
 import Model.Football.FootballPlayer;
 

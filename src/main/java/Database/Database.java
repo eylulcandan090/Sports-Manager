@@ -11,12 +11,12 @@ public class Database {
         enableForeignKeys();
         createLeague();
         createFootballPlayerTable();
-        createBasketballPlayerTable();
         createTeamsTable();
         createMatchTable();
         createCoachTables();
         createGameTable();
         createSportTable();
+        createBasketballPlayerTable();
         createFixturesTable();
     }
 
@@ -78,28 +78,6 @@ public class Database {
     }
 
 
-    private void createFootballPlayerTable() {
-        String query="CREATE TABLE IF NOT EXISTS football_players("+
-                "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                "name TEXT NOT NULL,"+
-                "age INTEGER,"+
-                "position TEXT,"+
-                "injuryStatus INTEGER,"+
-                "shooting INTEGER,"+
-                "passing INTEGER,"+
-                "goalkeeping INTEGER,"+
-                "team_id INTEGER,"+
-                "FOREIGN KEY(team_id) REFERENCES teams(id) )";
-        try(Statement stmt=connection.createStatement()) {
-            stmt.execute(query);
-        }catch(SQLException s){
-            System.out.println(s.getMessage());
-        }
-    }
-
-    //  int  int steal, int block
-
-
     private void createBasketballPlayerTable(){
         String query="CREATE TABLE IF NOT EXISTS basketball_players("+
                 "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -126,6 +104,26 @@ public class Database {
 
     }
 
+
+
+    private void createFootballPlayerTable() {
+        String query="CREATE TABLE IF NOT EXISTS football_players("+
+                "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "name TEXT NOT NULL,"+
+                "age INTEGER,"+
+                "position TEXT,"+
+                "injuryStatus INTEGER,"+
+                "shooting INTEGER,"+
+                "passing INTEGER,"+
+                "goalkeeping INTEGER,"+
+                "team_id INTEGER,"+
+                "FOREIGN KEY(team_id) REFERENCES teams(id) )";
+        try(Statement stmt=connection.createStatement()) {
+            stmt.execute(query);
+        }catch(SQLException s){
+            System.out.println(s.getMessage());
+        }
+    }
 
     private void enableForeignKeys() {
         try(Statement stmt=connection.createStatement()){
@@ -201,7 +199,8 @@ public class Database {
         }
     }
 
-   private void createFixturesTable(){
+
+    private void createFixturesTable(){
         String query="CREATE TABLE IF NOT EXISTS fixtures("+
                 "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "home_id INTEGER,"+
@@ -219,9 +218,4 @@ public class Database {
 
 
     }
-
-
-
-
-
 }

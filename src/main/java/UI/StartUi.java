@@ -29,6 +29,11 @@ public class StartUi {
         if(gameService.hasGame()){
             Button continueGame=new Button("Continue Game");
             root.getChildren().add(continueGame);
+
+            continueGame.setOnAction(e->{
+                Navigator.navigate(ViewType.MENU);
+            });
+
         }
 
         newGame.setOnAction(e->Navigator.navigate(ViewType.SPORTSELECTION));

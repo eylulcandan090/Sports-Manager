@@ -1,4 +1,5 @@
-import Model.Match;
+import Consider.LineUp;
+import Consider.MatchResult;
 import Model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

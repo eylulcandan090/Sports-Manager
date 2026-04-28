@@ -36,7 +36,11 @@ public class Navigator {
                 //
                 break;
             case LEAGUETABLE:
+                System.out.println("yessss");
                 view=new LeagueTableUi().getView();
+                break;
+            case FIXTURE:
+                view=new FixtureUi().getView();
                 break;
         }
 
@@ -66,6 +70,10 @@ public class Navigator {
                 break;
             case MATCHSCREEN:
                 //
+                break;
+            case LEAGUETABLE:
+                System.out.println("you are here");
+                view=new LeagueTableUi().getView();
                 break;
         }
 

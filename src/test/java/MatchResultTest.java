@@ -1,5 +1,5 @@
-import Model.FootballTeam;
-import Model.Match;
+import Consider.MatchResult;
+import Model.Football.Football;
 import Model.Sport;
 import Model.Team;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ public class MatchResultTest {
     @Test
     void testEnumValues() {
         MatchResult[] results=MatchResult.values();
-        assertEquals(3,results.length,"MatchResult should have exactly 3 values");
+        assertEquals(3,results.length,"Consider.MatchResult should have exactly 3 values");
         assertEquals(MatchResult.HOME_WIN,MatchResult.valueOf("HOME_WIN"));
         assertEquals(MatchResult.AWAY_WIN,MatchResult.valueOf("AWAY_WIN"));
         assertEquals(MatchResult.DRAW,MatchResult.valueOf("DRAW"));

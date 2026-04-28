@@ -1,5 +1,6 @@
 
-import Model.FootballTeam;
+import Consider.GameManager;
+import Model.Football.Football;
 import Model.Sport;
 import Model.Team;
 import org.junit.jupiter.api.Test;

@@ -1,3 +1,4 @@
+import Consider.TrainingSystem;
 import Model.Player;
 import Model.Team;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,11 @@
 package UI;
 
+import Database.Database;
+import Model.FixtureGenerator;
 import Model.SportEntity;
+import Model.Team;
+import Repository.SportRepo;
+import Repository.TeamRepo;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -8,7 +13,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
+
 public class SportSelectionUi {
+    private static final String FOOTBALL="Football";
+
     public Parent getView(){
         VBox root=new VBox();
         Label header=new Label("Sport");
@@ -18,13 +27,23 @@ public class SportSelectionUi {
 
         //ileride sporlar database den çekilip otomatik buton yaratabiliriz
 
+        Database database=Database.getInstance();
+        TeamRepo teamRepo=new TeamRepo(database.getConnection());
 
-        Button football=new Button("  Model.Football.Football  ");
+
+
+
+        Button football=new Button("  Football  ");
         Button basketball=new Button("Basketball");
 
 
         football.setOnAction(e->{
-            SportEntity sport=new SportEntity("Model.Football.Football");
+            SportEntity sport=new SportEntity(FOOTBALL);
+            ArrayList<Team> teams=teamRepo.getAllTeamsBySport(FOOTBALL);
+            FixtureGenerator.generateAndSave(teams,database.getConnection());
+
+
+
             Navigator.navigate(ViewType.TEAMSELECTION,sport);
         });
 
