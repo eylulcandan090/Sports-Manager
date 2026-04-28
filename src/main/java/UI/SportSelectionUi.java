@@ -49,6 +49,8 @@ public class SportSelectionUi {
 
         basketball.setOnAction(e->{
             SportEntity sport=new SportEntity("Basketball");
+            ArrayList<Team> teams=teamRepo.getAllTeamsBySport("Basketball");
+            FixtureGenerator.generateAndSave(teams,database.getConnection());
             Navigator.navigate(ViewType.TEAMSELECTION,sport);
         });
 
