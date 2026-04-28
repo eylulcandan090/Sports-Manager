@@ -97,4 +97,24 @@ public class TeamRepo {
         return -1;
     }
 
+     public Team getTeamByTeamId(int teamId){
+        String query="SELECT*FROM teams WHERE id=?";
+
+        try(PreparedStatement ps=connection.prepareStatement(query)){
+            ResultSet rs=ps.executeQuery();
+
+            String name=rs.getString("team_name");
+            int point=rs.getInt("points");
+            int id=rs.getInt("id");
+            return (new Team(id,name,point));
+
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+        return null;
+    }
+
+
+    
+
 }

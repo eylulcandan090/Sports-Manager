@@ -17,6 +17,7 @@ public class Database {
         createCoachTables();
         createGameTable();
         createSportTable();
+        createFixturesTable();
     }
 
     public static Database getInstance(){
@@ -199,6 +200,26 @@ public class Database {
             System.out.println(sqlException.getMessage());
         }
     }
+
+   private void createFixturesTable(){
+        String query="CREATE TABLE IF NOT EXISTS fixtures("+
+                "id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "home_id INTEGER,"+
+                "away_id INTEGER,"+
+                "week INTEGER,"+
+                "league_id INTEGER,"+
+                "isPlayed INTEGER,"+ //0 oynanmamış maç, 1 ise oynanmış.
+                "FOREIGN KEY (home_id) REFERENCES teams(id),"+
+                "FOREIGN KEY (away_id) REFERENCES teams(id))";
+        try(Statement statement=connection.createStatement()){
+            statement.executeUpdate(query);
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+
+
+    }
+
 
 
 
