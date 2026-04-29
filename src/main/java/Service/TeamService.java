@@ -1,6 +1,7 @@
 package Service;
 
 import Model.Player;
+import Model.Sport;
 import Model.Team;
 import Repository.TeamRepo;
 
@@ -35,6 +36,10 @@ public class TeamService {
             return teamRepo.findByName(name,leagueId);
         }
         return id;
+    }
+
+    public Sport getSportByTeamId(int id){
+        return teamRepo.getSportByTeamId(id);
     }
 
 

@@ -1,5 +1,8 @@
 package Repository;
 
+import Model.Basketball.Basketball;
+import Model.Football.Football;
+import Model.Sport;
 import Model.Team;
 
 import java.sql.Connection;
@@ -114,7 +117,56 @@ public class TeamRepo {
         return null;
     }
 
+    public Sport getSportByTeamId(int id){
+        String query="SELECT*FROM teams WHERE id=?";
 
-    
+        try(PreparedStatement ps=connection.prepareStatement(query)){
+            ps.setInt(1,id);
+            ResultSet rs=ps.executeQuery();
+
+            int sportId=0;
+            if(rs.next()){
+                sportId=rs.getInt("sport_id");
+            }
+
+            return getSportById(sportId);
+
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+        return null;
+    }
+
+
+    private Sport getSportById(int sportId){
+        if(sportId==0) return null;
+
+        String sql="SELECT sport_name FROM sports WHERE id=?";
+
+        try(PreparedStatement ps=connection.prepareStatement(sql)){
+            ps.setInt(1,sportId);
+            ResultSet rs=ps.executeQuery();
+            String sportName="";
+
+            if(rs.next()){
+                sportName=rs.getString("sport_name");
+            }
+
+            switch(sportName){
+                case "Football":
+                    return new Football();
+                case "Basketball":
+                    return new Basketball();
+            }
+
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
+
+        return null;
+
+    }
+
+
 
 }
