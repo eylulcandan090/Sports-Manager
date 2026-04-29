@@ -2,6 +2,10 @@ package Model.Football;
 
 import Model.Sport;
 import Model.Team;
+import Model.TrainingType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Football implements Sport {
 
@@ -61,4 +65,14 @@ public class Football implements Sport {
             away.addPoint(WIN_POINT);
         }
     }
+
+    @Override
+    public List<TrainingType> getTrainingTypes(){
+        ArrayList<TrainingType> trainingTypes=new ArrayList<>();
+        trainingTypes.add(TrainingType.PASS);
+        trainingTypes.add(TrainingType.SHOOT);
+        trainingTypes.add(TrainingType.DEFANCE);
+        return trainingTypes;
+    }
+
 }

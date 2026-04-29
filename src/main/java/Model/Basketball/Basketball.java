@@ -2,6 +2,9 @@ package Model.Basketball;
 
 import Model.Sport;
 import Model.Team;
+import Model.TrainingType;
+
+import java.util.List;
 
 public class Basketball implements Sport {
 
@@ -46,6 +49,11 @@ public class Basketball implements Sport {
     @Override
     public int getMaxRandomScore() {
         return MAX_RANDOM_SCORE;
+    }
+
+    @Override
+    public List<TrainingType> getTrainingTypes() {
+        return List.of();
     }
 
     @Override

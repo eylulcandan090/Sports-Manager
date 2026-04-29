@@ -86,6 +86,9 @@ public class Navigator {
             case FIXTURE:
                 view=new FixtureUi().getView(fixtureService);
                 break;
+            case TRAINING:
+                view=new TrainingScreenUi().getView(gameService,teamService);
+                break;
         }
 
         if(view!=null){
