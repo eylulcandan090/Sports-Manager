@@ -11,7 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 public class FixtureUi {
-    public Parent getView(){
+    public Parent getView(FixtureService fixtureService){
         VBox root=new VBox();
         ListView<String> listView=new ListView<>();
 
@@ -20,11 +20,7 @@ public class FixtureUi {
             Navigator.navigate(ViewType.MENU);
         });
 
-        Database database=Database.getInstance();
 
-        TeamRepo teamRepo=new TeamRepo(database.getConnection());
-        FixtureRepo fixtureRepo=new FixtureRepo(database.getConnection());
-        FixtureService fixtureService=new FixtureService(fixtureRepo,teamRepo);
 
         listView.getItems().addAll(fixtureService.printFixture());
 

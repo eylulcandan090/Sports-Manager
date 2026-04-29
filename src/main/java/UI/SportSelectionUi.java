@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class SportSelectionUi {
     private static final String FOOTBALL="Football";
 
-    public Parent getView(){
+    public Parent getView(TeamRepo teamRepo,Database database){
         VBox root=new VBox();
         Label header=new Label("Sport");
         root.getChildren().add(header);

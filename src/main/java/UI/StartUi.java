@@ -12,10 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class StartUi {
-    public Parent getView(){
-        Database database=Database.getInstance();
-        GameRepo gameRepo=new GameRepo(database.getConnection());
-        GameService gameService=new GameService(gameRepo);
+    public Parent getView(GameService gameService){
 
         VBox root=new VBox();
         Label header=new Label("Sport Manager");

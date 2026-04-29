@@ -20,13 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class LeagueTableUi {
-    public Parent getView(){
-        Database database=Database.getInstance();
-        GameRepo gameRepo=new GameRepo(database.getConnection());
-        GameService gameService=new GameService(gameRepo);
-        LeagueRepo leagueRepo=new LeagueRepo(database.getConnection());
-        LeagueService leagueService=new LeagueService(leagueRepo);
-        TeamRepo teamRepo=new TeamRepo(database.getConnection());
+    public Parent getView(GameService gameService,LeagueService leagueService,TeamRepo teamRepo){
         ListView<String> listView=new ListView<>();
 
         int teamId= gameService.getGameTeamId();

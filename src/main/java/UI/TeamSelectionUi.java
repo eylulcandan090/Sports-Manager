@@ -13,13 +13,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 public class TeamSelectionUi {
-    public Parent getView(SportEntity sport){
+    public Parent getView(SportEntity sport,TeamRepo repo,GameRepo gameRepo){
         VBox root=new VBox();
         ListView<Team> teamListView=new ListView<>();
 
-        Database database=Database.getInstance();
-        TeamRepo repo=new TeamRepo(database.getConnection());
-        GameRepo gameRepo=new GameRepo(database.getConnection());
+
 
         switch (sport.getSport()){
             case "Football":
