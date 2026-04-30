@@ -37,22 +37,17 @@ public class MainMenuUi {
         return root;
     }
 
-    // 🔷 TOP BAR
     private HBox createTopBar() {
         HBox topBar = new HBox();
         topBar.setPadding(new Insets(10));
         topBar.setSpacing(20);
         topBar.setStyle("-fx-background-color: #2c3e50;");
 
-        Database database=Database.getInstance();
-        GameRepo repo=new GameRepo(database.getConnection());
+        Database database = Database.getInstance();
+        GameRepo repo = new GameRepo(database.getConnection());
+        String x = repo.getGameTeamById(repo.getGameTeamId());
 
-        String x=repo.getGameTeamById(repo.getGameTeamId());
-
-        Label teamLabel = new Label("Team:"+x);
-
-
-
+        Label teamLabel = new Label("Team:" + x);
         teamLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
 
         Label weekLabel = new Label("Week: 1");
@@ -66,9 +61,8 @@ public class MainMenuUi {
         return topBar;
     }
 
-
     private VBox createMenu() {
-        VBox menu=new VBox();
+        VBox menu = new VBox();
         menu.setPadding(new Insets(15));
         menu.setSpacing(10);
         menu.setPrefWidth(150);
@@ -80,17 +74,23 @@ public class MainMenuUi {
         Button tableBtn = createMenuButton("League Table");
         Button matchBtn = createMenuButton("Play Match");
 
-        // 🎯 BUTTON ACTIONS
+        // --- BACK BUTONU ---
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+
+        Button backBtn = createMenuButton("⬅ Main Menu");
+        backBtn.setStyle(
+                "-fx-background-color: #e74c3c;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 13px;"
+        );
+        backBtn.setOnAction(e -> Navigator.navigate(ViewType.START));
+        // -------------------
+
         teamBtn.setOnAction(e -> showContent(new Label("Team Screen")));
         trainingBtn.setOnAction(e -> showContent(new Label("Training Screen")));
         fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
-
-        tableBtn.setOnAction(e->{
-            System.out.println("buse");
-            Navigator.navigate(ViewType.LEAGUETABLE);
-        });
-
-        //tableBtn.setOnAction(e -> showContent(new Label("League Table")));
+        tableBtn.setOnAction(e -> Navigator.navigate(ViewType.LEAGUETABLE));
         matchBtn.setOnAction(e -> showContent(new Label("Match Screen")));
 
         menu.getChildren().addAll(
@@ -98,15 +98,16 @@ public class MainMenuUi {
                 trainingBtn,
                 fixturesBtn,
                 tableBtn,
-                matchBtn
+                matchBtn,
+                spacer,   // diğer butonları yukarı, back'i aşağı iter
+                backBtn
         );
 
         return menu;
     }
 
-    // 🔷 BUTTON STYLE
     private Button createMenuButton(String text) {
-        Button btn=new Button(text);
+        Button btn = new Button(text);
         btn.setPrefWidth(130);
         btn.setStyle(
                 "-fx-background-color: white;" +
@@ -115,7 +116,6 @@ public class MainMenuUi {
         return btn;
     }
 
-    // 🔷 CENTER CHANGE
     private void showContent(Parent content) {
         centerPane.getChildren().clear();
         centerPane.getChildren().add(content);
