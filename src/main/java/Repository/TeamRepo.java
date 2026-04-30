@@ -101,10 +101,11 @@ public class TeamRepo {
         return -1;
     }
 
-     public Team getTeamByTeamId(int teamId){
+    public Team getTeamByTeamId(int teamId){
         String query="SELECT*FROM teams WHERE id=?";
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
+            ps.setInt(1,teamId);
             ResultSet rs=ps.executeQuery();
 
             String name=rs.getString("team_name");
@@ -117,6 +118,7 @@ public class TeamRepo {
         }
         return null;
     }
+
 
     public Sport getSportByTeamId(int id){
         String query="SELECT*FROM teams WHERE id=?";

@@ -29,7 +29,10 @@ public class FixtureService {
             int week=fixture.getWeek();
             boolean isPlayed=fixture.getIsPlayed();
 
-            System.out.println(homeTeam.getName()+" "+awayTeam.getName());
+            System.out.println(homeTeam.getName()+" vs "+awayTeam.getName());
+
+            System.out.println("Name:"+homeTeam.getName()+" id:"+fixture.getHomeId());
+
 
             fixturesTable.add("Week "+week+"  "+homeTeam.getName()+" vs "+awayTeam.getName());  //oynanmış maçlar için match tablosundan skorları getirelim ileride
         }

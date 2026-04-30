@@ -75,4 +75,9 @@ public class Football implements Sport {
         return trainingTypes;
     }
 
+    @Override
+    public String getSportType() {
+        return "";
+    }
+
 }
