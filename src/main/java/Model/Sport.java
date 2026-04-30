@@ -13,6 +13,7 @@ public interface Sport {
     void updatePoints(Team home, Team away, int homeScore, int awayScore);
     int getMaxRandomScore();
     List<TrainingType> getTrainingTypes();
+    public String getSportType();
 
 
 

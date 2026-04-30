@@ -2,6 +2,7 @@ package Repository;
 
 import Model.Basketball.Basketball;
 import Model.Football.Football;
+import Model.Player;
 import Model.Sport;
 import Model.Team;
 
@@ -166,6 +167,20 @@ public class TeamRepo {
         return null;
 
     }
+
+    public ArrayList<Player> getAllPlayersByTeamId(int teamId){
+        Sport sport=getSportByTeamId(teamId);
+        FootballPlayerRepo repo=new FootballPlayerRepo(connection);
+
+        switch (sport.getSportType()){
+            case "Football":
+                return repo.getFootballPlayersByTeamId(teamId);
+            case "Basketball":
+                break;
+        }
+        return new ArrayList<>();
+    }
+
 
 
 
