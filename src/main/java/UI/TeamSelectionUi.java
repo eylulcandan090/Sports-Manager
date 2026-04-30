@@ -19,13 +19,12 @@ public class TeamSelectionUi {
 
 
 
-        switch (sport.getSport()){
+        switch (sport.getSport()) {
             case "Football":
-                teamListView.getItems().addAll(repo.getAllTeamsBySport("Football"));
+                teamListView.getItems().addAll(repo.getAllTeamsBySport("Model.Football.Football"));
                 break;
             case "Basketball":
-                System.out.println("You are here");
-                teamListView.getItems().addAll(repo.getAllTeamsBySport("Basketball"));
+                teamListView.getItems().addAll(repo.getAllTeamsBySport("Model.Basketball.Basketball"));
                 break;
         }
 
