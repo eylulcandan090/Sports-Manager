@@ -27,14 +27,14 @@ public class SportSelectionUi {
 
         football.setOnAction(e -> {
             SportEntity sport = new SportEntity("Football");
-            ArrayList<Team> teams = teamRepo.getAllTeamsBySport("Model.Football.Football"); // ✅ düzeltildi
+            ArrayList<Team> teams = teamRepo.getAllTeamsBySport("Football");
             FixtureGenerator.generateAndSave(teams, database.getConnection());
             Navigator.navigate(ViewType.TEAMSELECTION, sport);
         });
 
         basketball.setOnAction(e -> {
             SportEntity sport = new SportEntity("Basketball");
-            ArrayList<Team> teams = teamRepo.getAllTeamsBySport("Model.Basketball.Basketball"); // ✅ düzeltildi
+            ArrayList<Team> teams = teamRepo.getAllTeamsBySport("Basketball");
             FixtureGenerator.generateAndSave(teams, database.getConnection());
             Navigator.navigate(ViewType.TEAMSELECTION, sport);
         });

@@ -28,7 +28,7 @@ public class DataFeed {
         LeagueService leagueService=new LeagueService(leagueRepo);
 
 
-        int footballId=sportService.getOrSave("Model.Football.Football");
+        int footballId=sportService.getOrSave("Football");
         int basketballId=sportService.getOrSave("Basketball");
 
         int premierLeague=leagueService.getOrSave("Premier League",footballId);

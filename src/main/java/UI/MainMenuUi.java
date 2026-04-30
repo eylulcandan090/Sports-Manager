@@ -87,7 +87,7 @@ public class MainMenuUi {
         backBtn.setOnAction(e -> Navigator.navigate(ViewType.START));
         // -------------------
 
-        teamBtn.setOnAction(e -> showContent(new Label("Team Screen")));
+        teamBtn.setOnAction(e -> Navigator.navigate(ViewType.MYTEAM));
         trainingBtn.setOnAction(e -> showContent(new Label("Training Screen")));
         fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
         tableBtn.setOnAction(e -> Navigator.navigate(ViewType.LEAGUETABLE));
