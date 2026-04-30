@@ -69,7 +69,7 @@ public class BasketballPlayerRepo {
     }
 
         public boolean hasPlayers(int teamId){
-            String query="SELECT 1 FROM football_players WHERE team_id=? LIMIT 1";
+            String query="SELECT 1 FROM basketball_players WHERE team_id=? LIMIT 1";
 
             try(PreparedStatement ps=connection.prepareStatement(query)){
                 ps.setInt(1,teamId);
