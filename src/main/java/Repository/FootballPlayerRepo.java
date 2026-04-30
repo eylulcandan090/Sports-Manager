@@ -1,6 +1,7 @@
 package Repository;
 
 import Model.Football.FootballPlayer;
+import Model.Player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,10 +66,10 @@ public class FootballPlayerRepo {
     }
 
 
-    public ArrayList<FootballPlayer> getInjuredFootballPlayers(int team_id){
+    public ArrayList<Player> getInjuredFootballPlayers(int team_id){
         String query="SELECT*FROM football_players WHERE team_id=? AND injuryStatus<>0";
 
-        ArrayList<FootballPlayer> players=new ArrayList<>();
+        ArrayList<Player> players=new ArrayList<>();
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setInt(1,team_id);
@@ -111,8 +112,8 @@ public class FootballPlayerRepo {
                 int passing = rs.getInt("passing");
                 int goalkeeping = rs.getInt("goalkeeping");
                 String position = rs.getString("position");
-                int defance = rs.getInt("defance");
-                return new FootballPlayer(name, age, injuryStatus, team_id, shooting, passing, goalkeeping, position, defance);
+                //int defance = rs.getInt("defance");
+                return new FootballPlayer(name, age, injuryStatus, team_id, shooting, passing, goalkeeping, position,0);
 
             }
 
