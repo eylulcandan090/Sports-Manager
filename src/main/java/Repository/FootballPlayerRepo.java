@@ -37,10 +37,10 @@ public class FootballPlayerRepo {
 
     }
 
-    public ArrayList<FootballPlayer> getFootballPlayersByTeamId(int team_id){
+    public ArrayList<Player> getFootballPlayersByTeamId(int team_id){
         String query="SELECT*FROM football_players WHERE team_id=?";
 
-        ArrayList<FootballPlayer> players=new ArrayList<>();
+        ArrayList<Player> players=new ArrayList<>();
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setInt(1,team_id);
@@ -49,13 +49,13 @@ public class FootballPlayerRepo {
             while(rs.next()){
                 String name=rs.getString("name");
                 int age=rs.getInt("age");
-                int injuryStatus=rs.getInt("injury");
+                int injuryStatus=rs.getInt("injuryStatus");
                 int shooting=rs.getInt("shooting");
                 int passing=rs.getInt("passing");
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
-                int defance=rs.getInt("defance");
-                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance));
+                //int defance=rs.getInt("defance");
+                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,0));
             }
             return players;
 

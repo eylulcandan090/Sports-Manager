@@ -2,6 +2,7 @@ package UI;
 
 import Model.Basketball.BasketballPlayer;
 import Model.Football.FootballPlayer;
+import Model.Player;
 import Model.Sport;
 import Model.Football.Football;
 import Model.Basketball.Basketball;
@@ -36,7 +37,7 @@ public class MyTeamUi {
 
         if (sport instanceof Football) {
             // FUTBOL TABLOSU
-            ArrayList<FootballPlayer> players = footballPlayerRepo.getFootballPlayersByTeamId(teamId);
+            ArrayList<Player> players = footballPlayerRepo.getFootballPlayersByTeamId(teamId);
 
             TableView<FootballPlayer> table = new TableView<>();
             table.setPrefHeight(350);
@@ -65,8 +66,20 @@ public class MyTeamUi {
             defCol.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getDefance()).asObject());
             defCol.setPrefWidth(80);
 
-            table.getColumns().addAll(nameCol, posCol, ageCol, shootCol, passCol, defCol);
-            table.getItems().addAll(players);
+            TableColumn<FootballPlayer, String> injuryCol = new TableColumn<>("Injury");
+            injuryCol.setCellValueFactory(data -> {
+                int status = data.getValue().getInjuryStatus();
+                return new SimpleStringProperty(status == 0 ? "Healthy" : "Injured (" + status + ")");
+            });
+            injuryCol.setPrefWidth(110);
+
+            table.getColumns().addAll(nameCol, posCol, ageCol, shootCol, passCol, defCol, injuryCol);
+
+            for (Player p : players) {
+                if (p instanceof FootballPlayer) {
+                    table.getItems().add((FootballPlayer) p);
+                }
+            }
 
 
 
@@ -112,7 +125,14 @@ public class MyTeamUi {
             blockCol.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getBlock()).asObject());
             blockCol.setPrefWidth(55);
 
-            table.getColumns().addAll(nameCol, posCol, ageCol, shootCol, dribCol, passCol, defCol, blockCol);
+            TableColumn<BasketballPlayer, String> injuryCol = new TableColumn<>("Injury");
+            injuryCol.setCellValueFactory(data -> {
+                int status = data.getValue().getInjuryStatus();
+                return new SimpleStringProperty(status == 0 ? "Healthy" : "Injured (" + status + ")");
+            });
+            injuryCol.setPrefWidth(110);
+
+            table.getColumns().addAll(nameCol, posCol, ageCol, shootCol, dribCol, passCol, defCol, blockCol, injuryCol);
             table.getItems().addAll(players);
 
 

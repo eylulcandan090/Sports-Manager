@@ -57,6 +57,11 @@ public class Basketball implements Sport {
     }
 
     @Override
+    public String getSportType() {
+        return "";
+    }
+
+    @Override
     public void updatePoints(Team home,Team away,int homeScore,int awayScore) {
 
         if (homeScore>awayScore) {
