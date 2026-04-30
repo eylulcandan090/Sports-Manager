@@ -19,11 +19,18 @@ public class SportSelectionUi {
     public Parent getView(TeamRepo teamRepo, Database database) {
         VBox root = new VBox();
         Label header = new Label("Sport");
+        Label sub = new Label("Choose a sport");
         header.setFont(Font.font(30));
-        root.getChildren().add(header);
+        sub.setFont(Font.font(15));
+        root.getChildren().addAll(header,sub);
 
-        Button football = new Button("  Football  ");
-        Button basketball = new Button("Basketball");
+        Button football = new Button("⚽ Football");
+        Button basketball = new Button("🏀 Basketball");
+
+
+        football.setPrefWidth(160);
+        basketball.setPrefWidth(160);
+
 
         football.setOnAction(e -> {
             SportEntity sport = new SportEntity("Football");
