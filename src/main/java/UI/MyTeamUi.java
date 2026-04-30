@@ -14,6 +14,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -68,8 +69,7 @@ public class MyTeamUi {
             table.getItems().addAll(players);
 
 
-            Button backBtn = new Button("⬅ Back");
-            backBtn.setOnAction(e -> Navigator.navigate(ViewType.MENU));
+
 
             root.getChildren().add(table);
 
@@ -115,14 +115,22 @@ public class MyTeamUi {
             table.getColumns().addAll(nameCol, posCol, ageCol, shootCol, dribCol, passCol, defCol, blockCol);
             table.getItems().addAll(players);
 
-            Button backBtn = new Button("⬅ Back");
-            backBtn.setOnAction(e -> Navigator.navigate(ViewType.MENU));
 
             root.getChildren().add(table);
+
 
         } else {
             root.getChildren().add(new Label("Sport not found."));
         }
+
+        Button backBtn = new Button("⬅ Back");
+        backBtn.setOnAction(e -> Navigator.navigate(ViewType.MENU));
+
+        HBox backBox=new HBox(backBtn);
+        backBox.setAlignment(Pos.CENTER_LEFT);
+
+        root.getChildren().add(backBox);
+
 
         root.setAlignment(Pos.TOP_CENTER);
         return root;
