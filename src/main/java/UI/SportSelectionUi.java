@@ -27,8 +27,7 @@ public class SportSelectionUi {
 
         //ileride sporlar database den çekilip otomatik buton yaratabiliriz
 
-        Database database=Database.getInstance();
-        TeamRepo teamRepo=new TeamRepo(database.getConnection());
+
 
 
 
