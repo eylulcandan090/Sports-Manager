@@ -28,10 +28,6 @@ public class SportSelectionUi {
         //ileride sporlar database den çekilip otomatik buton yaratabiliriz
 
 
-
-
-
-
         Button football=new Button("  Football  ");
         Button basketball=new Button("Basketball");
 
