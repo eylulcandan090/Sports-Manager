@@ -77,7 +77,7 @@ public class Football implements Sport {
 
     @Override
     public String getSportType() {
-        return "";
+        return "Football";
     }
 
 }

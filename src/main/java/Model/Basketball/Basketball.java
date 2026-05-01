@@ -58,7 +58,7 @@ public class Basketball implements Sport {
 
     @Override
     public String getSportType() {
-        return "";
+        return "Basketball";
     }
 
     @Override
