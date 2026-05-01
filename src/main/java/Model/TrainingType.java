@@ -4,5 +4,8 @@ public enum TrainingType {
     SHOOT,
     PASS,
     DEFANCE,
-    GOALKEEPER
+    GOALKEEPER,
+    DRIBBLING,
+    BLOCKING,
+    STEALING,
 }
