@@ -28,7 +28,7 @@ public class SportSelectionUi {
         Label sub = new Label("Choose your sport to start the game");
         sub.getStyleClass().add("subtitle-label");
 
-        Button football   = sportCard("⚽", "Football",   "#e040fb");
+        Button football   = sportCard("⚽", "Football",   "#42a5f5");
         Button basketball = sportCard("🏀", "Basketball", "#ffd54f");
 
         football.setOnAction(e -> {

@@ -1,16 +1,16 @@
 /* ============================================================
-   SPORT MANAGER — Vibrant Purple & Pink Theme
+   SPORT MANAGER — Blue & Pink Theme
    ============================================================ */
 
 /* --- Root / Background --- */
 .root {
-    -fx-background-color: #12002e;
+    -fx-background-color: #020c1b;
     -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
 
 /* --- Labels --- */
 .label {
-    -fx-text-fill: #f3e5f5;
+    -fx-text-fill: #e3f2fd;
 }
 
 .title-label {
@@ -21,35 +21,35 @@
 }
 
 .subtitle-label {
-    -fx-text-fill: #ce93d8;
+    -fx-text-fill: #90caf9;
     -fx-font-size: 14px;
 }
 
 .section-header {
-    -fx-text-fill: #f3e5f5;
+    -fx-text-fill: #e3f2fd;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
 
 /* --- Buttons --- */
 .button {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #e040fb, #c850c0);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1976d2, #1565c0);
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-padding: 10 24;
     -fx-background-radius: 25;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(200,80,192,0.5), 10, 0, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.5), 10, 0, 0, 3);
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #ea80fc, #e040fb);
-    -fx-effect: dropshadow(gaussian, rgba(234,128,252,0.7), 14, 0, 0, 4);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #42a5f5, #1976d2);
+    -fx-effect: dropshadow(gaussian, rgba(66,165,245,0.7), 14, 0, 0, 4);
 }
 
 .button:pressed {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #c850c0, #ad1457);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1565c0, #0d47a1);
 }
 
 .danger-button {
@@ -68,7 +68,7 @@
 
 .menu-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #ce93d8;
+    -fx-text-fill: #90caf9;
     -fx-font-size: 13px;
     -fx-alignment: CENTER-LEFT;
     -fx-padding: 10 16;
@@ -78,15 +78,15 @@
 }
 
 .menu-btn:hover {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #2d005a, #3d006e);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #0d2b5e, #1a3a6e);
     -fx-text-fill: #f48fb1;
     -fx-effect: dropshadow(gaussian, rgba(244,143,177,0.3), 6, 0, 0, 0);
 }
 
 /* --- ListView --- */
 .list-view {
-    -fx-background-color: #1e0a40;
-    -fx-border-color: #6a1b9a;
+    -fx-background-color: #0d1f35;
+    -fx-border-color: #1565c0;
     -fx-border-width: 1;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
@@ -94,7 +94,7 @@
 
 .list-cell {
     -fx-background-color: transparent;
-    -fx-text-fill: #f3e5f5;
+    -fx-text-fill: #e3f2fd;
     -fx-padding: 10 14;
     -fx-font-size: 13px;
 }
@@ -104,26 +104,26 @@
 }
 
 .list-cell:selected {
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #e040fb, #c850c0);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1976d2, #1565c0);
     -fx-text-fill: white;
 }
 
 .list-cell:hover {
-    -fx-background-color: #2d005a;
+    -fx-background-color: #1e3a5f;
     -fx-text-fill: #f48fb1;
 }
 
 /* --- TableView --- */
 .table-view {
-    -fx-background-color: #1e0a40;
-    -fx-border-color: #6a1b9a;
+    -fx-background-color: #0d1f35;
+    -fx-border-color: #1565c0;
     -fx-border-width: 1;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #12002e;
+    -fx-background-color: #020c1b;
 }
 
 .table-view .column-header {
@@ -136,42 +136,42 @@
 }
 
 .table-view .filler {
-    -fx-background-color: #12002e;
+    -fx-background-color: #020c1b;
 }
 
 .table-row-cell {
-    -fx-background-color: #1e0a40;
-    -fx-text-fill: #f3e5f5;
-    -fx-border-color: #2d0a5e;
+    -fx-background-color: #0d1f35;
+    -fx-text-fill: #e3f2fd;
+    -fx-border-color: #1a2e4a;
     -fx-border-width: 0 0 1 0;
 }
 
 .table-row-cell:odd {
-    -fx-background-color: #180838;
+    -fx-background-color: #091729;
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #4a0080;
+    -fx-background-color: #1e3a5f;
     -fx-text-fill: #f48fb1;
 }
 
 .table-row-cell:hover {
-    -fx-background-color: #2d005a;
+    -fx-background-color: #1e3a5f;
 }
 
 .table-cell {
-    -fx-text-fill: #f3e5f5;
+    -fx-text-fill: #e3f2fd;
     -fx-font-size: 12px;
     -fx-padding: 6 6;
 }
 
 /* --- ScrollBar --- */
 .scroll-bar {
-    -fx-background-color: #12002e;
+    -fx-background-color: #020c1b;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #6a1b9a;
+    -fx-background-color: #1565c0;
     -fx-background-radius: 4;
 }
 
@@ -183,18 +183,18 @@
 
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
-    -fx-background-color: #ce93d8;
+    -fx-background-color: #90caf9;
 }
 
 /* --- TopBar --- */
 .topbar {
-    -fx-background-color: #0a001f;
-    -fx-border-color: #6a1b9a;
+    -fx-background-color: #010810;
+    -fx-border-color: #1565c0;
     -fx-border-width: 0 0 1 0;
 }
 
 .topbar-label {
-    -fx-text-fill: #f3e5f5;
+    -fx-text-fill: #e3f2fd;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
@@ -208,7 +208,7 @@
 
 /* --- Sidebar --- */
 .sidebar {
-    -fx-background-color: #0d0028;
-    -fx-border-color: #6a1b9a;
+    -fx-background-color: #010d1f;
+    -fx-border-color: #1565c0;
     -fx-border-width: 0 1 0 0;
 }
