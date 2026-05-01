@@ -1,5 +1,5 @@
 package UI;
-
+import javafx.scene.control.Label;
 import Database.Database;
 import Model.Sport;
 import Model.SportEntity;
@@ -10,11 +10,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class TeamSelectionUi {
     public Parent getView(SportEntity sport,TeamRepo repo,GameRepo gameRepo){
         VBox root=new VBox();
+        Label title = new Label("Select your team");
+
+        title.setStyle("-fx-font-size: 18px;");
+        title.setAlignment(Pos.CENTER);
+
         ListView<Team> teamListView=new ListView<>();
 
 
@@ -43,9 +49,11 @@ public class TeamSelectionUi {
                 AlertUtility.showWarning("No Team Selected","Please select a team to continue.");
             }
         });
+Button backButton =new Button("<-Change sport");
+backButton.setOnAction(e->Navigator.navigate(ViewType.SPORTSELECTION));
+        HBox buttons =new HBox(10,backButton,startGame);
 
-
-        root.getChildren().addAll(teamListView,startGame);
+        root.getChildren().addAll(title,teamListView,buttons);
         root.setAlignment(Pos.CENTER);
 
         return root;
