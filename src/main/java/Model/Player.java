@@ -64,6 +64,8 @@ public abstract class Player {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public abstract int getOverall();
 }
 
 

@@ -1,5 +1,6 @@
 package Model.Basketball;
 
+import Model.GameState;
 import Model.Sport;
 import Model.Team;
 import Model.TrainingType;
@@ -73,4 +74,16 @@ public class Basketball implements Sport {
 
 
     }
+
+    //@Override
+    public boolean isFinalState(GameState state){
+        if(state.getAwayScore() == state.getHomeScore()){
+            return false; //+5 dk verilmeli ???
+        }
+        return true;
+    }
+
+    //@Override
+    //public MatchEvent generateNextEvent(GameState state){
+
 }
