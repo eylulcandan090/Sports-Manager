@@ -12,4 +12,14 @@ public class MatchEvent {
         this.team = team;
         this.time = time;
     }
-}
+    public String getType() {
+        return type;
+    }
+    public Player getPlayer() {
+        return player;
+    }
+    public Team getTeam() {
+        return team;
+    }
+
+    }

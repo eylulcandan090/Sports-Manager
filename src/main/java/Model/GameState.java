@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameState {
@@ -8,19 +9,18 @@ public class GameState {
     private int homeScore;
     private int awayScore;
     private int elapsedTime; // dakika veya quarter
-    private List<MatchEvent> events; // tüm olayların listesi
+    private List<MatchEvent> events;
 
-    // Her spor buraya event ekleyebilir
-    public void applyEvent(MatchEvent event) {
-        events.add(event);
-        // skoru güncelle vs.
-    }
 
     public GameState(Team homeTeam, Team awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.events = new ArrayList<>();
+        this.elapsedTime = 0;
     }
-
+public void incrementTime(){
+        this.elapsedTime++;
+}
     public int getElapsedTime() {
         return elapsedTime;
     }
@@ -43,5 +43,20 @@ public class GameState {
 
     public Team getHomeTeam() {
         return homeTeam;
+    }
+
+    public void applyEvent(MatchEvent event) {
+        events.add(event);
+        if(event.getType().equals("GOAL")){
+            if (event.getTeam()==homeTeam) homeScore++;
+            else awayScore++;
+
+        }
+        if(event.getType().equals("BASKET")){
+        int pts=Math.random()<0.3 ? 3:2;
+        if(event.getTeam()==homeTeam) homeScore+=pts;
+        else awayScore+=pts;
+
+        }
     }
 }

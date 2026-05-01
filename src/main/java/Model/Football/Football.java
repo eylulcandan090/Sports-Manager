@@ -78,7 +78,6 @@ public class Football implements Sport {
         return "Football";
     }
 
-    //@Override
     public boolean isFinalState(GameState state){
         if(state.getElapsedTime()<90){ //asla uzatma olmuyor?
             return false;
@@ -88,27 +87,33 @@ public class Football implements Sport {
         }
     }
 
-    //@Override
-    public void generateNextEvent(GameState state){ //it is supposed to return MatchEvent
-        int limit = (state.getHomeTeam().teamStrength()+state.getAwayTeam().teamStrength())/2;
+
+    public MatchEvent generateNextEvent(GameState state) { //it is supposed to return MatchEvent
+        int limit = (state.getHomeTeam().teamStrength() + state.getAwayTeam().teamStrength()) / 2;
 
 
-
-        for(int i=0 ; i<=90 ; i++){ //every loop is a minute
-            int sayi = (int)(Math.random() * 10) + 1;
-            if(sayi>=6){ //an event will occur if dice rolls higher than 5
+        for (int i = 0; i <= 90; i++) { //every loop is a minute
+            int sayi = (int) (Math.random() * 10) + 1;
+            if (sayi >= 6) { //an event will occur if dice rolls higher than 5
                 //buradaki sayı takımın statlarına göre belirlenmeli!!!
                 //kaliteli takımlarda daha çok olay yaşanacak
-                int event = (int)(Math.random() * 100) + 1;
+                int event = (int) (Math.random() * 100) + 1;
 
-                if(event <=35){
+                if (event <= 35) {
                     //faul
                     //KİM YAPTI?
+                    return new MatchEvent(
+                            "FOUL",
+                            null,
+                            state.getHomeTeam(),
+                            state.getElapsedTime());
                 }
 
             }
 
         }
+
+        return null;
     }
 
 }

@@ -15,8 +15,8 @@ public interface Sport {
     List<TrainingType> getTrainingTypes();
     public String getSportType();
 
-    //MatchEvent generateNextEvent(GameState state);
-    //boolean isFinalState(GameState state);
+    MatchEvent generateNextEvent(GameState state);
+    boolean isFinalState(GameState state);
     //these methods above are not yet implemented !!!
 
 
