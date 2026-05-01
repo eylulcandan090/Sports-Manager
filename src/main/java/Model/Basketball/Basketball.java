@@ -70,9 +70,6 @@ public class Basketball implements Sport {
         } else {
             away.addPoint(WIN_POINT);
         }
-
-
-
     }
 
     //@Override
