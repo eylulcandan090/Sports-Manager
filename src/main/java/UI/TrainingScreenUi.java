@@ -79,15 +79,13 @@ public class TrainingScreenUi {
             AlertUtility.showInfo("Training Completed", selected+" training applied to all players.");
         });
 
-        HBox backH=new HBox();
-        backH.getChildren().add(back);
-        backH.setAlignment(Pos.BASELINE_LEFT);
+        VBox.setVgrow(trainings, javafx.scene.layout.Priority.ALWAYS);
 
-        HBox trainH=new HBox();
-        trainH.setAlignment(Pos.CENTER);
-        trainH.getChildren().add(train);
+        HBox buttons=new HBox(20, back, train);
+        buttons.setAlignment(Pos.CENTER);
+        buttons.setPadding(new javafx.geometry.Insets(12));
 
-        root.getChildren().addAll(head,trainings,backH,trainH);
+        root.getChildren().addAll(head, trainings, buttons);
 
         return root;
     }
