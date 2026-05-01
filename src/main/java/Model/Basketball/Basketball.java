@@ -53,7 +53,7 @@ public class Basketball implements Sport {
 
     @Override
     public List<TrainingType> getTrainingTypes() {
-        return List.of();
+        return List.of(TrainingType.SHOOT, TrainingType.PASS, TrainingType.DEFANCE);
     }
 
     @Override

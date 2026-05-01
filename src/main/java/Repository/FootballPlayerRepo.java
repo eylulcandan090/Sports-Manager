@@ -47,6 +47,7 @@ public class FootballPlayerRepo {
             ResultSet rs=ps.executeQuery();
 
             while(rs.next()){
+                int id=rs.getInt("id");
                 String name=rs.getString("name");
                 int age=rs.getInt("age");
                 int injuryStatus=rs.getInt("injuryStatus");
@@ -54,8 +55,9 @@ public class FootballPlayerRepo {
                 int passing=rs.getInt("passing");
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
-                //int defance=rs.getInt("defance");
-                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,0));
+                FootballPlayer fp=new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,0);
+                fp.setId(id);
+                players.add(fp);
             }
             return players;
 
@@ -130,14 +132,15 @@ public class FootballPlayerRepo {
                 "shooting=?,"+
                 "passing=?,"+
                 "goalkeeping=?,"+
-                "injuryStatus=?,"+
+                "injuryStatus=? "+
                 "WHERE id=?";
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setInt(1,footballPlayer.getShooting());
             ps.setInt(2,footballPlayer.getPassing());
-            ps.setInt(3,footballPlayer.getInjuryStatus());
-            ps.setInt(4,footballPlayer.getId());
+            ps.setInt(3,footballPlayer.getGoalkeeping());
+            ps.setInt(4,footballPlayer.getInjuryStatus());
+            ps.setInt(5,footballPlayer.getId());
             ps.executeUpdate();
         }catch(SQLException sqlException){
             System.out.println(sqlException.getMessage());

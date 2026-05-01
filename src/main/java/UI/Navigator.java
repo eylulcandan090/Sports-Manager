@@ -8,12 +8,15 @@ import Repository.*;
 import Service.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
 
 public class Navigator {
     private static Stage stage;
+    private static MediaPlayer mediaPlayer;
 
     private static Database database;
     private static TeamService teamService;
@@ -51,6 +54,8 @@ public class Navigator {
 
         footballPlayerRepo = new FootballPlayerRepo(connection);
         basketballPlayerRepo = new BasketballPlayerRepo(connection);
+
+        playMusic("/music/background.mp3");
     }
 
     public static void navigate(ViewType type) {
@@ -77,7 +82,7 @@ public class Navigator {
                 view = new FixtureUi().getView(fixtureService);
                 break;
             case TRAINING:
-                view = new TrainingScreenUi().getView(gameService, teamService);
+                view = new TrainingScreenUi().getView(gameService, teamService, footballPlayerRepo, basketballPlayerRepo);
                 break;
 
             case MYTEAM:
@@ -86,7 +91,9 @@ public class Navigator {
         }
 
         if (view != null) {
-            stage.setScene(new Scene(view, 650, 500));
+            Scene scene = new Scene(view, 650, 500);
+            scene.getStylesheets().add(Navigator.class.getResource("/style.css").toExternalForm());
+            stage.setScene(scene);
             stage.setResizable(false);
         }
     }
@@ -115,12 +122,49 @@ public class Navigator {
         }
 
         if (view != null) {
-            stage.setScene(new Scene(view, 650, 500));
+            Scene scene = new Scene(view, 650, 500);
+            scene.getStylesheets().add(Navigator.class.getResource("/style.css").toExternalForm());
+            stage.setScene(scene);
             stage.setResizable(false);
         }
     }
 
     public static void navigate(ViewType type, Team team) {
         navigate(type);
+    }
+
+    public static void playMusic(String resourcePath) {
+        if (mediaPlayer != null) return;
+        try {
+            String url = Navigator.class.getResource(resourcePath).toExternalForm();
+            Media media = new Media(url);
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.setVolume(0.4);
+            mediaPlayer.play();
+        } catch (Exception e) {
+            System.out.println("Music could not be loaded: " + e.getMessage());
+        }
+    }
+
+    public static void stopMusic() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer = null;
+        }
+    }
+
+    public static void toggleMusic() {
+        if (mediaPlayer == null) return;
+        if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.pause();
+        } else {
+            mediaPlayer.play();
+        }
+    }
+
+    public static boolean isMusicPlaying() {
+        return mediaPlayer != null &&
+               mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
     }
 }

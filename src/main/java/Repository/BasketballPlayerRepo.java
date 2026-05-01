@@ -46,6 +46,7 @@ public class BasketballPlayerRepo {
             ResultSet set=ps.executeQuery();
 
             while(set.next()){
+                int id=set.getInt("id");
                 String name=set.getString("name");
                 int age=set.getInt("age");
                 int injuryStatus=set.getInt("injuryStatus");
@@ -58,7 +59,9 @@ public class BasketballPlayerRepo {
                 int steal=set.getInt("steal");
                 int block=set.getInt("block");
 
-                players.add(new BasketballPlayer(name,age,injuryStatus,team_id,position,shooting,dribbling,passing,finishing,defense,steal,block));
+                BasketballPlayer bp=new BasketballPlayer(name,age,injuryStatus,team_id,position,shooting,dribbling,passing,finishing,defense,steal,block);
+                bp.setId(id);
+                players.add(bp);
             }
             return players;
         }catch(SQLException sqlException){
@@ -66,6 +69,32 @@ public class BasketballPlayerRepo {
         }
 
         return new ArrayList<>();
+    }
+
+    public void updatePlayer(BasketballPlayer player){
+        String query="UPDATE basketball_players SET "+
+                "shooting=?,"+
+                "dribbling=?,"+
+                "passing=?,"+
+                "defense=?,"+
+                "finishing=?,"+
+                "steal=?,"+
+                "block=? "+
+                "WHERE id=?";
+
+        try(PreparedStatement ps=connection.prepareStatement(query)){
+            ps.setInt(1,player.getShooting());
+            ps.setInt(2,player.getDribbling());
+            ps.setInt(3,player.getPassing());
+            ps.setInt(4,player.getDefense());
+            ps.setInt(5,player.getFinishing());
+            ps.setInt(6,player.getSteal());
+            ps.setInt(7,player.getBlock());
+            ps.setInt(8,player.getId());
+            ps.executeUpdate();
+        }catch(SQLException sqlException){
+            System.out.println(sqlException.getMessage());
+        }
     }
 
         public boolean hasPlayers(int teamId){
