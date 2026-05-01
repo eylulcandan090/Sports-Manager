@@ -23,7 +23,7 @@ public class LeagueTableUi {
     public Parent getView(GameService gameService,LeagueService leagueService,TeamRepo teamRepo){
         ListView<String> listView=new ListView<>();
 
-        int teamId= gameService.getGameTeamId();
+        int teamId=gameService.getGameTeamId();
         int leagueId=leagueService.getLeagueIdByTeamName(teamId);
 
         ArrayList<Team> teamArrayList=teamRepo.getAllTeamsByLeagueId(leagueId);
