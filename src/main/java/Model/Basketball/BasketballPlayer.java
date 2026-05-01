@@ -79,4 +79,8 @@ public class BasketballPlayer extends Player {
     public void setBlock(int block) {
         this.block = block;
     }
+
+    public int getOverall() {
+        return (shooting + dribbling + passing + finishing + defense + steal + block) / 7;
+    }
 }

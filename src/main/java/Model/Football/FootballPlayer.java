@@ -49,4 +49,8 @@ public class FootballPlayer extends Player {
     public void setDefance(int defance) {
         this.defance = defance;
     }
+
+    public int getOverall() {
+        return (shooting + passing + goalkeeping + defance) / 4;
+    }
 }

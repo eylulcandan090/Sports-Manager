@@ -1,8 +1,6 @@
 package Model.Football;
 
-import Model.Sport;
-import Model.Team;
-import Model.TrainingType;
+import Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +76,39 @@ public class Football implements Sport {
     @Override
     public String getSportType() {
         return "Football";
+    }
+
+    //@Override
+    public boolean isFinalState(GameState state){
+        if(state.getElapsedTime()<90){ //asla uzatma olmuyor?
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    //@Override
+    public void generateNextEvent(GameState state){ //it is supposed to return MatchEvent
+        int limit = (state.getHomeTeam().teamStrength()+state.getAwayTeam().teamStrength())/2;
+
+
+
+        for(int i=0 ; i<=90 ; i++){ //every loop is a minute
+            int sayi = (int)(Math.random() * 10) + 1;
+            if(sayi>=6){ //an event will occur if dice rolls higher than 5
+                //buradaki sayı takımın statlarına göre belirlenmeli!!!
+                //kaliteli takımlarda daha çok olay yaşanacak
+                int event = (int)(Math.random() * 100) + 1;
+
+                if(event <=35){
+                    //faul
+                    //KİM YAPTI?
+                }
+
+            }
+
+        }
     }
 
 }
