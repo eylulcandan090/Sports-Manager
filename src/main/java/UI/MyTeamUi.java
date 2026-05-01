@@ -31,6 +31,7 @@ public class MyTeamUi {
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(15));
+        root.setPrefHeight(Double.MAX_VALUE);
 
         int teamId = gameService.getGameTeamId();
         Sport sport = teamService.getSportByTeamId(teamId);
@@ -40,7 +41,7 @@ public class MyTeamUi {
             ArrayList<Player> players = footballPlayerRepo.getFootballPlayersByTeamId(teamId);
 
             TableView<FootballPlayer> table = new TableView<>();
-            table.setPrefHeight(350);
+            VBox.setVgrow(table, javafx.scene.layout.Priority.ALWAYS);
 
             TableColumn<FootballPlayer, String> nameCol = new TableColumn<>("Name");
             nameCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
@@ -91,7 +92,7 @@ public class MyTeamUi {
             ArrayList<BasketballPlayer> players = basketballPlayerRepo.getPlayersByTeam(teamId);
 
             TableView<BasketballPlayer> table = new TableView<>();
-            table.setPrefHeight(350);
+            VBox.setVgrow(table, javafx.scene.layout.Priority.ALWAYS);
 
             TableColumn<BasketballPlayer, String> nameCol = new TableColumn<>("Name");
             nameCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));

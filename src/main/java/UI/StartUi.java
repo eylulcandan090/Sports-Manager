@@ -66,7 +66,7 @@ public class StartUi {
         BorderPane root = new BorderPane();
         root.setTop(topRight);
         root.setCenter(center);
-        root.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #12002e, #1a0040, #0d001a);");
+        root.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #020c1b, #0a1628, #010810);");
 
         return root;
     }
