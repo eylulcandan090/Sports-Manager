@@ -25,8 +25,8 @@ public class FootballPlayerService {
     }
 
 
-    public void save(String name, int age, int injuryStatus, int team_id, int shooting, int passing, int goalkeeping,String position){
-        playerRepo.addFootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position);
+    public void save(String name, int age, int injuryStatus, int team_id, int shooting, int passing, int goalkeeping,String position,int defance){
+        playerRepo.addFootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance);
     }
 
 

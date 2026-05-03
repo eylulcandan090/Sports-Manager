@@ -116,6 +116,7 @@ public class Database {
                 "shooting INTEGER,"+
                 "passing INTEGER,"+
                 "goalkeeping INTEGER,"+
+                "defance INTEGER,"+
                 "team_id INTEGER,"+
                 "FOREIGN KEY(team_id) REFERENCES teams(id) )";
         try(Statement stmt=connection.createStatement()) {

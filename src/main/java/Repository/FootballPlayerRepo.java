@@ -17,9 +17,9 @@ public class FootballPlayerRepo {
     }
 
 
-    public void addFootballPlayer(String name, int age, int injuryStatus, int team_id, int shooting, int passing, int goalkeeping,String position){
-        String query="INSERT INTO football_players(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position) "+
-                "VALUES(?,?,?,?,?,?,?,?) ";
+    public void addFootballPlayer(String name, int age, int injuryStatus, int team_id, int shooting, int passing, int goalkeeping,String position,int defance){
+        String query="INSERT INTO football_players(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance) "+
+                "VALUES(?,?,?,?,?,?,?,?,?) ";
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setString(1,name);
@@ -30,6 +30,7 @@ public class FootballPlayerRepo {
             ps.setInt(6,passing);
             ps.setInt(7,goalkeeping);
             ps.setString(8,position);
+            ps.setInt(9,defance);
             ps.executeUpdate();
         }catch(SQLException sqlException){
             System.out.println(sqlException.getMessage());
@@ -55,7 +56,8 @@ public class FootballPlayerRepo {
                 int passing=rs.getInt("passing");
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
-                FootballPlayer fp=new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,0);
+                int defance=rs.getInt("defance");
+                FootballPlayer fp=new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance);
                 fp.setId(id);
                 players.add(fp);
             }
@@ -85,8 +87,8 @@ public class FootballPlayerRepo {
                 int passing=rs.getInt("passing");
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
-                //int defance=rs.getInt("defance");
-                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,80));
+                int defance=rs.getInt("defance");
+                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance));
             }
             return players;
 
@@ -114,8 +116,8 @@ public class FootballPlayerRepo {
                 int passing = rs.getInt("passing");
                 int goalkeeping = rs.getInt("goalkeeping");
                 String position = rs.getString("position");
-                //int defance = rs.getInt("defance");
-                return new FootballPlayer(name, age, injuryStatus, team_id, shooting, passing, goalkeeping, position,0);
+                int defance = rs.getInt("defance");
+                return new FootballPlayer(name, age, injuryStatus, team_id, shooting, passing, goalkeeping, position,defance);
 
             }
 
