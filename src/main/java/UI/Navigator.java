@@ -88,6 +88,11 @@ public class Navigator {
             case MYTEAM:
                 view = new MyTeamUi().getView(gameService, teamService, footballPlayerRepo, basketballPlayerRepo);
                 break;
+
+            case MYSQUAD:
+                view=new MatchSquad().getView(gameService,teamService);
+                break;
+
         }
 
         if (view != null) {

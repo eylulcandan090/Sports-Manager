@@ -83,7 +83,7 @@ public class MainMenuUi {
         trainingBtn.setOnAction(e -> Navigator.navigate(ViewType.TRAINING));
         fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
         tableBtn.setOnAction(e    -> Navigator.navigate(ViewType.LEAGUETABLE));
-        matchBtn.setOnAction(e    -> showContent(new Label("Coming soon...")));
+        matchBtn.setOnAction(e    -> Navigator.navigate(ViewType.MYSQUAD));
 
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);

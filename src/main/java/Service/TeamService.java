@@ -16,7 +16,7 @@ public class TeamService {
 
 
     public ArrayList<Player> getPlayersByTeamId(int teamId){
-        return null;
+        return teamRepo.getAllPlayersByTeamId(teamId);
     }
 
     public void saveTeam(String name,int leagueId,int sportId){
