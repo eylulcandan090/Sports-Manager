@@ -18,7 +18,7 @@ public class MatchSquad {
         int teamId=gameService.getGameTeamId();
         Sport sport=teamService.getSportByTeamId(teamId);
 
-        ArrayList<Player> players=teamService.getPlayersByTeamId(teamId);
+        ArrayList<Player> players=teamService.getHealtyPlayers(teamId);
 
         ListView<Player> listView=new ListView<>();
         System.out.println(players.size());

@@ -68,8 +68,8 @@ public class FootballPlayerRepo {
     }
 
 
-    public ArrayList<Player> getInjuredFootballPlayers(int team_id){
-        String query="SELECT*FROM football_players WHERE team_id=? AND injuryStatus<>0";
+    public ArrayList<Player> getHealtyFootballPlayers(int team_id){
+        String query="SELECT*FROM football_players WHERE team_id=? AND injuryStatus=0";
 
         ArrayList<Player> players=new ArrayList<>();
 
@@ -80,13 +80,13 @@ public class FootballPlayerRepo {
             while(rs.next()){
                 String name=rs.getString("name");
                 int age=rs.getInt("age");
-                int injuryStatus=rs.getInt("injury");
+                int injuryStatus=rs.getInt("injuryStatus");
                 int shooting=rs.getInt("shooting");
                 int passing=rs.getInt("passing");
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
-                int defance=rs.getInt("defance");
-                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance));
+                //int defance=rs.getInt("defance");
+                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,0));
             }
             return players;
 

@@ -53,4 +53,12 @@ public class FootballPlayer extends Player {
     public int getOverall() {
         return (shooting + passing + goalkeeping + defance) / 4;
     }
+
+
+    @Override
+    public String toString(){
+        return this.getName()+" "+this.getPosition()+" "+this.getOverall();
+    }
+
+
 }
