@@ -1,7 +1,6 @@
 package UI;
 
 import Database.Database;
-import Model.Sport;
 import Model.SportEntity;
 import Model.Team;
 import Repository.*;
@@ -90,7 +89,7 @@ public class Navigator {
                 break;
 
             case MYSQUAD:
-                view=new MatchSquad().getView(gameService,teamService);
+                view=new MatchSquadUi().getView(gameService,teamService);
                 break;
 
         }

@@ -86,7 +86,7 @@ public class FootballPlayerRepo {
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
                 //int defance=rs.getInt("defance");
-                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,0));
+                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,80));
             }
             return players;
 

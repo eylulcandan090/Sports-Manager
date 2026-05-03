@@ -51,7 +51,7 @@ public class FootballPlayer extends Player {
     }
 
     public int getOverall() {
-        return (shooting + passing + goalkeeping + defance) / 4;
+        return new CalculateAverageRating().calculateAverage(this);
     }
 
 
