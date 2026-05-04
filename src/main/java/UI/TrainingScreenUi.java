@@ -54,16 +54,22 @@ public class TrainingScreenUi {
                 return;
             }
 
+            StringBuilder sb=new StringBuilder();
             if(sport instanceof Football){
-                ArrayList<Player> players=footballPlayerRepo.getFootballPlayersByTeamId(teamId);
+                //ArrayList<Player> players=footballPlayerRepo.getFootballPlayersByTeamId(teamId);
+                ArrayList<Player> players=footballPlayerRepo.getHealtyFootballPlayers(teamId);
                 Coach tempCoach=new Coach("Trainer",selected,1,teamId);
                 for(Player p:players){
-                    if(p instanceof FootballPlayer){
-                        FootballPlayer fp=(FootballPlayer) p;
-                        tempCoach.train(fp);
-                        footballPlayerRepo.updatePlayer(fp);
-                    }
+                    FootballPlayer fp=(FootballPlayer) p;
+                   switch (selected){
+                       case SHOOT:   fp.setShooting(fp.getShooting()+1);   break;
+                       case PASS:    fp.setPassing(fp.getPassing()+1);     break;
+                       case DEFANCE: fp.setDefance(fp.getDefance()+1);     break;
+                   }
+                   footballPlayerRepo.updatePlayer(fp);
+                   sb.append(fp.getName()+"\n");
                 }
+
             } else if(sport instanceof Basketball){
                 ArrayList<BasketballPlayer> players=basketballPlayerRepo.getPlayersByTeam(teamId);
                 for(BasketballPlayer bp:players){
@@ -76,7 +82,7 @@ public class TrainingScreenUi {
                 }
             }
 
-            AlertUtility.showInfo("Training Completed", selected+" training applied to all players.");
+            AlertUtility.showInfo("Training Applied Successfully ✅","Trained Players:\n"+sb.toString());
         });
 
         VBox.setVgrow(trainings, javafx.scene.layout.Priority.ALWAYS);
