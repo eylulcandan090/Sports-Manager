@@ -94,7 +94,10 @@ public class Navigator {
 
             case MATCHPLAY:
                 view=new MatchPlayUi().getView(gameService);
-break;
+                break;
+            case SUBSTITUTION:
+                view = new SubstitutionUi().getView(gameService);
+                break;
         }
 
         if (view != null) {

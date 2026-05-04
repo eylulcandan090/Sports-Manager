@@ -13,6 +13,7 @@ public class GameService {
     private GameState currentGame;
     private ArrayList<Player> currentSquad;
     private int maxPeriod;
+    private ArrayList<Player> currentBench;
 
     public GameService(GameRepo repo){
         this.repo=repo;
@@ -29,11 +30,13 @@ public class GameService {
     public int getGameTeamId(){
         return repo.getGameTeamId();
     }
-    public void startMatch(ArrayList<Player> squad){
+    public void startMatch(ArrayList<Player> squad,ArrayList<Player> bench){
         this.currentSquad = squad;
+        this.currentBench=bench;
 
         Team homeTeam = new Team(getGameTeamId(), "Your Team", 0);
         Team awayTeam = new Team(999, "Opponent", 0);
+
         currentGame = new GameState(homeTeam, awayTeam);
         if(squad.size() > 5){
             maxPeriod = 2;
@@ -73,6 +76,9 @@ public class GameService {
     }
     public ArrayList<Player> getCurrentSquad(){
         return currentSquad;
+    }
+    public ArrayList<Player> getCurrentBench(){
+        return currentBench;
     }
 
 }

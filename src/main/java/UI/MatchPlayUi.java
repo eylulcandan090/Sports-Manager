@@ -13,40 +13,60 @@ import javafx.scene.layout.VBox;
             Label title = new Label("Match Started");
 
             Label scoreLabel = new Label();
-            updateScore(scoreLabel, gameService);
+            scoreLabel.setText(
+                    "Period: " + gameService.getCurrentPeriod()
+                            + " | Score: " + gameService.getHomeScore()
+                            + " - " + gameService.getAwayScore()
+            );
+
 
             Button continueBtn = new Button("Continue");
-
+            Button subBtn = new Button("Substitution");
+            subBtn.setOnAction(e -> {
+                Navigator.navigate(ViewType.SUBSTITUTION);
+            });
 
             continueBtn.setOnAction(e -> {
-                if(!gameService.isMatchFinished()){
-                gameService.playNextPeriod(gameService.getCurrentSquad());
-                updateScore(scoreLabel, gameService);
-            }
-            if(gameService.isMatchFinished()){
-                scoreLabel.setText(
-                        "FINAL SCORE: " +
-                                gameService.getHomeScore() +
-                                " - " +
-                                gameService.getAwayScore()
-                );
-                continueBtn.setDisable(true);
-            }
-        });
+                if (!gameService.isMatchFinished()) {
+                    gameService.playNextPeriod(gameService.getCurrentSquad());
+                    updateScore(title, scoreLabel, gameService);
+                }
+                if (gameService.isMatchFinished()) {
+                    title.setText("Match Finished");
+                    scoreLabel.setText(
+                            "FINAL SCORE: " +
+                                    gameService.getHomeScore() +
+                                    " - " +
+                                    gameService.getAwayScore()
+                    );
+                    continueBtn.setDisable(true);
+                }
+            });
 
-            VBox root = new VBox(20, title, scoreLabel, continueBtn);
+            VBox root = new VBox(20, title, scoreLabel, continueBtn,subBtn);
             root.setAlignment(Pos.CENTER);
             root.setPadding(new Insets(30));
 
             return root;
         }
 
-        private void updateScore(Label scoreLabel, GameService gameService) {
-            scoreLabel.setText(
-                    "Period: " + gameService.getCurrentPeriod()
-                            + " | Score: " + gameService.getHomeScore()
-                            + " - " + gameService.getAwayScore()
-            );
+        private void updateScore(Label title, Label scoreLabel, GameService gameService) {
+            if (gameService.isMatchFinished()) {
+                title.setText("Match Finished");
+                scoreLabel.setText(
+                        "Final Score: " +
+                                gameService.getHomeScore() +
+                                " - " +
+                                gameService.getAwayScore()
+                );
+            } else {
+                title.setText("");
+                scoreLabel.setText(
+                        "Period: " + gameService.getCurrentPeriod()
+                                + " | Score: " + gameService.getHomeScore()
+                                + " - " + gameService.getAwayScore()
+                );
+            }
         }
     }
 
