@@ -2,6 +2,7 @@ package UI;
 
 import Database.Database;
 import Repository.GameRepo;
+import Service.GameService;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -9,15 +10,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+
 public class MainMenuUi {
 
     private BorderPane root;
     private StackPane centerPane;
 
-    public Parent getView() {
+    public Parent getView(GameService gameService) {
         root = new BorderPane();
 
-        root.setTop(createTopBar());
+        root.setTop(createTopBar(gameService));
         root.setLeft(createMenu());
 
         centerPane = new StackPane();
@@ -30,7 +32,7 @@ public class MainMenuUi {
         return root;
     }
 
-    private HBox createTopBar() {
+    private HBox createTopBar(GameService gameService) {
         HBox topBar = new HBox();
         topBar.getStyleClass().add("topbar");
         topBar.setPadding(new Insets(12, 16, 12, 16));
@@ -44,7 +46,7 @@ public class MainMenuUi {
         Label teamLabel = new Label("⚽  " + teamName);
         teamLabel.getStyleClass().add("team-name-label");
 
-        Label weekLabel = new Label("Week 1");
+        Label weekLabel = new Label("Week " + gameService.getCurrentWeek());
         weekLabel.getStyleClass().add("topbar-label");
 
         Button musicBtn = new Button(Navigator.isMusicPlaying() ? "🔊" : "🔇");

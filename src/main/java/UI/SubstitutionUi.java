@@ -17,6 +17,9 @@ import javafx.scene.layout.VBox;
 
         public Parent getView(GameService gameService) {
             Label title = new Label("Substitution");
+            Label subsLabel = new Label(
+                    "Subs: " + gameService.getSubsCount() + " / " + gameService.getMaxSubs()
+            );
 
             ObservableList<Player> squadList = FXCollections.observableArrayList();
             squadList.addAll(gameService.getCurrentSquad());
@@ -31,6 +34,7 @@ import javafx.scene.layout.VBox;
             ListView<Player> benchView = new ListView<>(benchList);
 
                     Button subBtn = new Button("Substitute");
+                    subBtn.setDisable(!gameService.canSubs());
                     Button backBtn = new Button("Back to Match");
 
                     subBtn.setOnAction(e -> {
@@ -50,6 +54,12 @@ import javafx.scene.layout.VBox;
                             gameService.getCurrentBench().clear();
                             gameService.getCurrentBench().addAll(benchList);
                             gameService.increaseSubsCount();
+                            if (!gameService.canSubs()) {
+                                subBtn.setDisable(true);
+                            }
+                            subsLabel.setText(
+                                    "Subs: " + gameService.getSubsCount() + " / " + gameService.getMaxSubs()
+                                            );
                         }
                     });
 
@@ -66,7 +76,7 @@ import javafx.scene.layout.VBox;
                     HBox buttons = new HBox(15, subBtn, backBtn);
                     buttons.setAlignment(Pos.CENTER);
 
-                    VBox root = new VBox(20, title, lists, buttons);
+                    VBox root = new VBox(20, title,subsLabel, lists, buttons);
                     root.setAlignment(Pos.CENTER);
                     root.setPadding(new Insets(20));
 

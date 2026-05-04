@@ -41,11 +41,11 @@ public class Navigator {
         teamRepo = new TeamRepo(connection);
         teamService = new TeamService(teamRepo);
 
-        gameRepo = new GameRepo(connection);
-        gameService = new GameService(gameRepo);
-
         fixtureRepo = new FixtureRepo(database.getConnection());
         fixtureService = new FixtureService(fixtureRepo, teamRepo);
+
+        gameRepo = new GameRepo(connection);
+        gameService = new GameService(gameRepo,fixtureService,teamRepo);
 
         leagueRepo = new LeagueRepo(connection);
         leagueService = new LeagueService(leagueRepo);
@@ -70,7 +70,7 @@ public class Navigator {
             case TEAMSELECTION:
                 break;
             case MENU:
-                view = new MainMenuUi().getView();
+                view = new MainMenuUi().getView(gameService);
                 break;
             case MATCHSCREEN:
                 break;
@@ -126,7 +126,7 @@ public class Navigator {
                 view = new TeamSelectionUi().getView(sport, teamRepo, gameRepo);
                 break;
             case MENU:
-                view = new MainMenuUi().getView();
+                view = new MainMenuUi().getView(gameService);
                 break;
             case MATCHSCREEN:
                 break;

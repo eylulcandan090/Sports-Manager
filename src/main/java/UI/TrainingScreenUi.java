@@ -57,7 +57,7 @@ public class TrainingScreenUi {
             StringBuilder sb=new StringBuilder();
             if(sport instanceof Football){
                 //ArrayList<Player> players=footballPlayerRepo.getFootballPlayersByTeamId(teamId);
-                ArrayList<Player> players=footballPlayerRepo.getHealtyFootballPlayers(teamId);
+                ArrayList<Player> players=footballPlayerRepo.getHealthyFootballPlayers(teamId);
                 Coach tempCoach=new Coach("Trainer",selected,1,teamId);
                 for(Player p:players){
                     FootballPlayer fp=(FootballPlayer) p;

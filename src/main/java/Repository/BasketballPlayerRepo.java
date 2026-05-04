@@ -8,112 +8,112 @@ import java.util.ArrayList;
 public class BasketballPlayerRepo {
     private Connection connection;
 
-    public BasketballPlayerRepo(Connection connection){
-        this.connection=connection;
+    public BasketballPlayerRepo(Connection connection) {
+        this.connection = connection;
     }
 
-    public void addBasketPlayer(String name, int age, int injuryStatus, int team_id, String position, int shooting, int dribbling, int passing, int finishing, int defense, int steal, int block){
-        String query="INSERT INTO basketball_players(name,age,injuryStatus,team_id,position,shooting,dribbling,passing,finishing,defense,steal,block) "+
+    public void addBasketPlayer(String name, int age, int injuryStatus, int team_id, String position, int shooting, int dribbling, int passing, int finishing, int defense, int steal, int block) {
+        String query = "INSERT INTO basketball_players(name,age,injuryStatus,team_id,position,shooting,dribbling,passing,finishing,defense,steal,block) " +
                 "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setString(1,name);
-            ps.setInt(2,age);
-            ps.setInt(3,injuryStatus);
-            ps.setInt(4,team_id);
-            ps.setString(5,position);
-            ps.setInt(6,shooting);
-            ps.setInt(7,dribbling);
-            ps.setInt(8,passing);
-            ps.setInt(9,finishing);
-            ps.setInt(10,defense);
-            ps.setInt(11,steal);
-            ps.setInt(12,block);
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, name);
+            ps.setInt(2, age);
+            ps.setInt(3, injuryStatus);
+            ps.setInt(4, team_id);
+            ps.setString(5, position);
+            ps.setInt(6, shooting);
+            ps.setInt(7, dribbling);
+            ps.setInt(8, passing);
+            ps.setInt(9, finishing);
+            ps.setInt(10, defense);
+            ps.setInt(11, steal);
+            ps.setInt(12, block);
             ps.executeUpdate();
-        }catch(SQLException sqlException){
+        } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }
     }
 
 
-    public ArrayList<BasketballPlayer> getPlayersByTeam(int team_id){
-        ArrayList<BasketballPlayer> players=new ArrayList<>();
+    public ArrayList<BasketballPlayer> getPlayersByTeam(int team_id) {
+        ArrayList<BasketballPlayer> players = new ArrayList<>();
 
-        String query="SELECT*FROM basketball_players WHERE team_id=?";
+        String query = "SELECT*FROM basketball_players WHERE team_id=?";
 
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setInt(1,team_id);
-            ResultSet set=ps.executeQuery();
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, team_id);
+            ResultSet set = ps.executeQuery();
 
-            while(set.next()){
-                int id=set.getInt("id");
-                String name=set.getString("name");
-                int age=set.getInt("age");
-                int injuryStatus=set.getInt("injuryStatus");
-                String position=set.getString("position");
-                int shooting=set.getInt("shooting");
-                int dribbling=set.getInt("dribbling");
-                int passing=set.getInt("passing");
-                int finishing=set.getInt("finishing");
-                int defense=set.getInt("defense");
-                int steal=set.getInt("steal");
-                int block=set.getInt("block");
+            while (set.next()) {
+                int id = set.getInt("id");
+                String name = set.getString("name");
+                int age = set.getInt("age");
+                int injuryStatus = set.getInt("injuryStatus");
+                String position = set.getString("position");
+                int shooting = set.getInt("shooting");
+                int dribbling = set.getInt("dribbling");
+                int passing = set.getInt("passing");
+                int finishing = set.getInt("finishing");
+                int defense = set.getInt("defense");
+                int steal = set.getInt("steal");
+                int block = set.getInt("block");
 
-                BasketballPlayer bp=new BasketballPlayer(name,age,injuryStatus,team_id,position,shooting,dribbling,passing,finishing,defense,steal,block);
+                BasketballPlayer bp = new BasketballPlayer(name, age, injuryStatus, team_id, position, shooting, dribbling, passing, finishing, defense, steal, block);
                 bp.setId(id);
                 players.add(bp);
             }
             return players;
-        }catch(SQLException sqlException){
+        } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }
 
         return new ArrayList<>();
     }
 
-    public void updatePlayer(BasketballPlayer player){
-        String query="UPDATE basketball_players SET "+
-                "shooting=?,"+
-                "dribbling=?,"+
-                "passing=?,"+
-                "defense=?,"+
-                "finishing=?,"+
-                "steal=?,"+
-                "block=? "+
+    public void updatePlayer(BasketballPlayer player) {
+        String query = "UPDATE basketball_players SET " +
+                "shooting=?," +
+                "dribbling=?," +
+                "passing=?," +
+                "defense=?," +
+                "finishing=?," +
+                "steal=?," +
+                "block=? " +
                 "WHERE id=?";
 
-        try(PreparedStatement ps=connection.prepareStatement(query)){
-            ps.setInt(1,player.getShooting());
-            ps.setInt(2,player.getDribbling());
-            ps.setInt(3,player.getPassing());
-            ps.setInt(4,player.getDefense());
-            ps.setInt(5,player.getFinishing());
-            ps.setInt(6,player.getSteal());
-            ps.setInt(7,player.getBlock());
-            ps.setInt(8,player.getId());
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, player.getShooting());
+            ps.setInt(2, player.getDribbling());
+            ps.setInt(3, player.getPassing());
+            ps.setInt(4, player.getDefense());
+            ps.setInt(5, player.getFinishing());
+            ps.setInt(6, player.getSteal());
+            ps.setInt(7, player.getBlock());
+            ps.setInt(8, player.getId());
             ps.executeUpdate();
-        }catch(SQLException sqlException){
+        } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }
     }
 
-        public boolean hasPlayers(int teamId){
-            String query="SELECT 1 FROM basketball_players WHERE team_id=? LIMIT 1";
+    public boolean hasPlayers(int teamId) {
+        String query = "SELECT 1 FROM basketball_players WHERE team_id=? LIMIT 1";
 
-            try(PreparedStatement ps=connection.prepareStatement(query)){
-                ps.setInt(1,teamId);
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, teamId);
 
-                ResultSet rs=ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-                return rs.next();
-            }catch(SQLException e){
-                System.out.println(e.getMessage());
-            }
-            return false;
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
-
-
-
-
 }
+
+
+
+

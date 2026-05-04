@@ -10,9 +10,10 @@ import javafx.scene.layout.VBox;
     public class MatchPlayUi {
 
         public Parent getView(GameService gameService) {
-            Label title = new Label("Match Started");
+            Label title = new Label(gameService.getMatchTitle());
 
             Label scoreLabel = new Label();
+            Label weekLabel = new Label("Week " + gameService.getCurrentWeek());
             Label injuryLabel=new Label();
             scoreLabel.setText(
                     "Period: " + gameService.getCurrentPeriod()
@@ -20,10 +21,15 @@ import javafx.scene.layout.VBox;
                             + " - " + gameService.getAwayScore()
             );
 
-
             Button continueBtn = new Button("Continue");
             Button subBtn = new Button("Substitution");
             Button tacticBtn = new Button("Change Tactic");
+            Button backBtn = new Button("Back to Menu");
+            backBtn.setVisible(false);
+
+            backBtn.setOnAction(e -> {
+                Navigator.navigate(ViewType.MENU);
+            });
 
             tacticBtn.setOnAction(e -> {
                 Navigator.navigate(ViewType.TACTIC);
@@ -50,10 +56,12 @@ import javafx.scene.layout.VBox;
                     continueBtn.setDisable(true);
                     subBtn.setDisable(true);
                     tacticBtn.setDisable(true);
+                    backBtn.setVisible(true);
+                    gameService.finishMatch();
                 }
             });
 
-            VBox root = new VBox(20, title, scoreLabel, injuryLabel,continueBtn,subBtn,tacticBtn);
+            VBox root = new VBox(20, title, weekLabel,scoreLabel, injuryLabel,continueBtn,subBtn,tacticBtn,backBtn);
             root.setAlignment(Pos.CENTER);
             root.setPadding(new Insets(30));
 

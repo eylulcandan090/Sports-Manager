@@ -70,7 +70,7 @@ public class FootballPlayerRepo {
     }
 
 
-    public ArrayList<Player> getHealtyFootballPlayers(int team_id){
+    public ArrayList<Player> getHealthyFootballPlayers(int team_id){
         String query="SELECT*FROM football_players WHERE team_id=? AND injuryStatus=0";
 
         ArrayList<Player> players=new ArrayList<>();
@@ -164,6 +164,4 @@ public class FootballPlayerRepo {
         }
         return false;
     }
-
-
 }
