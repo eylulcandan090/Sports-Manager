@@ -77,7 +77,11 @@ public class MatchSquadUi {
         confirmBtn.disableProperty().bind(
                 Bindings.size(selectedList).isNotEqualTo(squadSize)
         );
-
+        confirmBtn.setOnAction(e -> {
+                    ArrayList<Player> matchSquad = new ArrayList<>(selectedList);
+                    gameService.startMatch(matchSquad);
+            Navigator.navigate(ViewType.MATCHPLAY);
+        });
 
         Label leftHeader =new Label("Available Players (" + players.size() + ")");
         Label rightHeader=new Label("Match Squad");

@@ -92,6 +92,9 @@ public class Navigator {
                 view=new MatchSquadUi().getView(gameService,teamService);
                 break;
 
+            case MATCHPLAY:
+                view=new MatchPlayUi().getView(gameService);
+break;
         }
 
         if (view != null) {

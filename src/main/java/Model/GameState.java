@@ -9,6 +9,8 @@ public class GameState {
     private int homeScore;
     private int awayScore;
     private int elapsedTime; // dakika veya quarter
+    private int currentPeriod = 0;
+
     private List<MatchEvent> events;
 
 
@@ -43,6 +45,19 @@ public void incrementTime(){
 
     public Team getHomeTeam() {
         return homeTeam;
+    }
+
+    public int getCurrentPeriod() {
+        return currentPeriod;
+    }
+
+    public void nextPeriod() {
+        currentPeriod++;
+    }
+
+    public void setScore(int home, int away){
+        this.homeScore = home;
+        this.awayScore = away;
     }
 
     public void applyEvent(MatchEvent event) {
