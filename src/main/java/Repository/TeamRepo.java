@@ -185,6 +185,20 @@ public class TeamRepo {
         return new ArrayList<>();
     }
 
+    public ArrayList<Player> getAllHealtyPlayers(int teamId){
+        Sport sport=getSportByTeamId(teamId);
+        FootballPlayerRepo repo=new FootballPlayerRepo(connection);
+
+        switch (sport.getSportType()){
+            case "Football":
+                return repo.getHealtyFootballPlayers(teamId);
+            case "Basketball":
+                break;
+        }
+        return new ArrayList<>();
+    }
+
+
 
     public ArrayList<Player> getAllHealthyPlayers(int teamId) {
         ArrayList<Player> allPlayers = getAllPlayersByTeamId(teamId);

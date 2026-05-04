@@ -1,5 +1,6 @@
 package Model.Basketball;
 
+import Model.Football.CalculateAverageRating;
 import Model.Player;
 
 public class BasketballPlayer extends Player {
@@ -81,7 +82,8 @@ public class BasketballPlayer extends Player {
     }
 
     public int getOverall() {
-        return (shooting + dribbling + passing + finishing + defense + steal + block) / 7;
+        CalculateAverageRating averageRating=new CalculateAverageRating();
+        return averageRating.calculateAverage(this);
     }
 
     @Override

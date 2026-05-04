@@ -28,9 +28,6 @@ public class FixtureGenerator {
            System.out.println(sqlException.getMessage());
        }
 
-
-        
-
         try {
 
             for (int round=0;round<n - 1;round++) {

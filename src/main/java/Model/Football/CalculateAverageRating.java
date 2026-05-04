@@ -1,5 +1,9 @@
 package Model.Football;
 
+import Model.Basketball.BasketballPlayer;
+import Model.Basketball.CenterRating;
+import Model.Basketball.ForwardRating;
+import Model.Basketball.GuardRating;
 import Model.Player;
 import Model.*;
 
@@ -20,5 +24,24 @@ public class CalculateAverageRating {
         }
         return -1;
     }
+
+
+    public int calculateAverage(BasketballPlayer player){
+        switch (player.getPosition()){
+            case "PG":
+            case "SG":
+                return new GuardRating().getAverageRating(player);
+
+            case "SF":
+            case "PF":
+                return new ForwardRating().getAverageRating(player);
+
+            case "C":
+                return new CenterRating().getAverageRating(player);
+        }
+        return -1;
+    }
+
+
 
 }
