@@ -83,4 +83,9 @@ public class BasketballPlayer extends Player {
     public int getOverall() {
         return (shooting + dribbling + passing + finishing + defense + steal + block) / 7;
     }
+
+    @Override
+    public String toString() {
+        return getName() + " " + getPosition() + " " + getOverall();
+    }
 }

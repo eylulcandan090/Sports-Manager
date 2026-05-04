@@ -28,8 +28,7 @@ public class MatchSquadUi {
         int teamId = gameService.getGameTeamId();
         Sport sport = teamService.getSportByTeamId(teamId);
 
-        //ArrayList<Player> players = teamService.getHealthyPlayers(teamId);
-        ArrayList<Player> players = teamService.getPlayersByTeamId(teamId);
+        ArrayList<Player> players = teamService.getHealthyPlayers(teamId);
 
 
         int squadSize=sport.getPlayersPerTeam();

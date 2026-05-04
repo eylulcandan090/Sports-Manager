@@ -172,13 +172,15 @@ public class TeamRepo {
 
     public ArrayList<Player> getAllPlayersByTeamId(int teamId){
         Sport sport=getSportByTeamId(teamId);
-        FootballPlayerRepo repo=new FootballPlayerRepo(connection);
 
         switch (sport.getSportType()){
             case "Football":
-                return repo.getFootballPlayersByTeamId(teamId);
+            FootballPlayerRepo footballRepo = new FootballPlayerRepo(connection);
+            return new ArrayList<>(footballRepo.getFootballPlayersByTeamId(teamId));
+
             case "Basketball":
-                break;
+                BasketballPlayerRepo basketballRepo = new BasketballPlayerRepo(connection);
+                return new ArrayList<>(basketballRepo.getPlayersByTeam(teamId));
         }
         return new ArrayList<>();
     }
