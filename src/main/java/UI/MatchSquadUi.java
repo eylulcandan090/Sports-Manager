@@ -79,7 +79,9 @@ public class MatchSquadUi {
         );
         confirmBtn.setOnAction(e -> {
                     ArrayList<Player> matchSquad = new ArrayList<>(selectedList);
-                    gameService.startMatch(matchSquad);
+                    ArrayList<Player> bench = new ArrayList<>(availableList);
+                    gameService.startMatch(matchSquad, bench);
+                    gameService.startMatch(matchSquad,bench);
             Navigator.navigate(ViewType.MATCHPLAY);
         });
 
