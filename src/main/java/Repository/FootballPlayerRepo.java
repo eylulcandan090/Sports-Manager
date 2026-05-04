@@ -134,15 +134,16 @@ public class FootballPlayerRepo {
                 "shooting=?,"+
                 "passing=?,"+
                 "goalkeeping=?,"+
-                "injuryStatus=? "+
+                "injuryStatus=?,"+
+                "defance=?,"+
                 "WHERE id=?";
-
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setInt(1,footballPlayer.getShooting());
             ps.setInt(2,footballPlayer.getPassing());
             ps.setInt(3,footballPlayer.getGoalkeeping());
             ps.setInt(4,footballPlayer.getInjuryStatus());
-            ps.setInt(5,footballPlayer.getId());
+            ps.setInt(5,footballPlayer.getDefance());
+            ps.setInt(6,footballPlayer.getId());
             ps.executeUpdate();
         }catch(SQLException sqlException){
             System.out.println(sqlException.getMessage());
