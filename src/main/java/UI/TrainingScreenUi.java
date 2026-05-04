@@ -77,6 +77,9 @@ public class TrainingScreenUi {
                         case SHOOT:   bp.setShooting(bp.getShooting()+1);   break;
                         case PASS:    bp.setPassing(bp.getPassing()+1);     break;
                         case DEFANCE: bp.setDefense(bp.getDefense()+1);     break;
+                        case BLOCKING: bp.setBlock(bp.getBlock()+1); break;
+                        case DRIBBLING: bp.setDribbling(bp.getDribbling()+1); break;
+                        case STEALING: bp.setSteal(bp.getSteal()+1); break;
                     }
                     basketballPlayerRepo.updatePlayer(bp);
                 }
