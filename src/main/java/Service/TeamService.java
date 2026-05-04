@@ -42,8 +42,8 @@ public class TeamService {
         return teamRepo.getSportByTeamId(id);
     }
 
-    public ArrayList<Player> getHealtyPlayers(int teamId){
-        return teamRepo.getAllHealtyPlayers(teamId);
+    public ArrayList<Player> getHealthyPlayers(int teamId){
+        return teamRepo.getAllHealthyPlayers(teamId);
     }
 
 

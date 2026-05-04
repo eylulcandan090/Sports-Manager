@@ -184,6 +184,17 @@ public class TeamRepo {
     }
 
 
+    public ArrayList<Player> getAllHealthyPlayers(int teamId) {
+        ArrayList<Player> allPlayers = getAllPlayersByTeamId(teamId);
+        ArrayList<Player> healthyPlayers = new ArrayList<>();
 
+        for (Player player : allPlayers) {
+            if (player.getInjuryStatus() == 0) {
+                healthyPlayers.add(player);
+            }
+        }
 
-}
+        return healthyPlayers;
+    }
+    }
+
