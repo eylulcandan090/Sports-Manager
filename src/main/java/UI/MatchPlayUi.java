@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
             Label title = new Label("Match Started");
 
             Label scoreLabel = new Label();
+            Label injuryLabel=new Label();
             scoreLabel.setText(
                     "Period: " + gameService.getCurrentPeriod()
                             + " | Score: " + gameService.getHomeScore()
@@ -22,6 +23,12 @@ import javafx.scene.layout.VBox;
 
             Button continueBtn = new Button("Continue");
             Button subBtn = new Button("Substitution");
+            Button tacticBtn = new Button("Change Tactic");
+
+            tacticBtn.setOnAction(e -> {
+                Navigator.navigate(ViewType.TACTIC);
+            });
+
             subBtn.setOnAction(e -> {
                 Navigator.navigate(ViewType.SUBSTITUTION);
             });
@@ -30,6 +37,7 @@ import javafx.scene.layout.VBox;
                 if (!gameService.isMatchFinished()) {
                     gameService.playNextPeriod(gameService.getCurrentSquad());
                     updateScore(title, scoreLabel, gameService);
+                    injuryLabel.setText(gameService.getInjuryMessage());
                 }
                 if (gameService.isMatchFinished()) {
                     title.setText("Match Finished");
@@ -40,10 +48,12 @@ import javafx.scene.layout.VBox;
                                     gameService.getAwayScore()
                     );
                     continueBtn.setDisable(true);
+                    subBtn.setDisable(true);
+                    tacticBtn.setDisable(true);
                 }
             });
 
-            VBox root = new VBox(20, title, scoreLabel, continueBtn,subBtn);
+            VBox root = new VBox(20, title, scoreLabel, injuryLabel,continueBtn,subBtn,tacticBtn);
             root.setAlignment(Pos.CENTER);
             root.setPadding(new Insets(30));
 

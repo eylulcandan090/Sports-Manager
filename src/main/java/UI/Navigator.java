@@ -98,6 +98,9 @@ public class Navigator {
             case SUBSTITUTION:
                 view = new SubstitutionUi().getView(gameService);
                 break;
+            case TACTIC:
+                view = new TacticUi().getView(gameService);
+                break;
         }
 
         if (view != null) {

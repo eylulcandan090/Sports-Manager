@@ -25,6 +25,9 @@ import javafx.scene.layout.VBox;
             benchList.addAll(gameService.getCurrentBench());
 
             ListView<Player> squadView = new ListView<>(squadList);
+            if (gameService.getInjuredPlayer() != null) {
+                squadView.getSelectionModel().select(gameService.getInjuredPlayer());
+            }
             ListView<Player> benchView = new ListView<>(benchList);
 
                     Button subBtn = new Button("Substitute");
@@ -34,7 +37,7 @@ import javafx.scene.layout.VBox;
                         Player outPlayer = squadView.getSelectionModel().getSelectedItem();
                         Player inPlayer = benchView.getSelectionModel().getSelectedItem();
 
-                        if (outPlayer != null && inPlayer != null) {
+                        if (outPlayer != null && inPlayer != null && gameService.canSubs()) {
                             squadList.remove(outPlayer);
                             benchList.remove(inPlayer);
 
@@ -46,6 +49,7 @@ import javafx.scene.layout.VBox;
 
                             gameService.getCurrentBench().clear();
                             gameService.getCurrentBench().addAll(benchList);
+                            gameService.increaseSubsCount();
                         }
                     });
 
