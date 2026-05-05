@@ -190,6 +190,13 @@ public class GameService {
         int homeScore = currentGame.getHomeScore();
         int awayScore = currentGame.getAwayScore();
 
+        // Basketball cannot end in a draw — break the tie with overtime
+        if (maxPeriod == 4 && homeScore == awayScore) {
+            if (Math.random() < 0.5) homeScore += (int)(Math.random() * 2) + 1;
+            else                     awayScore += (int)(Math.random() * 2) + 1;
+            currentGame.setScore(homeScore, awayScore); // update display
+        }
+
         repo.saveMatch(
                 currentFixture.getHomeId(),
                 currentFixture.getAwayId(),
@@ -209,7 +216,10 @@ public class GameService {
             if (sameWeek && notPlayed && !isUserMatch) {
                 int hScore = (int) (Math.random() * 4);
                 int aScore = (int) (Math.random() * 4);
-
+                // No draws in basketball
+                if (maxPeriod == 4 && hScore == aScore) {
+                    if (Math.random() < 0.5) hScore++; else aScore++;
+                }
                 repo.saveMatch(fixture.getHomeId(), fixture.getAwayId(), hScore, aScore);
                 applyPoints(fixture.getHomeId(), fixture.getAwayId(), hScore, aScore);
                 fixtureService.markAsPlayed(fixture);
@@ -231,6 +241,18 @@ public class GameService {
             teamRepo.addPoints(homeId, 1);
             teamRepo.addPoints(awayId, 1);
         }
+    }
+
+    public String getHomeTeamName() {
+        return currentGame != null ? currentGame.getHomeTeam().getName() : "Home";
+    }
+
+    public String getAwayTeamName() {
+        return currentGame != null ? currentGame.getAwayTeam().getName() : "Away";
+    }
+
+    public int getMaxPeriod() {
+        return maxPeriod;
     }
 
     public String getMatchResult() {

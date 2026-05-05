@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 public class FixtureUi {
     public Parent getView(FixtureService fixtureService){
         VBox root=new VBox();
+        root.setStyle(Styles.rootBg());
         ListView<String> listView=new ListView<>();
 
         Button back=new Button("<-Back");

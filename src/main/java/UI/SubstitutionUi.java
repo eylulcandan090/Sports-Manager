@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
             Label subsLabel = new Label(
                     "Subs: " + gameService.getSubsCount() + " / " + gameService.getMaxSubs()
             );
+            title.setStyle("-fx-text-fill: #f48fb1; -fx-font-size: 20px; -fx-font-weight: bold;");
+            subsLabel.setStyle(Styles.TOPBAR_LABEL);
 
             ObservableList<Player> squadList = FXCollections.observableArrayList();
             squadList.addAll(gameService.getCurrentSquad());
@@ -69,8 +71,12 @@ import javafx.scene.layout.VBox;
                         Navigator.navigate(ViewType.MATCHPLAY);
                     });
 
-                    VBox leftBox = new VBox(10, new Label("On Field"), squadView);
-                    VBox rightBox = new VBox(10, new Label("Bench"), benchView);
+                    Label onFieldLbl = new Label("On Field");
+                    Label benchLbl   = new Label("Bench");
+                    onFieldLbl.setStyle(Styles.SUBTITLE_LABEL);
+                    benchLbl.setStyle(Styles.SUBTITLE_LABEL);
+                    VBox leftBox = new VBox(10, onFieldLbl, squadView);
+                    VBox rightBox = new VBox(10, benchLbl, benchView);
 
                     HBox lists = new HBox(20, leftBox, rightBox);
                     lists.setAlignment(Pos.CENTER);
@@ -78,9 +84,10 @@ import javafx.scene.layout.VBox;
                     HBox buttons = new HBox(15, subBtn, backBtn);
                     buttons.setAlignment(Pos.CENTER);
 
-                    VBox root = new VBox(20, title,subsLabel, lists, buttons);
+                    VBox root = new VBox(20, title, subsLabel, lists, buttons);
                     root.setAlignment(Pos.CENTER);
                     root.setPadding(new Insets(20));
+                    root.setStyle(Styles.rootBg());
 
                     return root;
                 }

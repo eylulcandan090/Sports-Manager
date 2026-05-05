@@ -28,6 +28,7 @@ public class TrainingScreenUi {
                           FootballPlayerRepo footballPlayerRepo, BasketballPlayerRepo basketballPlayerRepo){
 
         VBox root=new VBox();
+        root.setStyle(Styles.rootBg());
         ListView<TrainingType> trainings=new ListView<>();
 
         int teamId=gameService.getGameTeamId();

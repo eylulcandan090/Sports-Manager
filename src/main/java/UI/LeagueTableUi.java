@@ -78,6 +78,7 @@ public class LeagueTableUi {
 
 
         VBox root=new VBox();
+        root.setStyle(Styles.rootBg());
         root.getChildren().add(listView);
         root.getChildren().add(back);
         root.setAlignment(Pos.BOTTOM_LEFT);

@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
         public Parent getView(GameService gameService) {
             Label title = new Label("Choose Tactic");
             Label current = new Label("Current: " + gameService.getTactic());
+            title.setStyle("-fx-text-fill: #f48fb1; -fx-font-size: 20px; -fx-font-weight: bold;");
+            current.setStyle(Styles.TOPBAR_LABEL);
 
             Button defensiveBtn = new Button("Defensive");
             Button attackingBtn = new Button("Attacking");
@@ -34,9 +36,10 @@ import javafx.scene.layout.VBox;
                 Navigator.navigate(ViewType.MATCHPLAY);
             });
 
-            VBox root = new VBox(15, title, current, defensiveBtn,attackingBtn, backBtn);
+            VBox root = new VBox(15, title, current, defensiveBtn, attackingBtn, backBtn);
             root.setAlignment(Pos.CENTER);
             root.setPadding(new Insets(30));
+            root.setStyle(Styles.rootBg());
 
             return root;
         }

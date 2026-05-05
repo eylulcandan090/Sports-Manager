@@ -30,6 +30,7 @@ public class MyTeamUi {
                           BasketballPlayerRepo basketballPlayerRepo) {
 
         VBox root = new VBox(10);
+        root.setStyle(Styles.rootBg());
         root.setPadding(new Insets(15));
         root.setPrefHeight(Double.MAX_VALUE);
 

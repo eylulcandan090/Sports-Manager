@@ -16,9 +16,11 @@ import javafx.scene.layout.VBox;
 public class TeamSelectionUi {
     public Parent getView(SportEntity sport,TeamRepo repo,GameRepo gameRepo){
         VBox root=new VBox();
+        root.setStyle(Styles.rootBg());
+        root.setPadding(new javafx.geometry.Insets(20));
+        root.setSpacing(12);
         Label title = new Label("Select your team");
-
-        title.setStyle("-fx-font-size: 18px;");
+        title.setStyle("-fx-text-fill: #f48fb1; -fx-font-size: 22px; -fx-font-weight: bold;");
         title.setAlignment(Pos.CENTER);
 
         ListView<Team> teamListView=new ListView<>();

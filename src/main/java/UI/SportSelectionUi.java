@@ -19,6 +19,7 @@ public class SportSelectionUi {
 
     public Parent getView(TeamRepo teamRepo, Database database) {
         VBox root = new VBox(30);
+        root.setStyle(Styles.rootBg());
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(50));
 
