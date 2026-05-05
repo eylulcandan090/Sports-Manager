@@ -14,7 +14,9 @@ import javafx.scene.layout.VBox;
 
             Label scoreLabel = new Label();
             Label weekLabel = new Label("Week " + gameService.getCurrentWeek());
-            Label injuryLabel=new Label();
+            Label injuryLabel = new Label();
+            Label resultLabel = new Label();
+            resultLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
             scoreLabel.setText(
                     "Period: " + gameService.getCurrentPeriod()
                             + " | Score: " + gameService.getHomeScore()
@@ -53,15 +55,24 @@ import javafx.scene.layout.VBox;
                                     " - " +
                                     gameService.getAwayScore()
                     );
+                    gameService.finishMatch();
+                    String result = gameService.getMatchResult();
+                    resultLabel.setText(result);
+                    if (result.contains("Won")) {
+                        resultLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2ecc71;");
+                    } else if (result.contains("Lost")) {
+                        resultLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e74c3c;");
+                    } else {
+                        resultLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #f39c12;");
+                    }
                     continueBtn.setDisable(true);
                     subBtn.setDisable(true);
                     tacticBtn.setDisable(true);
                     backBtn.setVisible(true);
-                    gameService.finishMatch();
                 }
             });
 
-            VBox root = new VBox(20, title, weekLabel,scoreLabel, injuryLabel,continueBtn,subBtn,tacticBtn,backBtn);
+            VBox root = new VBox(20, title, weekLabel, scoreLabel, injuryLabel, resultLabel, continueBtn, subBtn, tacticBtn, backBtn);
             root.setAlignment(Pos.CENTER);
             root.setPadding(new Insets(30));
 

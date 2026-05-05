@@ -184,62 +184,63 @@ public class GameService {
     }
 
     public void finishMatch() {
-        if (currentFixture != null) {
-            fixtureService.markAsPlayed(currentFixture);
+        if (currentFixture == null || currentGame == null) return;
 
-            int homeScore = currentGame.getHomeScore();
-            int awayScore = currentGame.getAwayScore();
+        // 1. Save and update points for user's match
+        int homeScore = currentGame.getHomeScore();
+        int awayScore = currentGame.getAwayScore();
 
-            repo.saveMatch(
-                    currentFixture.getHomeId(),
-                    currentFixture.getAwayId(),
-                    currentGame.getHomeScore(),
-                    currentGame.getAwayScore()
-            );
+        repo.saveMatch(
+                currentFixture.getHomeId(),
+                currentFixture.getAwayId(),
+                homeScore,
+                awayScore
+        );
+        applyPoints(currentFixture.getHomeId(), currentFixture.getAwayId(), homeScore, awayScore);
+        fixtureService.markAsPlayed(currentFixture);
 
-            if (homeScore > awayScore) {
-                teamRepo.addPoints(currentFixture.getHomeId(), 3);
-            } else if (awayScore > homeScore) {
-                teamRepo.addPoints(currentFixture.getAwayId(), 3);
-            } else {
-                teamRepo.addPoints(currentFixture.getHomeId(), 1);
-                teamRepo.addPoints(currentFixture.getAwayId(), 1);
+        // 2. Simulate other matches this week, save results and update their points
+        for (Fixture fixture : fixtureService.getFixtures()) {
+            boolean sameWeek    = fixture.getWeek() == currentFixture.getWeek();
+            boolean notPlayed   = !fixture.getIsPlayed();
+            boolean isUserMatch = fixture.getHomeId() == getGameTeamId() ||
+                                  fixture.getAwayId() == getGameTeamId();
+
+            if (sameWeek && notPlayed && !isUserMatch) {
+                int hScore = (int) (Math.random() * 4);
+                int aScore = (int) (Math.random() * 4);
+
+                repo.saveMatch(fixture.getHomeId(), fixture.getAwayId(), hScore, aScore);
+                applyPoints(fixture.getHomeId(), fixture.getAwayId(), hScore, aScore);
+                fixtureService.markAsPlayed(fixture);
             }
-
-            for (Fixture fixture : fixtureService.getFixtures()) {
-                boolean sameWeek = fixture.getWeek() == currentFixture.getWeek();
-                boolean notPlayed = !fixture.getIsPlayed();
-
-                boolean userTeamMatch =
-                        fixture.getHomeId() == getGameTeamId() ||
-                                fixture.getAwayId() == getGameTeamId();
-
-                if (sameWeek && notPlayed && !userTeamMatch) {
-
-                    homeScore = (int) (Math.random() * 4);
-                    awayScore = (int) (Math.random() * 4);
-
-                    repo.saveMatch(
-                            fixture.getHomeId(),
-                            fixture.getAwayId(),
-                            homeScore,
-                            awayScore
-                    );
-
-                    if (homeScore > awayScore) {
-                        teamRepo.addPoints(fixture.getHomeId(), 3);
-                    } else if (awayScore > homeScore) {
-                        teamRepo.addPoints(fixture.getAwayId(), 3);
-                    } else {
-                        teamRepo.addPoints(fixture.getHomeId(), 1);
-                        teamRepo.addPoints(fixture.getAwayId(), 1);
-                    }
-
-                    fixtureService.markAsPlayed(fixture);
-                }
-            }
-
         }
+
+        // Reset match state
+        injuryCount = 0;
+        subsCount   = 0;
+        tactic      = "Balanced";
+    }
+
+    private void applyPoints(int homeId, int awayId, int homeScore, int awayScore) {
+        if (homeScore > awayScore) {
+            teamRepo.addPoints(homeId, 3);
+        } else if (awayScore > homeScore) {
+            teamRepo.addPoints(awayId, 3);
+        } else {
+            teamRepo.addPoints(homeId, 1);
+            teamRepo.addPoints(awayId, 1);
+        }
+    }
+
+    public String getMatchResult() {
+        if (currentFixture == null || currentGame == null) return "";
+        boolean isHome = currentFixture.getHomeId() == getGameTeamId();
+        int myScore  = isHome ? currentGame.getHomeScore() : currentGame.getAwayScore();
+        int oppScore = isHome ? currentGame.getAwayScore() : currentGame.getHomeScore();
+        if (myScore > oppScore) return "You Won! 🏆";
+        if (myScore < oppScore) return "You Lost";
+        return "Draw";
     }
 }
 
