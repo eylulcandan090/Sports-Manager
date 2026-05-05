@@ -78,39 +78,27 @@ public class Football implements Sport {
         return "Football";
     }
 
-    public boolean isFinalState(GameState state){
-        if(state.getElapsedTime()<90){ //asla uzatma olmuyor?
-            return false;
-        }
-        else{
-            return true;
-        }
+    @Override
+    public boolean isFinalState(GameState state) {
+        return state.getElapsedTime() >= 90;
     }
 
+    @Override
+    public MatchEvent generateNextEvent(GameState state) {
+        double homeStr = state.getHomeTeam().teamStrength();
+        double awayStr = state.getAwayTeam().teamStrength();
+        double totalStr = homeStr + awayStr;
 
-    public MatchEvent generateNextEvent(GameState state) { //it is supposed to return MatchEvent
-        int limit = (state.getHomeTeam().teamStrength() + state.getAwayTeam().teamStrength()) / 2;
+        int roll = (int)(Math.random() * 10) + 1;
+        if (roll < 6) return null;
 
+        Team team = Math.random() * totalStr < homeStr ? state.getHomeTeam() : state.getAwayTeam();
+        int event = (int)(Math.random() * 100) + 1;
 
-        for (int i = 0; i <= 90; i++) { //every loop is a minute
-            int sayi = (int) (Math.random() * 10) + 1;
-            if (sayi >= 6) { //an event will occur if dice rolls higher than 5
-                //buradaki sayı takımın statlarına göre belirlenmeli!!!
-                //kaliteli takımlarda daha çok olay yaşanacak
-                int event = (int) (Math.random() * 100) + 1;
-
-                if (event <= 35) {
-                    //faul
-                    //KİM YAPTI?
-                    return new MatchEvent(
-                            "FOUL",
-                            null,
-                            state.getHomeTeam(),
-                            state.getElapsedTime());
-                }
-
-            }
-
+        if (event <= 35) {
+            return new MatchEvent("FOUL", null, team, state.getElapsedTime());
+        } else if (event <= 65) {
+            return new MatchEvent("GOAL", null, team, state.getElapsedTime());
         }
 
         return null;

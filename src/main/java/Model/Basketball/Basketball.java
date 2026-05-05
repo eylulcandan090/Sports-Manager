@@ -69,12 +69,11 @@ public class Basketball implements Sport {
         }
     }
 
-    //@Override
+    @Override
     public boolean isFinalState(GameState state) {
-        if (state.getAwayScore() == state.getHomeScore()) {
-            return false; //+5 dk verilmeli ???
-        }
-        return true;
+        if (state.getElapsedTime() < 40) return false;
+        // no draws in basketball — keep playing until scores differ (overtime)
+        return state.getHomeScore() != state.getAwayScore();
     }
 
     @Override
@@ -82,23 +81,18 @@ public class Basketball implements Sport {
         int chance = (int)(Math.random() * 100);
 
         if (chance < 70) {
-            return new MatchEvent(
-                    "BASKET",
-                    null,
-                    state.getHomeTeam(),
-                    state.getElapsedTime()
-            );
+            double homeStr = state.getHomeTeam().teamStrength();
+            double awayStr = state.getAwayTeam().teamStrength();
+            Team scorer = Math.random() * (homeStr + awayStr) < homeStr
+                    ? state.getHomeTeam() : state.getAwayTeam();
+            return new MatchEvent("BASKET", null, scorer, state.getElapsedTime());
         }
 
         if (chance < 90) {
-            return new MatchEvent(
-                    "FOUL",
-                    null,
-                    state.getAwayTeam(),
-                    state.getElapsedTime()
-            );
+            Team fouler = Math.random() < 0.5 ? state.getHomeTeam() : state.getAwayTeam();
+            return new MatchEvent("FOUL", null, fouler, state.getElapsedTime());
         }
 
         return null;
     }
-    }
+}
