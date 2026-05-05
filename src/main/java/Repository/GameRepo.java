@@ -48,10 +48,24 @@ public class GameRepo {
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setInt(1,team_id);
             ps.executeUpdate();
-        }catch (SQLException sqlException){
+        } catch (SQLException sqlException){
             System.out.println(sqlException.getMessage());
         }
     }
+
+    public void resetSeason() {
+        try {
+            connection.createStatement().executeUpdate("DELETE FROM matches");
+            connection.createStatement().executeUpdate("UPDATE fixtures SET isPlayed = 0");
+            connection.createStatement().executeUpdate("UPDATE teams SET points = 0");
+            connection.createStatement().executeUpdate(
+                    "UPDATE game_status SET isStarted = 0, selected_teamId = NULL WHERE id = 1"
+            );
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public int getGameTeamId(){
         String query="SELECT selected_teamId FROM game_status WHERE id=1";
@@ -63,7 +77,7 @@ public class GameRepo {
                 return rs.getInt("selected_teamId");
             }
 
-        }catch(SQLException sqlException){
+        } catch(SQLException sqlException){
             System.out.println(sqlException.getMessage());
         }
         return -1;
@@ -85,6 +99,18 @@ public class GameRepo {
         }
         return "";
     }
+    public void saveMatch(int homeId, int awayId, int homeScore, int awayScore){
+        String query = "INSERT INTO matches(home_team_id, away_team_id, home_score, away_score, match_date) VALUES(?,?,?,?,date('now'))";
 
+        try(PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1, homeId);
+            ps.setInt(2, awayId);
+            ps.setInt(3, homeScore);
+            ps.setInt(4, awayScore);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
 

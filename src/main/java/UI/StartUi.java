@@ -51,7 +51,10 @@ public class StartUi {
 
         Button newGame = new Button("⚽  New Game");
         newGame.setPrefWidth(200);
-        newGame.setOnAction(e -> Navigator.navigate(ViewType.SPORTSELECTION));
+        newGame.setOnAction(e -> {
+            gameService.resetGame();
+            Navigator.navigate(ViewType.SPORTSELECTION);
+        });
 
         center.getChildren().addAll(imageView, header, sub, newGame);
 

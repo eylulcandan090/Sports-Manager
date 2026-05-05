@@ -33,7 +33,7 @@ public class FixtureService {
                 return fixture.getWeek();
             }
         }
-        return 12;
+        return -1;
     }
     public  ArrayList<String>  printFixture(){
         List<Fixture> teams=repo.getAllFixture();

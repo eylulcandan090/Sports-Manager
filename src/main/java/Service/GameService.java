@@ -5,6 +5,8 @@ import Model.Player;
 import Model.Team;
 import Repository.GameRepo;
 import Repository.TeamRepo;
+import UI.AlertUtility;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,8 @@ public class GameService {
 
     }
 
-    public static void resetGame() {
-        String delete = "DELETE FROM matches";
+    public void resetGame() {
+        repo.resetSeason();
     }
 
     public boolean hasGame() {
@@ -57,7 +59,7 @@ public class GameService {
             }
         }
         if (currentFixture == null) {
-            System.out.println("No fixture found");
+            AlertUtility.showWarning("Season Finished", "No more fixtures left!");
             return;
         }
         this.currentSquad = squad;
@@ -185,13 +187,62 @@ public class GameService {
         if (currentFixture != null) {
             fixtureService.markAsPlayed(currentFixture);
 
+            int homeScore = currentGame.getHomeScore();
+            int awayScore = currentGame.getAwayScore();
+
+            repo.saveMatch(
+                    currentFixture.getHomeId(),
+                    currentFixture.getAwayId(),
+                    currentGame.getHomeScore(),
+                    currentGame.getAwayScore()
+            );
+
+            if (homeScore > awayScore) {
+                teamRepo.addPoints(currentFixture.getHomeId(), 3);
+            } else if (awayScore > homeScore) {
+                teamRepo.addPoints(currentFixture.getAwayId(), 3);
+            } else {
+                teamRepo.addPoints(currentFixture.getHomeId(), 1);
+                teamRepo.addPoints(currentFixture.getAwayId(), 1);
+            }
+
             for (Fixture fixture : fixtureService.getFixtures()) {
-                if (fixture.getWeek() == currentFixture.getWeek() && !fixture.getIsPlayed()) {
+                boolean sameWeek = fixture.getWeek() == currentFixture.getWeek();
+                boolean notPlayed = !fixture.getIsPlayed();
+
+                boolean userTeamMatch =
+                        fixture.getHomeId() == getGameTeamId() ||
+                                fixture.getAwayId() == getGameTeamId();
+
+                if (sameWeek && notPlayed && !userTeamMatch) {
+
+                    homeScore = (int) (Math.random() * 4);
+                    awayScore = (int) (Math.random() * 4);
+
+                    repo.saveMatch(
+                            fixture.getHomeId(),
+                            fixture.getAwayId(),
+                            homeScore,
+                            awayScore
+                    );
+
+                    if (homeScore > awayScore) {
+                        teamRepo.addPoints(fixture.getHomeId(), 3);
+                    } else if (awayScore > homeScore) {
+                        teamRepo.addPoints(fixture.getAwayId(), 3);
+                    } else {
+                        teamRepo.addPoints(fixture.getHomeId(), 1);
+                        teamRepo.addPoints(fixture.getAwayId(), 1);
+                    }
+
                     fixtureService.markAsPlayed(fixture);
                 }
             }
+
         }
     }
 }
+
+
 
 

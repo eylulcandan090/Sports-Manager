@@ -60,7 +60,7 @@ public class TeamRepo {
 
 
     public ArrayList<Team> getAllTeamsByLeagueId(int leagueId){
-        String query="SELECT*FROM teams WHERE league_id=?";
+        String query="SELECT*FROM teams WHERE league_id=? ";
         ArrayList<Team> list=new ArrayList<>();
 
         try(PreparedStatement ps=connection.prepareStatement(query)){
@@ -196,6 +196,17 @@ public class TeamRepo {
         }
 
         return healthyPlayers;
+    }
+    public void addPoints(int teamId, int points){
+        String query = "UPDATE teams SET points = points + ? WHERE id = ?";
+
+        try(PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1, points);
+            ps.setInt(2, teamId);
+            ps.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
     }
 
