@@ -88,8 +88,14 @@ public class GameService {
         } else if (tactic.equals("Defensive")) {
             factor = 0.7;
         }
-        int homeAdd = (int) (Math.random() * 3 * factor);
-        int awayAdd = (int) (Math.random() * 3);
+        int homeAdd, awayAdd;
+        if (maxPeriod == 4) { // basketball: ~18-25 pts per quarter
+            homeAdd = (int)(Math.random() * 8 * factor) + 18;
+            awayAdd = (int)(Math.random() * 8) + 18;
+        } else { // football: 0-2 goals per half
+            homeAdd = (int)(Math.random() * 3 * factor);
+            awayAdd = (int)(Math.random() * 3);
+        }
 
         currentGame.setScore(
                 currentGame.getHomeScore() + homeAdd,
@@ -214,11 +220,14 @@ public class GameService {
                                   fixture.getAwayId() == getGameTeamId();
 
             if (sameWeek && notPlayed && !isUserMatch) {
-                int hScore = (int) (Math.random() * 4);
-                int aScore = (int) (Math.random() * 4);
-                // No draws in basketball
-                if (maxPeriod == 4 && hScore == aScore) {
-                    if (Math.random() < 0.5) hScore++; else aScore++;
+                int hScore, aScore;
+                if (maxPeriod == 4) { // basketball: realistic full-game score
+                    hScore = (int)(Math.random() * 30) + 70;
+                    aScore = (int)(Math.random() * 30) + 70;
+                    if (hScore == aScore) { if (Math.random() < 0.5) hScore++; else aScore++; }
+                } else { // football
+                    hScore = (int)(Math.random() * 4);
+                    aScore = (int)(Math.random() * 4);
                 }
                 repo.saveMatch(fixture.getHomeId(), fixture.getAwayId(), hScore, aScore);
                 applyPoints(fixture.getHomeId(), fixture.getAwayId(), hScore, aScore);
