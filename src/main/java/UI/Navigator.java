@@ -105,10 +105,8 @@ public class Navigator {
 
         if (view != null) {
             Scene scene = new Scene(view, 650, 500);
-            var cssUrl = Navigator.class.getResource("/style.css");
-            if (cssUrl != null) scene.getStylesheets().add(cssUrl.toExternalForm());
             stage.setScene(scene);
-            stage.setResizable(false);
+            stage.setResizable(true);
         }
     }
 
@@ -137,10 +135,8 @@ public class Navigator {
 
         if (view != null) {
             Scene scene = new Scene(view, 650, 500);
-            var cssUrl = Navigator.class.getResource("/style.css");
-            if (cssUrl != null) scene.getStylesheets().add(cssUrl.toExternalForm());
             stage.setScene(scene);
-            stage.setResizable(false);
+            stage.setResizable(true);
         }
     }
 

@@ -69,6 +69,7 @@ public class LeagueTableUi {
 
 
         Button back=new Button("<-Back");
+        Styles.styleDangerButton(back);
         back.setOnAction(e->{
             Navigator.navigate(ViewType.MENU);
         });

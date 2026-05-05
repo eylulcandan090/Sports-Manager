@@ -23,10 +23,10 @@ public class SportSelectionUi {
         root.setPadding(new Insets(50));
 
         Label header = new Label("SELECT A SPORT");
-        header.getStyleClass().add("title-label");
+        header.setStyle(Styles.TITLE_LABEL);
 
         Label sub = new Label("Choose your sport to start the game");
-        sub.getStyleClass().add("subtitle-label");
+        sub.setStyle(Styles.SUBTITLE_LABEL);
 
         Button football   = sportCard("⚽", "Football",   "#42a5f5");
         Button basketball = sportCard("🏀", "Basketball", "#ffd54f");

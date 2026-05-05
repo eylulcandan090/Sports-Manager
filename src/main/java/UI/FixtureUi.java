@@ -16,6 +16,7 @@ public class FixtureUi {
         ListView<String> listView=new ListView<>();
 
         Button back=new Button("<-Back");
+        Styles.styleDangerButton(back);
         back.setOnAction(e->{
             Navigator.navigate(ViewType.MENU);
         });

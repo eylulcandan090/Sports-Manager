@@ -44,13 +44,14 @@ public class StartUi {
         imageView.setPreserveRatio(true);
 
         Label header = new Label("SPORT MANAGER");
-        header.getStyleClass().add("title-label");
+        header.setStyle(Styles.TITLE_LABEL);
 
         Label sub = new Label("Build your team. Win the league.");
-        sub.getStyleClass().add("subtitle-label");
+        sub.setStyle(Styles.SUBTITLE_LABEL);
 
         Button newGame = new Button("⚽  New Game");
         newGame.setPrefWidth(200);
+        Styles.styleButton(newGame);
         newGame.setOnAction(e -> {
             gameService.resetGame();
             Navigator.navigate(ViewType.SPORTSELECTION);
@@ -61,7 +62,9 @@ public class StartUi {
         if (gameService.hasGame()) {
             Button continueGame = new Button("▶  Continue Game");
             continueGame.setPrefWidth(200);
-            continueGame.setStyle("-fx-background-color: #1e3a5f; -fx-text-fill: #64ffda;");
+            continueGame.setStyle("-fx-background-color: #1e3a5f; -fx-text-fill: #64ffda;" +
+                "-fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 10 24;" +
+                "-fx-background-radius: 25; -fx-cursor: hand;");
             continueGame.setOnAction(e -> Navigator.navigate(ViewType.MENU));
             center.getChildren().add(continueGame);
         }

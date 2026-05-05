@@ -145,6 +145,7 @@ public class MyTeamUi {
         }
 
         Button backBtn = new Button("⬅ Back");
+        Styles.styleDangerButton(backBtn);
         backBtn.setOnAction(e -> Navigator.navigate(ViewType.MENU));
 
         HBox backBox=new HBox(backBtn);

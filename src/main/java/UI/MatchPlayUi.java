@@ -27,6 +27,10 @@ import javafx.scene.layout.VBox;
             Button subBtn = new Button("Substitution");
             Button tacticBtn = new Button("Change Tactic");
             Button backBtn = new Button("Back to Menu");
+            Styles.styleButton(continueBtn);
+            Styles.styleButton(subBtn);
+            Styles.styleButton(tacticBtn);
+            Styles.styleDangerButton(backBtn);
             backBtn.setVisible(false);
 
             backBtn.setOnAction(e -> {

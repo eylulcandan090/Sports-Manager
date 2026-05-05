@@ -16,6 +16,9 @@ import javafx.scene.layout.VBox;
             Button defensiveBtn = new Button("Defensive");
             Button attackingBtn = new Button("Attacking");
             Button backBtn = new Button("Back to Match");
+            Styles.styleButton(defensiveBtn);
+            Styles.styleButton(attackingBtn);
+            Styles.styleDangerButton(backBtn);
 
             defensiveBtn.setOnAction(e -> {
                 gameService.setTactic("Defensive");

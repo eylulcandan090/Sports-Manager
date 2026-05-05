@@ -35,6 +35,7 @@ public class TeamSelectionUi {
         }
 
         Button startGame=new Button("Start");
+        Styles.styleButton(startGame);
 
         startGame.setOnAction(e->{
             Team selected=teamListView.getSelectionModel().getSelectedItem();
@@ -50,6 +51,7 @@ public class TeamSelectionUi {
             }
         });
 Button backButton =new Button("<-Change sport");
+Styles.styleDangerButton(backButton);
 backButton.setOnAction(e->Navigator.navigate(ViewType.SPORTSELECTION));
         HBox buttons =new HBox(10,backButton,startGame);
 

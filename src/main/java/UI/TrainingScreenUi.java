@@ -45,6 +45,8 @@ public class TrainingScreenUi {
 
         Button train=new Button("Train");
         Button back=new Button("<-Back");
+        Styles.styleButton(train);
+        Styles.styleDangerButton(back);
         back.setOnAction(e->Navigator.navigate(ViewType.MENU));
 
         train.setOnAction(e->{

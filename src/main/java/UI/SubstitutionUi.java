@@ -34,8 +34,10 @@ import javafx.scene.layout.VBox;
             ListView<Player> benchView = new ListView<>(benchList);
 
                     Button subBtn = new Button("Substitute");
-                    subBtn.setDisable(!gameService.canSubs());
                     Button backBtn = new Button("Back to Match");
+                    Styles.styleButton(subBtn);
+                    Styles.styleButton(backBtn);
+                    subBtn.setDisable(!gameService.canSubs());
 
                     subBtn.setOnAction(e -> {
                         Player outPlayer = squadView.getSelectionModel().getSelectedItem();

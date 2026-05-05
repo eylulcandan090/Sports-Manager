@@ -42,6 +42,8 @@ public class MatchSquadUi {
 
         Button addBtn=new Button(">>");
         Button removeBtn=new Button("<<");
+        Styles.styleButton(addBtn);
+        Styles.styleButton(removeBtn);
 
         addBtn.setOnAction(e -> {
             Player p = availableView.getSelectionModel().getSelectedItem();
@@ -74,6 +76,7 @@ public class MatchSquadUi {
 
 
         Button confirmBtn=new Button("Start Match");
+        Styles.styleButton(confirmBtn);
         confirmBtn.disableProperty().bind(
                 Bindings.size(selectedList).isNotEqualTo(squadSize)
         );
