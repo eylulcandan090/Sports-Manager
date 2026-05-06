@@ -163,9 +163,13 @@ public class MatchSquadUi {
         listsArea.setPadding(new Insets(14));
 
         // ── Bottom bar ────────────────────────────────────────────────────────
+        Button backBtn = new Button("↩  Menu");
+        Styles.styleDangerButton(backBtn);
+        backBtn.setOnAction(e -> Navigator.navigate(ViewType.MENU));
+
         Region bSpacer = new Region();
         HBox.setHgrow(bSpacer, Priority.ALWAYS);
-        HBox bottomBar = new HBox(12, statusLabel, bSpacer, confirmBtn);
+        HBox bottomBar = new HBox(12, backBtn, statusLabel, bSpacer, confirmBtn);
         bottomBar.setAlignment(Pos.CENTER_LEFT);
         bottomBar.setPadding(new Insets(11, 20, 11, 20));
         bottomBar.setStyle(

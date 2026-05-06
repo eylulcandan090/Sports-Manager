@@ -331,13 +331,11 @@ public class MainMenuUi {
         Button trainingBtn = menuButton("🏋  Training");
         Button fixturesBtn = menuButton("📅  Fixtures");
         Button tableBtn    = menuButton("🏆  League Table");
-        Button matchBtn    = menuButton("▶  Play Match");
 
         teamBtn.setOnAction(e     -> Navigator.navigate(ViewType.MYTEAM));
         trainingBtn.setOnAction(e -> Navigator.navigate(ViewType.TRAINING));
         fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
         tableBtn.setOnAction(e    -> Navigator.navigate(ViewType.LEAGUETABLE));
-        matchBtn.setOnAction(e    -> Navigator.navigate(ViewType.MYSQUAD));
 
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
@@ -346,7 +344,7 @@ public class MainMenuUi {
         Styles.styleDangerButton(backBtn);
         backBtn.setOnAction(e -> Navigator.navigate(ViewType.START));
 
-        menu.getChildren().addAll(teamBtn, trainingBtn, fixturesBtn, tableBtn, matchBtn, spacer, backBtn);
+        menu.getChildren().addAll(teamBtn, trainingBtn, fixturesBtn, tableBtn, spacer, backBtn);
         return menu;
     }
 
