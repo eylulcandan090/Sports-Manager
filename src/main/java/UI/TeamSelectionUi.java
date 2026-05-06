@@ -168,6 +168,22 @@ public class TeamSelectionUi {
                 return "/images/teams/westham.png";
             case "Wolverhampton": case "Wolverhampton Wanderers": case "Wolves":
                 return "/images/teams/wolverhampton.png";
+
+            // Basketball
+            case "Dallas Mavericks":        return "/images/basketteams/dallas.png";
+            case "Denver Nuggets":          return "/images/basketteams/denvernuggets.png";
+            case "Golden State Warriors":   return "/images/basketteams/goldenstate.png";
+            case "Houston Rockets":         return "/images/basketteams/houston.png";
+            case "Los Angeles Lakers":      return "/images/basketteams/losangeleslakers.png";
+            case "Miami Heat":              return "/images/basketteams/miamiheat.png";
+            case "Milwaukee Bucks":         return "/images/basketteams/milwaukee.png";
+            case "Minnesota Timberwolves":  return "/images/basketteams/minnesotatimber.png";
+            case "New York Knicks":         return "/images/basketteams/newyorkkknicks.png";
+            case "OKC Thunder":             return "/images/basketteams/okcthunder.png";
+            case "Philadelphia 76ers":      return "/images/basketteams/philedelphia.png";
+            case "Phoenix Suns":            return "/images/basketteams/phoenix.png";
+            case "San Antonio Spurs":       return "/images/basketteams/sanantonio.png";
+
             default:
                 return "/images/teams/default_team.png";
         }

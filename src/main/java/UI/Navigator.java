@@ -70,7 +70,7 @@ public class Navigator {
             case TEAMSELECTION:
                 break;
             case MENU:
-                view = new MainMenuUi().getView(gameService);
+                view = new MainMenuUi().getView(gameService, teamService, fixtureService, leagueService, teamRepo);
                 break;
             case MATCHSCREEN:
                 break;
@@ -124,7 +124,7 @@ public class Navigator {
                 view = new TeamSelectionUi().getView(sport, teamRepo, gameRepo);
                 break;
             case MENU:
-                view = new MainMenuUi().getView(gameService);
+                view = new MainMenuUi().getView(gameService, teamService, fixtureService, leagueService, teamRepo);
                 break;
             case MATCHSCREEN:
                 break;
