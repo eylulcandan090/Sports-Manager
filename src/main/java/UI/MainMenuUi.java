@@ -9,14 +9,21 @@ import Service.FixtureService;
 import Service.GameService;
 import Service.LeagueService;
 import Service.TeamService;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,7 +35,11 @@ public class MainMenuUi {
                           FixtureService fixtureService, LeagueService leagueService,
                           TeamRepo teamRepo) {
         root = new BorderPane();
-        root.setStyle(Styles.rootBg());
+        root.setStyle(
+            "-fx-background-color: radial-gradient(center 30% 20%, radius 70%," +
+            " #0d1f3a, #020c1b);" +
+            "-fx-font-family: 'Segoe UI', Arial, sans-serif;"
+        );
         root.setTop(createTopBar(gameService));
         root.setLeft(createMenu());
         root.setCenter(createDashboard(gameService, teamService, fixtureService, leagueService, teamRepo));
@@ -43,7 +54,6 @@ public class MainMenuUi {
         int teamId = gameService.getGameTeamId();
         Team myTeam = teamRepo.getTeamByTeamId(teamId);
 
-        // Next unplayed fixture for user's team
         Fixture nextFixture = null;
         for (Fixture f : fixtureService.getFixtures()) {
             if (!f.getIsPlayed() && (f.getHomeId() == teamId || f.getAwayId() == teamId)) {
@@ -52,7 +62,6 @@ public class MainMenuUi {
             }
         }
 
-        // League standings
         int leagueId = leagueService.getLeagueIdByTeamName(teamId);
         ArrayList<Team> leagueTeams = teamService.getAllTeamsByLeagueId(leagueId);
         Collections.sort(leagueTeams);
@@ -62,15 +71,13 @@ public class MainMenuUi {
             position++;
         }
 
-        // Fitness
         int healthy = teamService.getHealthyPlayers(teamId).size();
         int total   = teamService.getPlayersByTeamId(teamId).size();
 
-        // ── Cards ─────────────────────────────────────────────────────────────
-        VBox nextMatchCard  = buildNextMatchCard(nextFixture, teamRepo);
-        VBox overviewCard   = buildOverviewCard(myTeam, total);
-        VBox leagueCard     = buildLeagueCard(position, leagueTeams, myTeam);
-        VBox fitnessCard    = buildFitnessCard(healthy, total);
+        VBox nextMatchCard = buildNextMatchCard(nextFixture, teamRepo);
+        VBox overviewCard  = buildOverviewCard(myTeam, total);
+        VBox leagueCard    = buildLeagueCard(position, leagueTeams, myTeam);
+        VBox fitnessCard   = buildFitnessCard(healthy, total);
 
         HBox bottomRow = new HBox(14, overviewCard, leagueCard, fitnessCard);
         HBox.setHgrow(overviewCard, Priority.ALWAYS);
@@ -94,10 +101,14 @@ public class MainMenuUi {
 
     private VBox buildNextMatchCard(Fixture fixture, TeamRepo teamRepo) {
         String homeName = "—", awayName = "—";
+        String homeRaw  = "",  awayRaw  = "";
         String weekText = "SEASON COMPLETE";
+
         if (fixture != null) {
-            homeName = teamRepo.getTeamByTeamId(fixture.getHomeId()).getName().toUpperCase();
-            awayName = teamRepo.getTeamByTeamId(fixture.getAwayId()).getName().toUpperCase();
+            homeRaw  = teamRepo.getTeamByTeamId(fixture.getHomeId()).getName();
+            awayRaw  = teamRepo.getTeamByTeamId(fixture.getAwayId()).getName();
+            homeName = homeRaw.toUpperCase();
+            awayName = awayRaw.toUpperCase();
             weekText = "WEEK  " + fixture.getWeek();
         }
 
@@ -112,43 +123,58 @@ public class MainMenuUi {
         HBox cardHeader = new HBox(sectionLbl, hSp, weekLbl);
         cardHeader.setAlignment(Pos.CENTER_LEFT);
 
-        // Home
+        // ── Home side ─────────────────────────────────────────────────────────
+        ImageView homeLogo = loadLogo(homeRaw, 40);
         Label homeLbl = new Label(homeName);
         homeLbl.setStyle(
-            "-fx-text-fill: white; -fx-font-size: 17px; -fx-font-weight: bold;" +
-            "-fx-padding: 12 22;" +
-            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #6b0000, #9b1c1c88);" +
+            "-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"
+        );
+        HBox homeContent = new HBox(10, homeLogo, homeLbl);
+        homeContent.setAlignment(Pos.CENTER_RIGHT);
+        homeContent.setPadding(new Insets(10, 18, 10, 18));
+        homeContent.setStyle(
+            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #5a0000, #9b1c1c88);" +
             "-fx-background-radius: 10 0 0 10;"
         );
-        homeLbl.setMaxWidth(Double.MAX_VALUE);
-        homeLbl.setAlignment(Pos.CENTER_RIGHT);
-        HBox.setHgrow(homeLbl, Priority.ALWAYS);
+        homeContent.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(homeContent, Priority.ALWAYS);
 
-        // VS badge
+        // ── VS badge with pulse animation ─────────────────────────────────────
         Label vsLbl = new Label("VS");
         vsLbl.setStyle(
-            "-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" +
-            "-fx-padding: 12 22;" +
-            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #7b0000cc, #00007bcc);" +
-            "-fx-border-color: rgba(255,255,255,0.15); -fx-border-width: 0 1 0 1;" +
-            "-fx-effect: dropshadow(gaussian, rgba(180,80,255,0.6), 18, 0, 0, 0);" +
-            "-fx-min-width: 70px;"
+            "-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;" +
+            "-fx-padding: 10 24;" +
+            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #aa0000ee, #0000aaee);" +
+            "-fx-border-color: rgba(255,255,255,0.25); -fx-border-width: 0 1 0 1;" +
+            "-fx-effect: dropshadow(gaussian, rgba(220,100,255,0.85), 26, 0, 0, 0);" +
+            "-fx-min-width: 74px;"
         );
         vsLbl.setAlignment(Pos.CENTER);
 
-        // Away
+        FadeTransition pulse = new FadeTransition(Duration.millis(900), vsLbl);
+        pulse.setFromValue(0.75);
+        pulse.setToValue(1.0);
+        pulse.setAutoReverse(true);
+        pulse.setCycleCount(FadeTransition.INDEFINITE);
+        pulse.play();
+
+        // ── Away side ─────────────────────────────────────────────────────────
         Label awayLbl = new Label(awayName);
         awayLbl.setStyle(
-            "-fx-text-fill: white; -fx-font-size: 17px; -fx-font-weight: bold;" +
-            "-fx-padding: 12 22;" +
-            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #0e2f6688, #1565c0);" +
+            "-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"
+        );
+        ImageView awayLogo = loadLogo(awayRaw, 40);
+        HBox awayContent = new HBox(10, awayLbl, awayLogo);
+        awayContent.setAlignment(Pos.CENTER_LEFT);
+        awayContent.setPadding(new Insets(10, 18, 10, 18));
+        awayContent.setStyle(
+            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #0e2f6688, #1060c0);" +
             "-fx-background-radius: 0 10 10 0;"
         );
-        awayLbl.setMaxWidth(Double.MAX_VALUE);
-        awayLbl.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(awayLbl, Priority.ALWAYS);
+        awayContent.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(awayContent, Priority.ALWAYS);
 
-        HBox teamsRow = new HBox(0, homeLbl, vsLbl, awayLbl);
+        HBox teamsRow = new HBox(0, homeContent, vsLbl, awayContent);
         teamsRow.setAlignment(Pos.CENTER);
 
         Button playBtn = new Button("▶   PLAY MATCH");
@@ -173,7 +199,6 @@ public class MainMenuUi {
         VBox card = new VBox(10);
         card.setPadding(new Insets(16, 18, 16, 18));
         card.setStyle(cardStyle("#1e3a5a"));
-
         card.getChildren().addAll(
             cardHeader("👥  TEAM OVERVIEW", "#f48fb1"),
             divider(),
@@ -189,13 +214,11 @@ public class MainMenuUi {
         VBox card = new VBox(10);
         card.setPadding(new Insets(16, 18, 16, 18));
         card.setStyle(cardStyle("#1e3a5a"));
-
         card.getChildren().addAll(
             cardHeader("🏆  LEAGUE POSITION", "#ffd54f"),
             divider(),
             bigStat(ordinal(position), "OF " + sorted.size() + " TEAMS")
         );
-
         if (!sorted.isEmpty()) {
             Team leader = sorted.get(0);
             int gap = leader.getPoint() - myTeam.getPoint();
@@ -210,25 +233,136 @@ public class MainMenuUi {
     private VBox buildFitnessCard(int healthy, int total) {
         int pct = total > 0 ? (healthy * 100 / total) : 100;
         String color = pct >= 80 ? "#26a69a" : pct >= 60 ? "#ffd54f" : "#ff4757";
-
         VBox card = new VBox(10);
         card.setPadding(new Insets(16, 18, 16, 18));
         card.setStyle(cardStyle("#1e3a5a"));
-
         Label pctLbl = new Label(pct + "%");
         pctLbl.setStyle(
             "-fx-text-fill: " + color + "; -fx-font-size: 30px; -fx-font-weight: bold;" +
             "-fx-effect: dropshadow(gaussian, " + color + "88, 10, 0, 0, 0);"
         );
-
         card.getChildren().addAll(
             cardHeader("💪  TEAM FITNESS", "#26a69a"),
-            divider(),
-            pctLbl,
-            statRow("Fit players",     healthy + " / " + total),
-            statRow("Injured",         (total - healthy) + " players")
+            divider(), pctLbl,
+            statRow("Fit players", healthy + " / " + total),
+            statRow("Injured",     (total - healthy) + " players")
         );
         return card;
+    }
+
+    // ── Logo loader ───────────────────────────────────────────────────────────
+
+    private ImageView loadLogo(String teamName, double size) {
+        ImageView iv = new ImageView();
+        if (teamName == null || teamName.isEmpty()) return iv;
+        String path = logoPath(teamName);
+        URL url = getClass().getResource(path);
+        if (url != null) {
+            iv.setImage(new Image(url.toExternalForm()));
+            iv.setFitWidth(size);
+            iv.setFitHeight(size);
+            iv.setPreserveRatio(true);
+        }
+        return iv;
+    }
+
+    private static String logoPath(String n) {
+        switch (n) {
+            case "Arsenal":             return "/images/teams/arsenal.png";
+            case "Aston Villa":         return "/images/teams/astonvilla.png";
+            case "Bournemouth":         return "/images/teams/bournemouth.png";
+            case "Brentford": case "Brentford FC": return "/images/teams/brentford.png";
+            case "Brighton": case "Brighton & Hove Albion": return "/images/teams/brighton.png";
+            case "Chelsea":             return "/images/teams/chelsea.png";
+            case "Crystal Palace":      return "/images/teams/crystal.png";
+            case "Everton":             return "/images/teams/everton.png";
+            case "Nottingham Forest": case "Nott'm Forest": return "/images/teams/forest.png";
+            case "Fulham":              return "/images/teams/fullham.png";
+            case "Ipswich": case "Ipswich Town": return "/images/teams/ıpswich.png";
+            case "Leicester": case "Leicester City": return "/images/teams/leicester.png";
+            case "Liverpool":           return "/images/teams/liverpool.png";
+            case "Manchester City":     return "/images/teams/manchester.png";
+            case "Manchester United":   return "/images/teams/manchesterunited.png";
+            case "Newcastle United": case "Newcastle": return "/images/teams/newcastleunited.png";
+            case "Southampton":         return "/images/teams/southampton.png";
+            case "Tottenham": case "Tottenham Hotspur": return "/images/teams/tottenham.png";
+            case "West Ham": case "West Ham United": return "/images/teams/westham.png";
+            case "Wolverhampton": case "Wolverhampton Wanderers": case "Wolves": return "/images/teams/wolverhampton.png";
+            case "Dallas Mavericks":    return "/images/basketteams/dallas.png";
+            case "Denver Nuggets":      return "/images/basketteams/denvernuggets.png";
+            case "Golden State Warriors": return "/images/basketteams/goldenstate.png";
+            case "Houston Rockets":     return "/images/basketteams/houston.png";
+            case "Los Angeles Lakers":  return "/images/basketteams/losangeleslakers.png";
+            case "Miami Heat":          return "/images/basketteams/miamiheat.png";
+            case "Milwaukee Bucks":     return "/images/basketteams/milwaukee.png";
+            case "Minnesota Timberwolves": return "/images/basketteams/minnesotatimber.png";
+            case "New York Knicks":     return "/images/basketteams/newyorkkknicks.png";
+            case "OKC Thunder":         return "/images/basketteams/okcthunder.png";
+            case "Philadelphia 76ers":  return "/images/basketteams/philedelphia.png";
+            case "Phoenix Suns":        return "/images/basketteams/phoenix.png";
+            case "San Antonio Spurs":   return "/images/basketteams/sanantonio.png";
+            default:                    return "/images/teams/default_team.png";
+        }
+    }
+
+    // ── Sidebar ───────────────────────────────────────────────────────────────
+
+    private VBox createMenu() {
+        VBox menu = new VBox(2);
+        menu.setStyle(
+            "-fx-background-color: #010d1f;" +
+            "-fx-border-color: #1565c0; -fx-border-width: 0 1 0 0;"
+        );
+        menu.setPadding(new Insets(16, 10, 16, 10));
+        menu.setPrefWidth(160);
+
+        Button teamBtn     = sidebarBtn("👥  My Team");
+        Button trainingBtn = sidebarBtn("🏋  Training");
+        Button fixturesBtn = sidebarBtn("📅  Fixtures");
+        Button tableBtn    = sidebarBtn("🏆  League Table");
+
+        teamBtn.setOnAction(e     -> Navigator.navigate(ViewType.MYTEAM));
+        trainingBtn.setOnAction(e -> Navigator.navigate(ViewType.TRAINING));
+        fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
+        tableBtn.setOnAction(e    -> Navigator.navigate(ViewType.LEAGUETABLE));
+
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+
+        Button backBtn = new Button("← Main Menu");
+        Styles.styleDangerButton(backBtn);
+        backBtn.setOnAction(e -> Navigator.navigate(ViewType.START));
+
+        menu.getChildren().addAll(teamBtn, trainingBtn, fixturesBtn, tableBtn, spacer, backBtn);
+        return menu;
+    }
+
+    private Button sidebarBtn(String text) {
+        Button btn = new Button(text);
+        final String normal =
+            "-fx-background-color: transparent;" +
+            "-fx-text-fill: #90caf9; -fx-font-size: 13px;" +
+            "-fx-alignment: CENTER-LEFT; -fx-padding: 10 16;" +
+            "-fx-background-radius: 8; -fx-pref-width: 145px; -fx-cursor: hand;";
+        final String hover =
+            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1565c033, #1565c011);" +
+            "-fx-text-fill: #e3f2fd; -fx-font-size: 13px;" +
+            "-fx-alignment: CENTER-LEFT; -fx-padding: 10 16;" +
+            "-fx-background-radius: 8; -fx-pref-width: 145px; -fx-cursor: hand;" +
+            "-fx-border-color: #1565c066; -fx-border-width: 0 0 0 3; -fx-border-radius: 0;";
+        final String pressed =
+            "-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #1565c055, #1565c022);" +
+            "-fx-text-fill: white; -fx-font-size: 13px;" +
+            "-fx-alignment: CENTER-LEFT; -fx-padding: 10 16;" +
+            "-fx-background-radius: 8; -fx-pref-width: 145px; -fx-cursor: hand;" +
+            "-fx-border-color: #42a5f5; -fx-border-width: 0 0 0 3; -fx-border-radius: 0;" +
+            "-fx-effect: dropshadow(gaussian, rgba(66,165,245,0.35), 10, 0, 0, 0);";
+        btn.setStyle(normal);
+        btn.setOnMouseEntered(e -> btn.setStyle(hover));
+        btn.setOnMouseExited(e  -> btn.setStyle(normal));
+        btn.setOnMousePressed(e -> btn.setStyle(pressed));
+        btn.setOnMouseReleased(e -> btn.setStyle(hover));
+        return btn;
     }
 
     // ── Small helpers ─────────────────────────────────────────────────────────
@@ -284,7 +418,7 @@ public class MainMenuUi {
         return n + "th";
     }
 
-    // ── Top bar (unchanged) ───────────────────────────────────────────────────
+    // ── Top bar ───────────────────────────────────────────────────────────────
 
     private HBox createTopBar(GameService gameService) {
         HBox topBar = new HBox();
@@ -317,40 +451,5 @@ public class MainMenuUi {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         topBar.getChildren().addAll(teamLabel, spacer, weekLabel, musicBtn);
         return topBar;
-    }
-
-    // ── Sidebar (unchanged) ───────────────────────────────────────────────────
-
-    private VBox createMenu() {
-        VBox menu = new VBox(4);
-        menu.setStyle(Styles.SIDEBAR);
-        menu.setPadding(new Insets(16, 10, 16, 10));
-        menu.setPrefWidth(160);
-
-        Button teamBtn     = menuButton("👥  My Team");
-        Button trainingBtn = menuButton("🏋  Training");
-        Button fixturesBtn = menuButton("📅  Fixtures");
-        Button tableBtn    = menuButton("🏆  League Table");
-
-        teamBtn.setOnAction(e     -> Navigator.navigate(ViewType.MYTEAM));
-        trainingBtn.setOnAction(e -> Navigator.navigate(ViewType.TRAINING));
-        fixturesBtn.setOnAction(e -> Navigator.navigate(ViewType.FIXTURE));
-        tableBtn.setOnAction(e    -> Navigator.navigate(ViewType.LEAGUETABLE));
-
-        Region spacer = new Region();
-        VBox.setVgrow(spacer, Priority.ALWAYS);
-
-        Button backBtn = menuButton("← Main Menu");
-        Styles.styleDangerButton(backBtn);
-        backBtn.setOnAction(e -> Navigator.navigate(ViewType.START));
-
-        menu.getChildren().addAll(teamBtn, trainingBtn, fixturesBtn, tableBtn, spacer, backBtn);
-        return menu;
-    }
-
-    private Button menuButton(String text) {
-        Button btn = new Button(text);
-        Styles.styleMenuButton(btn);
-        return btn;
     }
 }

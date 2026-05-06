@@ -32,9 +32,15 @@ public class StartUi {
         bg.fitHeightProperty().bind(root.heightProperty());
         StackPane.setAlignment(bg, Pos.TOP_LEFT);
 
-        // Dark overlay so text is readable over the background
+        // Dark overlay — stronger at bottom to keep buttons readable
         Region overlay = new Region();
-        overlay.setStyle("-fx-background-color: rgba(1, 8, 17, 0.52);");
+        overlay.setStyle(
+            "-fx-background-color: linear-gradient(" +
+            "from 0% 0% to 0% 100%," +
+            "rgba(1,8,17,0.45) 0%," +
+            "rgba(1,8,17,0.62) 55%," +
+            "rgba(1,8,17,0.82) 100%);"
+        );
         overlay.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // ── Music button ───────────────────────────────────────────────────────
@@ -59,10 +65,12 @@ public class StartUi {
         Label title = new Label("SPORTS MANAGER");
         title.setStyle(
             "-fx-text-fill: white;" +
-            "-fx-font-size: 54px;" +
+            "-fx-font-size: 56px;" +
             "-fx-font-weight: bold;" +
             "-fx-font-family: 'Impact', 'Arial Black', sans-serif;" +
-            "-fx-effect: dropshadow(gaussian, rgba(0,200,255,0.95), 32, 0.45, 0, 0);"
+            "-fx-letter-spacing: 4;" +
+            "-fx-effect: dropshadow(gaussian, rgba(0,210,255,1.0), 48, 0.55, 0, 2)," +
+            "            dropshadow(gaussian, rgba(0,80,180,0.85), 18, 0.3, 2, 4);"
         );
 
         Label subtitle = new Label("Build your team. Win the league.");
@@ -77,9 +85,9 @@ public class StartUi {
         Button newGame = new Button("⚽  NEW GAME");
         newGame.setPrefWidth(240);
         styleStartBtn(newGame,
-            "linear-gradient(from 0% 0% to 100% 0%, #00b4d8, #0077b6)",
-            "linear-gradient(from 0% 0% to 100% 0%, #48cae4, #00b4d8)",
-            "rgba(0,180,216,0.65)"
+            "linear-gradient(from 0% 0% to 100% 0%, #00c8f0, #0066cc)",
+            "linear-gradient(from 0% 0% to 100% 0%, #48e0ff, #0090e0)",
+            "rgba(0,200,240,0.80)"
         );
         newGame.setOnAction(e -> {
             gameService.resetGame();
@@ -114,12 +122,13 @@ public class StartUi {
             "-fx-background-color: " + normalGradient + ";" +
             "-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" +
             "-fx-padding: 13 36; -fx-background-radius: 30; -fx-cursor: hand;" +
-            "-fx-effect: dropshadow(gaussian, " + glowColor + ", 18, 0, 0, 3);";
+            "-fx-effect: dropshadow(gaussian, " + glowColor + ", 22, 0.3, 0, 3);";
         String hover =
             "-fx-background-color: " + hoverGradient + ";" +
-            "-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;" +
+            "-fx-text-fill: white; -fx-font-size: 15.5px; -fx-font-weight: bold;" +
             "-fx-padding: 13 36; -fx-background-radius: 30; -fx-cursor: hand;" +
-            "-fx-effect: dropshadow(gaussian, " + glowColor + ", 28, 0, 0, 4);";
+            "-fx-effect: dropshadow(gaussian, " + glowColor + ", 36, 0.45, 0, 5);" +
+            "-fx-scale-x: 1.04; -fx-scale-y: 1.04;";
         btn.setStyle(normal);
         btn.setOnMouseEntered(e -> btn.setStyle(hover));
         btn.setOnMouseExited(e  -> btn.setStyle(normal));

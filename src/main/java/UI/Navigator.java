@@ -92,6 +92,9 @@ public class Navigator {
                 view=new MatchSquadUi().getView(gameService,teamService);
                 break;
 
+            case MATCHINTRO:
+                view = new MatchIntroUi().getView(gameService);
+                break;
             case MATCHPLAY:
                 view=new MatchPlayUi().getView(gameService);
                 break;
@@ -104,9 +107,12 @@ public class Navigator {
         }
 
         if (view != null) {
-            Scene scene = new Scene(view, 650, 500);
-            stage.setScene(scene);
-            stage.setResizable(true);
+            if (stage.getScene() == null) {
+                stage.setScene(new Scene(view, 650, 500));
+                stage.setResizable(true);
+            } else {
+                stage.getScene().setRoot(view);
+            }
         }
     }
 
@@ -134,9 +140,12 @@ public class Navigator {
         }
 
         if (view != null) {
-            Scene scene = new Scene(view, 650, 500);
-            stage.setScene(scene);
-            stage.setResizable(true);
+            if (stage.getScene() == null) {
+                stage.setScene(new Scene(view, 650, 500));
+                stage.setResizable(true);
+            } else {
+                stage.getScene().setRoot(view);
+            }
         }
     }
 

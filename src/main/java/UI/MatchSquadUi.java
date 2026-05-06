@@ -123,7 +123,7 @@ public class MatchSquadUi {
             ArrayList<Player> matchSquad = new ArrayList<>(selectedList);
             ArrayList<Player> bench      = new ArrayList<>(availableList);
             gameService.startMatch(matchSquad, bench);
-            Navigator.navigate(ViewType.MATCHPLAY);
+            Navigator.navigate(ViewType.MATCHINTRO);
         });
 
         // ── Header bar ────────────────────────────────────────────────────────
