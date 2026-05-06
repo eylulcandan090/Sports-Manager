@@ -183,7 +183,6 @@ public class MatchSquadUi {
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
-    /** Builds a player info row. Pass withAddHint=true for the available list (shows ＋ hint). */
     private HBox buildRow(Player player, boolean withAddHint) {
         Label nameL = new Label(player.getName());
         nameL.setStyle(
