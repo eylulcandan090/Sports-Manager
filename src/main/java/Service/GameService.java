@@ -22,6 +22,7 @@ public class GameService {
     private Fixture currentFixture;
     private String injuryMessage = "";
     private String lastGoalEvent = "";
+    private String lastCardEvent = "";
     private Player injuredPlayer;
     private int injuryCount = 0;
     private int maxInjuries = 2;
@@ -76,6 +77,7 @@ public class GameService {
             maxPeriod = 4;
         }
         lastGoalEvent = "";
+        lastCardEvent = "";
     }
 
     public void playNextPeriod(ArrayList<Player> squad) {
@@ -126,6 +128,18 @@ public class GameService {
                 }
             }
             lastGoalEvent = sb.toString();
+        }
+
+        lastCardEvent = "";
+        if (currentSquad != null && !currentSquad.isEmpty() && Math.random() < 0.3) {
+            int idx = (int)(Math.random() * currentSquad.size());
+            Player cardPlayer = currentSquad.get(idx);
+            if (Math.random() < 0.3 && currentSquad.size() > 1) { // red card — only if squad has spare players
+                lastCardEvent = cardPlayer.getName() + " received a red card 🟥";
+                currentSquad.remove(idx);
+            } else {
+                lastCardEvent = cardPlayer.getName() + " received a yellow card 🟨";
+            }
         }
 
         injuryMessage = "";
@@ -182,6 +196,10 @@ public class GameService {
 
     public String getLastGoalEvent() {
         return lastGoalEvent;
+    }
+
+    public String getLastCardEvent() {
+        return lastCardEvent;
     }
 
     public int getSubsCount() {

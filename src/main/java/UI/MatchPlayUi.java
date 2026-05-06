@@ -38,6 +38,10 @@ public class MatchPlayUi {
         goalLbl.setVisible(false);
         goalLbl.setManaged(false);
 
+        Label cardLbl = new Label();
+        cardLbl.setVisible(false);
+        cardLbl.setManaged(false);
+
         Label injuryLbl = new Label();
         injuryLbl.setStyle(
             "-fx-text-fill: #ffa502; -fx-font-size: 12px; -fx-font-weight: bold;" +
@@ -57,7 +61,7 @@ public class MatchPlayUi {
         scoreArea.setAlignment(Pos.CENTER);
         scoreArea.setPadding(new Insets(22, 30, 20, 30));
 
-        VBox injuryResultArea = new VBox(10, goalLbl, injuryLbl, resultLbl);
+        VBox injuryResultArea = new VBox(10, goalLbl, cardLbl, injuryLbl, resultLbl);
         injuryResultArea.setAlignment(Pos.CENTER);
         injuryResultArea.setPadding(new Insets(0, 20, 14, 20));
 
@@ -110,6 +114,23 @@ public class MatchPlayUi {
                     goalLbl.setManaged(false);
                 }
 
+                String card = gameService.getLastCardEvent();
+                if (card != null && !card.isEmpty()) {
+                    boolean isRed = card.contains("red");
+                    cardLbl.setText(card);
+                    cardLbl.setStyle(
+                        "-fx-text-fill: " + (isRed ? "#ff4757" : "#ffd54f") + "; -fx-font-size: 13px; -fx-font-weight: bold;" +
+                        "-fx-padding: 6 18; -fx-background-color: " + (isRed ? "#ff475718" : "#ffd54f18") + ";" +
+                        "-fx-background-radius: 6; -fx-border-color: " + (isRed ? "#ff475744" : "#ffd54f44") + ";" +
+                        "-fx-border-radius: 6; -fx-border-width: 1;"
+                    );
+                    cardLbl.setVisible(true);
+                    cardLbl.setManaged(true);
+                } else {
+                    cardLbl.setVisible(false);
+                    cardLbl.setManaged(false);
+                }
+
                 String injury = gameService.getInjuryMessage();
                 if (injury != null && !injury.isEmpty()) {
                     injuryLbl.setText("⚠  " + injury);
@@ -158,6 +179,7 @@ public class MatchPlayUi {
                 Styles.applyFadeIn(resultLbl);
 
                 goalLbl.setVisible(false);   goalLbl.setManaged(false);
+                cardLbl.setVisible(false);   cardLbl.setManaged(false);
                 injuryLbl.setVisible(false); injuryLbl.setManaged(false);
                 continueBtn.setVisible(false); continueBtn.setManaged(false);
                 subBtn.setVisible(false);      subBtn.setManaged(false);
