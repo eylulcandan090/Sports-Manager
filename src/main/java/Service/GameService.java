@@ -21,6 +21,7 @@ public class GameService {
     private ArrayList<Player> currentBench;
     private Fixture currentFixture;
     private String injuryMessage = "";
+    private String lastGoalEvent = "";
     private Player injuredPlayer;
     private int injuryCount = 0;
     private int maxInjuries = 2;
@@ -74,7 +75,7 @@ public class GameService {
         } else {
             maxPeriod = 4;
         }
-        playNextPeriod(squad);
+        lastGoalEvent = "";
     }
 
     public void playNextPeriod(ArrayList<Player> squad) {
@@ -101,6 +102,32 @@ public class GameService {
                 currentGame.getHomeScore() + homeAdd,
                 currentGame.getAwayScore() + awayAdd
         );
+
+        // Goal event (football only — basketball always scores so no individual events)
+        lastGoalEvent = "";
+        if (maxPeriod == 2) {
+            boolean isUserHome = currentFixture != null && currentFixture.getHomeId() == getGameTeamId();
+            StringBuilder sb = new StringBuilder();
+            if (homeAdd > 0) {
+                if (isUserHome && currentSquad != null && !currentSquad.isEmpty()) {
+                    Player s = currentSquad.get((int)(Math.random() * currentSquad.size()));
+                    sb.append("⚽  ").append(s.getName()).append(" scored!");
+                } else {
+                    sb.append("⚽  ").append(currentGame.getHomeTeam().getName()).append(" scored!");
+                }
+            }
+            if (awayAdd > 0) {
+                if (sb.length() > 0) sb.append("  •  ");
+                if (!isUserHome && currentSquad != null && !currentSquad.isEmpty()) {
+                    Player s = currentSquad.get((int)(Math.random() * currentSquad.size()));
+                    sb.append("⚽  ").append(s.getName()).append(" scored!");
+                } else {
+                    sb.append("⚽  ").append(currentGame.getAwayTeam().getName()).append(" scored!");
+                }
+            }
+            lastGoalEvent = sb.toString();
+        }
+
         injuryMessage = "";
         double injuryChance = 0.2;
         if (tactic.equals("Attacking")) {
@@ -151,6 +178,10 @@ public class GameService {
 
     public String getInjuryMessage() {
         return injuryMessage;
+    }
+
+    public String getLastGoalEvent() {
+        return lastGoalEvent;
     }
 
     public int getSubsCount() {

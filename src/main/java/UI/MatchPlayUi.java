@@ -22,13 +22,21 @@ public class MatchPlayUi {
         String periodName = gameService.getMaxPeriod() == 2 ? "HALF" : "QUARTER";
 
         // ── Live display labels ────────────────────────────────────────────────
-        Label scoreLbl  = createScoreLabel(
-            gameService.getHomeScore() + "  -  " + gameService.getAwayScore()
-        );
+        Label scoreLbl  = createScoreLabel("0  -  0");
         Label periodLbl = createInfoLabel(
-            periodName + "  " + gameService.getCurrentPeriod() + " / " + gameService.getMaxPeriod()
+            periodName + "  1 / " + gameService.getMaxPeriod()
         );
         Label weekLbl   = createInfoLabel("WEEK  " + gameService.getCurrentWeek());
+
+        Label goalLbl = new Label();
+        goalLbl.setStyle(
+            "-fx-text-fill: #ffd54f; -fx-font-size: 13px; -fx-font-weight: bold;" +
+            "-fx-padding: 6 18; -fx-background-color: #ffd54f18;" +
+            "-fx-background-radius: 6; -fx-border-color: #ffd54f44;" +
+            "-fx-border-radius: 6; -fx-border-width: 1;"
+        );
+        goalLbl.setVisible(false);
+        goalLbl.setManaged(false);
 
         Label injuryLbl = new Label();
         injuryLbl.setStyle(
@@ -49,7 +57,7 @@ public class MatchPlayUi {
         scoreArea.setAlignment(Pos.CENTER);
         scoreArea.setPadding(new Insets(22, 30, 20, 30));
 
-        VBox injuryResultArea = new VBox(10, injuryLbl, resultLbl);
+        VBox injuryResultArea = new VBox(10, goalLbl, injuryLbl, resultLbl);
         injuryResultArea.setAlignment(Pos.CENTER);
         injuryResultArea.setPadding(new Insets(0, 20, 14, 20));
 
@@ -91,6 +99,16 @@ public class MatchPlayUi {
 
                 scoreLbl.setText(gameService.getHomeScore() + "  -  " + gameService.getAwayScore());
                 periodLbl.setText(periodName + "  " + gameService.getCurrentPeriod() + " / " + gameService.getMaxPeriod());
+
+                String goal = gameService.getLastGoalEvent();
+                if (goal != null && !goal.isEmpty()) {
+                    goalLbl.setText(goal);
+                    goalLbl.setVisible(true);
+                    goalLbl.setManaged(true);
+                } else {
+                    goalLbl.setVisible(false);
+                    goalLbl.setManaged(false);
+                }
 
                 String injury = gameService.getInjuryMessage();
                 if (injury != null && !injury.isEmpty()) {
@@ -139,7 +157,8 @@ public class MatchPlayUi {
                 resultLbl.setManaged(true);
                 Styles.applyFadeIn(resultLbl);
 
-                injuryLbl.setVisible(false);  injuryLbl.setManaged(false);
+                goalLbl.setVisible(false);   goalLbl.setManaged(false);
+                injuryLbl.setVisible(false); injuryLbl.setManaged(false);
                 continueBtn.setVisible(false); continueBtn.setManaged(false);
                 subBtn.setVisible(false);      subBtn.setManaged(false);
                 tacticBtn.setVisible(false);   tacticBtn.setManaged(false);
