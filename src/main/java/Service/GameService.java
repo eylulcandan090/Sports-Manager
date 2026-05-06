@@ -284,10 +284,46 @@ public class GameService {
             }
         }
 
+        // Auto-simulate any bye weeks before the user's next match
+        simulateByeWeeks();
+
         // Reset match state
         injuryCount = 0;
         subsCount   = 0;
         tactic      = "Balanced";
+    }
+
+    private void simulateByeWeeks() {
+        List<Fixture> fixtures = fixtureService.getFixtures(); // fresh from DB
+        int userTeamId = getGameTeamId();
+
+        // Find the earliest week the user still has a match
+        int userNextWeek = Integer.MAX_VALUE;
+        for (Fixture f : fixtures) {
+            if (!f.getIsPlayed() &&
+                    (f.getHomeId() == userTeamId || f.getAwayId() == userTeamId)) {
+                if (f.getWeek() < userNextWeek) userNextWeek = f.getWeek();
+            }
+        }
+        if (userNextWeek == Integer.MAX_VALUE) return; // season over
+
+        // Simulate all unplayed fixtures in weeks before the user's next match
+        for (Fixture f : fixtures) {
+            if (!f.getIsPlayed() && f.getWeek() < userNextWeek) {
+                int hScore, aScore;
+                if (maxPeriod == 4) {
+                    hScore = (int)(Math.random() * 30) + 70;
+                    aScore = (int)(Math.random() * 30) + 70;
+                    if (hScore == aScore) { if (Math.random() < 0.5) hScore++; else aScore++; }
+                } else {
+                    hScore = (int)(Math.random() * 4);
+                    aScore = (int)(Math.random() * 4);
+                }
+                repo.saveMatch(f.getHomeId(), f.getAwayId(), hScore, aScore);
+                applyPoints(f.getHomeId(), f.getAwayId(), hScore, aScore);
+                fixtureService.markAsPlayed(f);
+            }
+        }
     }
 
     private void applyPoints(int homeId, int awayId, int homeScore, int awayScore) {
