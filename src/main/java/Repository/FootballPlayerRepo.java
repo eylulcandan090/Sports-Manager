@@ -80,6 +80,7 @@ public class FootballPlayerRepo {
             ResultSet rs=ps.executeQuery();
 
             while(rs.next()){
+                int id=rs.getInt("id");
                 String name=rs.getString("name");
                 int age=rs.getInt("age");
                 int injuryStatus=rs.getInt("injuryStatus");
@@ -88,7 +89,9 @@ public class FootballPlayerRepo {
                 int goalkeeping=rs.getInt("goalkeeping");
                 String position=rs.getString("position");
                 int defance=rs.getInt("defance");
-                players.add(new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance));
+                FootballPlayer fp=new FootballPlayer(name,age,injuryStatus,team_id,shooting,passing,goalkeeping,position,defance);
+                fp.setId(id);
+                players.add(fp);
             }
             return players;
 
@@ -135,7 +138,7 @@ public class FootballPlayerRepo {
                 "passing=?,"+
                 "goalkeeping=?,"+
                 "injuryStatus=?,"+
-                "defance=?,"+
+                "defance=? "+
                 "WHERE id=?";
         try(PreparedStatement ps=connection.prepareStatement(query)){
             ps.setInt(1,footballPlayer.getShooting());
