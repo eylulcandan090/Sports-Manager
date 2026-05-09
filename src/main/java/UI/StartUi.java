@@ -91,7 +91,8 @@ public class StartUi {
         );
         newGame.setOnAction(e -> {
             gameService.resetGame();
-            Navigator.navigate(ViewType.SPORTSELECTION);
+            Model.GameSession.reset();
+            Navigator.navigate(ViewType.MANAGERSETUP);
         });
 
         // ── Center content ─────────────────────────────────────────────────────

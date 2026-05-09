@@ -64,10 +64,16 @@ public class Navigator {
             case START:
                 view = new StartUi().getView(gameService);
                 break;
+            case MANAGERSETUP:
+                view = new ManagerSetupUi().getView();
+                break;
             case SPORTSELECTION:
                 view = new SportSelectionUi().getView(teamRepo, database);
                 break;
             case TEAMSELECTION:
+                break;
+            case WELCOME:
+                view = new WelcomeScreenUi().getView(gameService, teamRepo);
                 break;
             case MENU:
                 view = new MainMenuUi().getView(gameService, teamService, fixtureService, leagueService, teamRepo);
@@ -83,20 +89,17 @@ public class Navigator {
             case TRAINING:
                 view = new TrainingScreenUi().getView(gameService, teamService, footballPlayerRepo, basketballPlayerRepo);
                 break;
-
             case MYTEAM:
                 view = new MyTeamUi().getView(gameService, teamService, footballPlayerRepo, basketballPlayerRepo);
                 break;
-
             case MYSQUAD:
-                view=new MatchSquadUi().getView(gameService,teamService);
+                view = new MatchSquadUi().getView(gameService, teamService);
                 break;
-
             case MATCHINTRO:
                 view = new MatchIntroUi().getView(gameService);
                 break;
             case MATCHPLAY:
-                view=new MatchPlayUi().getView(gameService);
+                view = new MatchPlayUi().getView(gameService);
                 break;
             case SUBSTITUTION:
                 view = new SubstitutionUi().getView(gameService);

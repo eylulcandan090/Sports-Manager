@@ -103,7 +103,7 @@ public class TeamSelectionUi {
             if (selectedTeam[0] != null) {
                 gameRepo.createNewGame(selectedTeam[0].getId());
                 gameRepo.setGameStarted(true);
-                Navigator.navigate(ViewType.MENU);
+                Navigator.navigate(ViewType.WELCOME);
             } else {
                 AlertUtility.showWarning("No Team Selected", "Please select a team to continue.");
             }
