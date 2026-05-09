@@ -79,7 +79,8 @@ public class BasketballPlayerRepo {
                 "defense=?," +
                 "finishing=?," +
                 "steal=?," +
-                "block=? " +
+                "block=?," +
+                "injuryStatus=? " +
                 "WHERE id=?";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
@@ -90,7 +91,8 @@ public class BasketballPlayerRepo {
             ps.setInt(5, player.getFinishing());
             ps.setInt(6, player.getSteal());
             ps.setInt(7, player.getBlock());
-            ps.setInt(8, player.getId());
+            ps.setInt(8, player.getInjuryStatus());
+            ps.setInt(9, player.getId());
             ps.executeUpdate();
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());

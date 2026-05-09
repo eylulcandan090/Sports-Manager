@@ -81,6 +81,7 @@ public class MatchIntroUi {
         // ── Auto-navigate after 2.5 s ──────────────────────────────────────────
         PauseTransition pause = new PauseTransition(Duration.millis(2500));
         pause.setOnFinished(e -> Navigator.navigate(ViewType.MATCHPLAY));
+        Navigator.registerPendingNavigation(pause);
         pause.play();
 
         root.getChildren().addAll(bg, overlay, content);

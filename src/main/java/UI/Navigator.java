@@ -5,6 +5,7 @@ import Model.SportEntity;
 import Model.Team;
 import Repository.*;
 import Service.*;
+import javafx.animation.PauseTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -16,6 +17,7 @@ import java.sql.Connection;
 public class Navigator {
     private static Stage stage;
     private static MediaPlayer mediaPlayer;
+    private static PauseTransition pendingNavigation;
 
     private static Database database;
     private static TeamService teamService;
@@ -57,17 +59,35 @@ public class Navigator {
         playMusic("/music/background.mp3");
     }
 
+    public static void registerPendingNavigation(PauseTransition pt) {
+        pendingNavigation = pt;
+    }
+
+    private static void cancelPendingNavigation() {
+        if (pendingNavigation != null) {
+            pendingNavigation.stop();
+            pendingNavigation = null;
+        }
+    }
+
     public static void navigate(ViewType type) {
+        cancelPendingNavigation();
         Parent view = null;
 
         switch (type) {
             case START:
                 view = new StartUi().getView(gameService);
                 break;
+            case MANAGERSETUP:
+                view = new ManagerSetupUi().getView();
+                break;
             case SPORTSELECTION:
                 view = new SportSelectionUi().getView(teamRepo, database);
                 break;
             case TEAMSELECTION:
+                break;
+            case WELCOME:
+                view = new WelcomeScreenUi().getView(gameService, teamRepo);
                 break;
             case MENU:
                 view = new MainMenuUi().getView(gameService, teamService, fixtureService, leagueService, teamRepo);
@@ -83,20 +103,17 @@ public class Navigator {
             case TRAINING:
                 view = new TrainingScreenUi().getView(gameService, teamService, footballPlayerRepo, basketballPlayerRepo);
                 break;
-
             case MYTEAM:
                 view = new MyTeamUi().getView(gameService, teamService, footballPlayerRepo, basketballPlayerRepo);
                 break;
-
             case MYSQUAD:
-                view=new MatchSquadUi().getView(gameService,teamService);
+                view = new MatchSquadUi().getView(gameService, teamService);
                 break;
-
             case MATCHINTRO:
                 view = new MatchIntroUi().getView(gameService);
                 break;
             case MATCHPLAY:
-                view=new MatchPlayUi().getView(gameService);
+                view = new MatchPlayUi().getView(gameService);
                 break;
             case SUBSTITUTION:
                 view = new SubstitutionUi().getView(gameService);
@@ -108,8 +125,9 @@ public class Navigator {
 
         if (view != null) {
             if (stage.getScene() == null) {
-                stage.setScene(new Scene(view, 650, 500));
+                stage.setScene(new Scene(view));
                 stage.setResizable(true);
+                stage.setMaximized(true);
             } else {
                 stage.getScene().setRoot(view);
             }
@@ -117,6 +135,7 @@ public class Navigator {
     }
 
     public static void navigate(ViewType type, SportEntity sport) {
+        cancelPendingNavigation();
         Parent view = null;
 
         switch (type) {
@@ -141,8 +160,9 @@ public class Navigator {
 
         if (view != null) {
             if (stage.getScene() == null) {
-                stage.setScene(new Scene(view, 650, 500));
+                stage.setScene(new Scene(view));
                 stage.setResizable(true);
+                stage.setMaximized(true);
             } else {
                 stage.getScene().setRoot(view);
             }

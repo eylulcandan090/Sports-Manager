@@ -139,8 +139,9 @@ public class MatchSquadUi {
         confirmBtn.setOnAction(e -> {
             ArrayList<Player> matchSquad = new ArrayList<>(selectedList);
             ArrayList<Player> bench      = new ArrayList<>(availableList);
-            gameService.startMatch(matchSquad, bench);
-            Navigator.navigate(ViewType.MATCHINTRO);
+            if (gameService.startMatch(matchSquad, bench)) {
+                Navigator.navigate(ViewType.MATCHINTRO);
+            }
         });
 
         // ── Header bar ────────────────────────────────────────────────────────

@@ -2,6 +2,7 @@ package UI;
 
 import Database.Database;
 import Model.Fixture;
+import Model.GameSession;
 import Model.Team;
 import Repository.GameRepo;
 import Repository.TeamRepo;
@@ -105,8 +106,10 @@ public class MainMenuUi {
         String weekText = "SEASON COMPLETE";
 
         if (fixture != null) {
-            homeRaw  = teamRepo.getTeamByTeamId(fixture.getHomeId()).getName();
-            awayRaw  = teamRepo.getTeamByTeamId(fixture.getAwayId()).getName();
+            Team homeTeam = teamRepo.getTeamByTeamId(fixture.getHomeId());
+            Team awayTeam = teamRepo.getTeamByTeamId(fixture.getAwayId());
+            homeRaw  = homeTeam != null ? homeTeam.getName() : "";
+            awayRaw  = awayTeam != null ? awayTeam.getName() : "";
             homeName = homeRaw.toUpperCase();
             awayName = awayRaw.toUpperCase();
             weekText = "WEEK  " + fixture.getWeek();
@@ -434,6 +437,19 @@ public class MainMenuUi {
         Label teamLabel = new Label("⚽  " + teamName);
         teamLabel.setStyle(Styles.TEAM_NAME_LABEL);
 
+        HBox left = new HBox(16, teamLabel);
+        left.setAlignment(Pos.CENTER_LEFT);
+        String mgr = GameSession.getManagerName();
+        if (!mgr.isEmpty()) {
+            Label mgrLabel = new Label("Manager: " + GameSession.getManagerFirstName());
+            mgrLabel.setStyle(
+                "-fx-text-fill: #90caf9; -fx-font-size: 12px;" +
+                "-fx-border-color: #1e3a5a; -fx-border-width: 0 0 0 1;" +
+                "-fx-padding: 0 0 0 16;"
+            );
+            left.getChildren().add(mgrLabel);
+        }
+
         Label weekLabel = new Label("Week " + gameService.getCurrentWeek());
         weekLabel.setStyle(Styles.TOPBAR_LABEL);
 
@@ -449,7 +465,7 @@ public class MainMenuUi {
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        topBar.getChildren().addAll(teamLabel, spacer, weekLabel, musicBtn);
+        topBar.getChildren().addAll(left, spacer, weekLabel, musicBtn);
         return topBar;
     }
 }

@@ -108,10 +108,12 @@ public class TeamRepo {
             ps.setInt(1,teamId);
             ResultSet rs=ps.executeQuery();
 
-            String name=rs.getString("team_name");
-            int point=rs.getInt("points");
-            int id=rs.getInt("id");
-            return (new Team(id,name,point));
+            if(rs.next()){
+                String name=rs.getString("team_name");
+                int point=rs.getInt("points");
+                int id=rs.getInt("id");
+                return new Team(id,name,point);
+            }
 
         }catch(SQLException sqlException){
             System.out.println(sqlException.getMessage());

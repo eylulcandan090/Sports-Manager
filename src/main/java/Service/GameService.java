@@ -49,7 +49,7 @@ public class GameService {
         return repo.getGameTeamId();
     }
 
-    public void startMatch(ArrayList<Player> squad, ArrayList<Player> bench) {
+    public boolean startMatch(ArrayList<Player> squad, ArrayList<Player> bench) {
         List<Fixture> fixtures = fixtureService.getFixtures();
         currentFixture = null;
 
@@ -62,7 +62,7 @@ public class GameService {
         }
         if (currentFixture == null) {
             AlertUtility.showWarning("Season Finished", "No more fixtures left!");
-            return;
+            return false;
         }
         this.currentSquad = squad;
         this.currentBench = bench;
@@ -78,6 +78,7 @@ public class GameService {
         }
         lastGoalEvent = "";
         lastCardEvent = "";
+        return true;
     }
 
     public void playNextPeriod(ArrayList<Player> squad) {
@@ -167,18 +168,22 @@ public class GameService {
     }
 
     public boolean isMatchFinished() {
+        if (currentGame == null) return false;
         return currentGame.getCurrentPeriod() >= maxPeriod;
     }
 
     public int getHomeScore() {
+        if (currentGame == null) return 0;
         return currentGame.getHomeScore();
     }
 
     public int getAwayScore() {
+        if (currentGame == null) return 0;
         return currentGame.getAwayScore();
     }
 
     public int getCurrentPeriod() {
+        if (currentGame == null) return 0;
         return currentGame.getCurrentPeriod();
     }
 
