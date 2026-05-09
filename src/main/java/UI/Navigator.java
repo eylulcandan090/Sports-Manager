@@ -111,8 +111,9 @@ public class Navigator {
 
         if (view != null) {
             if (stage.getScene() == null) {
-                stage.setScene(new Scene(view, 650, 500));
+                stage.setScene(new Scene(view));
                 stage.setResizable(true);
+                stage.setMaximized(true);
             } else {
                 stage.getScene().setRoot(view);
             }
@@ -144,8 +145,9 @@ public class Navigator {
 
         if (view != null) {
             if (stage.getScene() == null) {
-                stage.setScene(new Scene(view, 650, 500));
+                stage.setScene(new Scene(view));
                 stage.setResizable(true);
+                stage.setMaximized(true);
             } else {
                 stage.getScene().setRoot(view);
             }
