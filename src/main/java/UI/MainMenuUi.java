@@ -106,8 +106,10 @@ public class MainMenuUi {
         String weekText = "SEASON COMPLETE";
 
         if (fixture != null) {
-            homeRaw  = teamRepo.getTeamByTeamId(fixture.getHomeId()).getName();
-            awayRaw  = teamRepo.getTeamByTeamId(fixture.getAwayId()).getName();
+            Team homeTeam = teamRepo.getTeamByTeamId(fixture.getHomeId());
+            Team awayTeam = teamRepo.getTeamByTeamId(fixture.getAwayId());
+            homeRaw  = homeTeam != null ? homeTeam.getName() : "";
+            awayRaw  = awayTeam != null ? awayTeam.getName() : "";
             homeName = homeRaw.toUpperCase();
             awayName = awayRaw.toUpperCase();
             weekText = "WEEK  " + fixture.getWeek();
