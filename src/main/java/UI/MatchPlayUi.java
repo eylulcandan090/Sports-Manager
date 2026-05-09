@@ -1,5 +1,11 @@
 package UI;
 
+import Database.Database;
+import Model.Basketball.BasketballPlayer;
+import Model.Football.FootballPlayer;
+import Model.Player;
+import Repository.BasketballPlayerRepo;
+import Repository.FootballPlayerRepo;
 import Service.GameService;
 import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
@@ -144,6 +150,7 @@ public class MatchPlayUi {
 
             if (gameService.isMatchFinished()) {
                 gameService.finishMatch();
+                persistSquadInjuries(gameService);
 
                 scoreLbl.setText(gameService.getHomeScore() + "  -  " + gameService.getAwayScore());
                 periodLbl.setText("FULL  TIME");
@@ -449,6 +456,32 @@ public class MatchPlayUi {
         btn.setStyle(normal);
         btn.setOnMouseEntered(e -> { btn.setStyle(hover);  applyHoverScale(btn, 1.06); });
         btn.setOnMouseExited(e  -> { btn.setStyle(normal); applyHoverScale(btn, 1.0);  });
+    }
+
+    // Persist in-memory injury state to DB for all injured squad members.
+    // Called once after finishMatch() so MyTeam/MySquad screens show correct status.
+    private void persistSquadInjuries(GameService gameService) {
+        java.util.ArrayList<Player> squad = gameService.getCurrentSquad();
+        if (squad == null || squad.isEmpty()) return;
+
+        Database db = Database.getInstance();
+        boolean isFootball = squad.stream().anyMatch(p -> p instanceof FootballPlayer);
+
+        if (isFootball) {
+            FootballPlayerRepo fpr = new FootballPlayerRepo(db.getConnection());
+            for (Player p : squad) {
+                if (p instanceof FootballPlayer && p.getInjuryStatus() != 0) {
+                    fpr.updatePlayer((FootballPlayer) p);
+                }
+            }
+        } else {
+            BasketballPlayerRepo bpr = new BasketballPlayerRepo(db.getConnection());
+            for (Player p : squad) {
+                if (p instanceof BasketballPlayer && p.getInjuryStatus() != 0) {
+                    bpr.updatePlayer((BasketballPlayer) p);
+                }
+            }
+        }
     }
 
     private void applyHoverScale(Button btn, double scale) {
