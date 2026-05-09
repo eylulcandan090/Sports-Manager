@@ -2,6 +2,7 @@ package UI;
 
 import Model.Player;
 import Service.GameService;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -12,10 +13,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class SubstitutionUi {
 
+    private HBox breakingBanner;
+    private Label breakingText;
+    private Pane marqueePane;
+    private TranslateTransition currentMarquee;
+
     public Parent getView(GameService gameService) {
+        breakingBanner = createBreakingBanner();
+
         Label title = new Label("Substitution");
         title.setStyle("-fx-text-fill: #f48fb1; -fx-font-size: 20px; -fx-font-weight: bold;");
 
@@ -97,6 +107,8 @@ public class SubstitutionUi {
                             subsLabel.setText(
                                 "Subs: " + gameService.getSubsCount() + " / " + gameService.getMaxSubs());
                             benchView.refresh();
+
+                            showBreakingNews(outPlayer.getName(), player.getName());
                         }
                     });
 
@@ -139,12 +151,67 @@ public class SubstitutionUi {
         bottomBar.setAlignment(Pos.CENTER_LEFT);
         bottomBar.setPadding(new Insets(10, 0, 0, 0));
 
-        VBox root = new VBox(16, title, lists, bottomBar);
+        VBox root = new VBox(16, breakingBanner, title, lists, bottomBar);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20));
         root.setStyle(Styles.rootBg());
 
         return root;
+    }
+
+    // ── Breaking-news banner ──────────────────────────────────────────────────
+
+    private HBox createBreakingBanner() {
+        breakingText = new Label();
+        breakingText.setStyle(
+            "-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;");
+
+        marqueePane = new Pane(breakingText);
+        marqueePane.setStyle("-fx-background-color: #b71c1c;");
+        marqueePane.setPrefHeight(34);
+        HBox.setHgrow(marqueePane, Priority.ALWAYS);
+
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(marqueePane.widthProperty());
+        clip.heightProperty().bind(marqueePane.heightProperty());
+        marqueePane.setClip(clip);
+
+        breakingText.layoutYProperty().bind(
+            marqueePane.heightProperty().subtract(breakingText.heightProperty()).divide(2));
+
+        HBox banner = new HBox(marqueePane);
+        banner.setAlignment(Pos.CENTER_LEFT);
+        banner.setVisible(false);
+        banner.setManaged(false);
+        return banner;
+    }
+
+    private void showBreakingNews(String outName, String inName) {
+        breakingText.setText(outName + " OUT, " + inName + " IN");
+
+        if (currentMarquee != null) {
+            currentMarquee.stop();
+        }
+
+        breakingBanner.setVisible(true);
+        breakingBanner.setManaged(true);
+
+        breakingText.applyCss();
+        double textWidth = breakingText.prefWidth(-1);
+        double paneWidth = marqueePane.getWidth();
+        if (paneWidth <= 0) paneWidth = 600;
+
+        breakingText.setLayoutX(0);
+
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(6), breakingText);
+        tt.setFromX(paneWidth);
+        tt.setToX(-textWidth - 20);
+        tt.setOnFinished(e -> {
+            breakingBanner.setVisible(false);
+            breakingBanner.setManaged(false);
+        });
+        currentMarquee = tt;
+        tt.play();
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

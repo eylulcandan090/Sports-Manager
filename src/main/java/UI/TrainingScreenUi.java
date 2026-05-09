@@ -85,7 +85,13 @@ public class TrainingScreenUi {
                         case STEALING: bp.setSteal(bp.getSteal()+1); break;
                     }
                     basketballPlayerRepo.updatePlayer(bp);
+                    sb.append(bp.getName()+"\n");
                 }
+            }
+
+            if(sb.length()==0){
+                AlertUtility.showWarning("No Players","No players found for this team.");
+                return;
             }
 
             AlertUtility.showInfo("Training Applied Successfully ✅","Trained Players:\n"+sb.toString());
