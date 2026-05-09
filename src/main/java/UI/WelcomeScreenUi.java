@@ -134,6 +134,7 @@ public class WelcomeScreenUi {
             dots.stop();
             Navigator.navigate(ViewType.MENU);
         });
+        Navigator.registerPendingNavigation(autoNav);
         autoNav.play();
 
         return root;

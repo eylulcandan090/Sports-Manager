@@ -27,11 +27,20 @@ public class MatchPlayUi {
         String awayTeam   = gameService.getAwayTeamName();
         String periodName = gameService.getMaxPeriod() == 2 ? "HALF" : "QUARTER";
 
+        // Restore score/period if match is already in progress (returning from Sub/Tactic)
+        int restoredPeriod = gameService.getCurrentPeriod();
+        boolean midMatch   = restoredPeriod > 0 && !gameService.isMatchFinished();
+
+        String initialScore  = midMatch
+            ? gameService.getHomeScore() + "  -  " + gameService.getAwayScore()
+            : "0  -  0";
+        String initialPeriod = midMatch
+            ? periodName + "  " + restoredPeriod + " / " + gameService.getMaxPeriod()
+            : periodName + "  1 / " + gameService.getMaxPeriod();
+
         // ── Live display labels ────────────────────────────────────────────────
-        Label scoreLbl  = createScoreLabel("0  -  0");
-        Label periodLbl = createInfoLabel(
-            periodName + "  1 / " + gameService.getMaxPeriod()
-        );
+        Label scoreLbl  = createScoreLabel(initialScore);
+        Label periodLbl = createInfoLabel(initialPeriod);
         Label weekLbl   = createInfoLabel("WEEK  " + gameService.getCurrentWeek());
 
         Label goalLbl = new Label();

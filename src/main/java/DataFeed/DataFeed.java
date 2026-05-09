@@ -37,14 +37,7 @@ public class DataFeed {
 
         int arsenalId = teamService.getOrSave("Arsenal", premierLeague, footballId);
 
-        System.out.println("footballId = " + footballId);
-        System.out.println("basketballId = " + basketballId);
-        System.out.println("premierLeague = " + premierLeague);
-        System.out.println("arsenalId = " + arsenalId);
-
-
         if (!footballPlayerRepo.hasPlayers(arsenalId)) {
-            System.out.println("hmmmmm");
 
             // Parameters: Name, Age, Goals, TeamId, MarketValue, OVR, Technical/Reflex, Position, DEFENSE
             footballPlayerService.save("David Raya", 28, 0, arsenalId, 20, 75, 88, "GK", 15);

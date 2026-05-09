@@ -5,6 +5,7 @@ import Model.SportEntity;
 import Model.Team;
 import Repository.*;
 import Service.*;
+import javafx.animation.PauseTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -16,6 +17,7 @@ import java.sql.Connection;
 public class Navigator {
     private static Stage stage;
     private static MediaPlayer mediaPlayer;
+    private static PauseTransition pendingNavigation;
 
     private static Database database;
     private static TeamService teamService;
@@ -57,7 +59,19 @@ public class Navigator {
         playMusic("/music/background.mp3");
     }
 
+    public static void registerPendingNavigation(PauseTransition pt) {
+        pendingNavigation = pt;
+    }
+
+    private static void cancelPendingNavigation() {
+        if (pendingNavigation != null) {
+            pendingNavigation.stop();
+            pendingNavigation = null;
+        }
+    }
+
     public static void navigate(ViewType type) {
+        cancelPendingNavigation();
         Parent view = null;
 
         switch (type) {
@@ -121,6 +135,7 @@ public class Navigator {
     }
 
     public static void navigate(ViewType type, SportEntity sport) {
+        cancelPendingNavigation();
         Parent view = null;
 
         switch (type) {
